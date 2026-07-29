@@ -1,0 +1,87 @@
+{
+  "generated_at": "2026-07-29T01:50:00+02:00",
+  "purpose": "bilancio conclusivo del test sul ritmo di pubblicazione + strategia giorni alterni",
+  "account": {
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 49, "followers_count_previous": 46, "media_count": 12, "account_type": "BUSINESS" },
+    "facebook": { "page_name": "ORBIT Ripetizioni", "page_id": "1174493162403104", "fan_count": 5, "fan_count_previous": 5 }
+  },
+  "period": { "since": "2026-07-01", "until": "2026-07-29" },
+  "reels": [
+    { "id": "18107487581472350", "date": "2026-07-11", "time": "20:19", "hook": "Disegnare una parabola NON deve richiederti 5 minuti", "reach": 404, "views": 659, "likes": 31, "comments": 7, "shares": 4, "saved": 0, "total_interactions": 45 },
+    { "id": "18122271751690757", "date": "2026-07-12", "time": "21:31", "hook": "Chi va bene in matematica, fisica e chimica non e' piu' intelligente. Fa 3 cose diverse quando studia", "reach": 1604, "views": 2015, "likes": 63, "comments": 5, "shares": 2, "saved": 24, "total_interactions": 94 },
+    { "id": "17911837206242674", "date": "2026-07-13", "time": "21:51", "hook": "Se scrivi solo il numero senza l'unita' di misura, stai regalando punti gratis", "reach": 1180, "views": 1500, "likes": 42, "comments": 0, "shares": 3, "saved": 3, "total_interactions": 49 },
+    { "id": "17857755861676625", "date": "2026-07-14", "time": "20:39", "hook": "La tangenza fa paura solo finche' non la vedi risolta cosi'", "reach": 1526, "views": 1827, "likes": 35, "comments": 3, "shares": 5, "saved": 5, "total_interactions": 48 },
+    { "id": "18107935754083307", "date": "2026-07-15", "time": "18:52", "hook": "Ecco i 3 errori che vedo fare piu' spesso agli studenti", "reach": 1086, "views": 1347, "likes": 35, "comments": 0, "shares": 0, "saved": 3, "total_interactions": 38 },
+    { "id": "17909440137441600", "date": "2026-07-20", "time": "22:09", "hook": "Se potessi tornare indietro, ci sono 3 cose che farei diversamente", "reach": 682, "views": 869, "likes": 23, "comments": 3, "shares": 2, "saved": 3, "total_interactions": 32 },
+    { "id": "18610859146016436", "date": "2026-07-21", "time": "21:53", "hook": "3 caratteristiche fondamentali che fanno parte del mio metodo", "reach": 548, "views": 673, "likes": 19, "comments": 0, "shares": 0, "saved": 1, "total_interactions": 21 },
+    { "id": "18359620243240936", "date": "2026-07-22", "time": "20:44", "hook": "Studi per ore ma il giorno dopo e' come se non avessi aperto un libro?", "reach": 617, "views": 746, "likes": 28, "comments": 4, "shares": 1, "saved": 5, "total_interactions": 39 },
+    { "id": "17899857864509452", "date": "2026-07-24", "time": "19:17", "hook": "\"La matematica e' un'opinione.\" Vero? Ti dimostro (quasi) che 1 = 2", "reach": 1358, "views": 1788, "likes": 46, "comments": 1, "shares": 4, "saved": 5, "total_interactions": 57 },
+    { "id": "18003434624973564", "date": "2026-07-25", "time": "20:04", "hook": "Fisica ti sembra arabo? Prima di arrenderti, prova questi 3 trucchi", "reach": 1211, "views": 1399, "likes": 47, "comments": 0, "shares": 8, "saved": 25, "total_interactions": 80 },
+    { "id": "18096252128019965", "date": "2026-07-26", "time": "16:05", "hook": "Se fai anche solo UNO di questi 3 errori, i tuoi punti in verifica stanno scappando", "reach": 1068, "views": 1224, "likes": 28, "comments": 0, "shares": 2, "saved": 5, "total_interactions": 35 },
+    { "id": "18053840564557058", "date": "2026-07-27", "time": "19:55", "hook": "Debito a settembre? Ecco 3 cose da fare SUBITO, non a fine agosto", "reach": 241, "views": 332, "likes": 13, "comments": 2, "shares": 0, "saved": 0, "total_interactions": 16, "is_new": true, "note": "primo post del nuovo ritmo a giorni alterni" }
+  ],
+  "instagram_daily_reach": [
+    { "date": "2026-07-11", "reach": 269, "published": true },
+    { "date": "2026-07-12", "reach": 1339, "published": true },
+    { "date": "2026-07-13", "reach": 1019, "published": true },
+    { "date": "2026-07-14", "reach": 1794, "published": true },
+    { "date": "2026-07-15", "reach": 1180, "published": true },
+    { "date": "2026-07-16", "reach": 213, "published": false },
+    { "date": "2026-07-17", "reach": 9, "published": false },
+    { "date": "2026-07-18", "reach": 3, "published": false },
+    { "date": "2026-07-19", "reach": 6, "published": false },
+    { "date": "2026-07-20", "reach": 625, "published": true },
+    { "date": "2026-07-21", "reach": 632, "published": true },
+    { "date": "2026-07-22", "reach": 592, "published": true },
+    { "date": "2026-07-23", "reach": 107, "published": false },
+    { "date": "2026-07-24", "reach": 333, "published": true },
+    { "date": "2026-07-25", "reach": 1902, "published": true, "note": "record storico" },
+    { "date": "2026-07-26", "reach": 1185, "published": true },
+    { "date": "2026-07-27", "reach": 435, "published": true, "note": "primo giorno del nuovo ritmo a giorni alterni" },
+    { "date": "2026-07-28", "reach": 90, "published": false, "day_still_open_at_extraction": true, "note": "giorno di pausa del nuovo ritmo; giornata non ancora chiusa (chiude 09:00 CEST 29/07)" }
+  ],
+  "phase_analysis": {
+    "note": "confronto reach medio giornaliero per fase di pubblicazione, base per il bilancio cause-effetto",
+    "phases": [
+      { "name": "Raffica 1", "dates": "11-15/07", "days": 5, "avg_daily_reach": 1120 },
+      { "name": "Buco totale", "dates": "16-19/07", "days": 4, "avg_daily_reach": 58 },
+      { "name": "Raffica 2", "dates": "20-22/07", "days": 3, "avg_daily_reach": 616 },
+      { "name": "Pausa singola 1", "dates": "23/07", "days": 1, "avg_daily_reach": 107 },
+      { "name": "Raffica 3", "dates": "24-26/07", "days": 3, "avg_daily_reach": 1140 },
+      { "name": "Ritmo alterni - giorno post", "dates": "27/07", "days": 1, "avg_daily_reach": 435 },
+      { "name": "Ritmo alterni - giorno pausa", "dates": "28/07 (parziale)", "days": 1, "avg_daily_reach": 90 }
+    ]
+  },
+  "facebook": {
+    "reel_crosspost_history": [
+      { "post_id": "1174493162403104_122113480503302797", "date": "2026-07-24", "post_media_view": 23 },
+      { "post_id": "1174493162403104_122113499259302797", "date": "2026-07-25", "post_media_view": 323 },
+      { "post_id": "1174493162403104_122113568613302797", "date": "2026-07-26", "post_media_view": 1494 },
+      { "post_id": "1174493162403104_122113681383302797", "date": "2026-07-27", "post_media_view": 387, "note": "primo post del nuovo ritmo, rende meno dei 2 precedenti in raffica" }
+    ],
+    "page_daily": { "date_post_day": "2026-07-27", "page_media_view": 376, "page_video_views": 129, "date_skip_day": "2026-07-28", "page_media_view_skip": 32, "page_video_views_skip": 13 }
+  },
+  "website": {
+    "domain": "orbit-ripetizioni.netlify.app",
+    "google_analytics": { "sessions_total_2026-07-25_to_28": 15 },
+    "microsoft_clarity": {
+      "window": "last 72 hours (API hard limit, numOfDays max 3)",
+      "new_notable_session": { "source": "ig", "active_time_seconds": 393, "total_time_seconds": 472, "note": "sessione piu' lunga mai registrata da link in bio IG" },
+      "unexplained_referrer": { "url": "https://infononservesaperlo-boop.github.io/ORBIT_SITO/", "active_time_seconds": 17, "note": "referrer nuovo e non identificato, basso impatto, da tenere d'occhio" },
+      "ig_session_on_skip_day": true
+    }
+  },
+  "publishing_schedule": {
+    "pattern": "giorni alterni, iniziato lunedi 27/07 come giorno di post",
+    "next_days": [
+      { "date": "2026-07-27", "day": "lunedi", "type": "post", "done": true },
+      { "date": "2026-07-28", "day": "martedi", "type": "skip", "done": true },
+      { "date": "2026-07-29", "day": "mercoledi", "type": "post", "done": false },
+      { "date": "2026-07-30", "day": "giovedi", "type": "skip" },
+      { "date": "2026-07-31", "day": "venerdi", "type": "post" },
+      { "date": "2026-08-01", "day": "sabato", "type": "skip" },
+      { "date": "2026-08-02", "day": "domenica", "type": "post" }
+    ]
+  },
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23 / Google Analytics Data API / Microsoft Clarity Data Export API"
+}

@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORBIT — Bilancio e Strategia (29/07)</title>
+<style>
+  :root { color-scheme: light dark; }
+  html, body { margin: 0; padding: 0; }
+  .viz-root {
+    color-scheme: light;
+    --page:        #f3f5f9;
+    --surface:     #ffffff;
+    --surface-2:   #eef1f7;
+    --ink:         #11131a;
+    --ink-2:       #4a5164;
+    --muted:       #848da3;
+    --border:      rgba(16,19,26,0.09);
+    --border-2:    rgba(16,19,26,0.14);
+    --accent:      #2a78d6;
+    --accent-ink:  #ffffff;
+    --accent-soft: #cde2fb;
+    --accent-line: #2a78d6;
+    --accent-fill: rgba(42,120,214,0.14);
+    --views:       #1baf7a;
+    --views-fill:  rgba(27,175,122,0.16);
+    --good:        #0ca30c;
+    --good-soft:   #e3f6e3;
+    --warn:        #b9790a;
+    --warn-soft:   #fbeed1;
+    --crit:        #d03b3b;
+    --crit-soft:   #fbe3e3;
+    --fb-muted:    #9a93d6;
+    --fb-soft:     #ecebfa;
+    --web-muted:   #b8860a;
+    --web-soft:    #faf1d9;
+    --grid:        #e3e2da;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --page:        #0f1116;
+      --surface:     #181c23;
+      --surface-2:   #1f242c;
+      --ink:         #ffffff;
+      --ink-2:       #c1c5d6;
+      --muted:       #8891a6;
+      --border:      rgba(255,255,255,0.10);
+      --border-2:    rgba(255,255,255,0.16);
+      --accent:      #3987e5;
+      --accent-ink:  #ffffff;
+      --accent-soft: #1c5cab;
+      --accent-line: #5aa0ee;
+      --accent-fill: rgba(57,135,229,0.18);
+      --views:       #199e70;
+      --views-fill:  rgba(25,158,112,0.20);
+      --good:        #23c623;
+      --good-soft:   rgba(35,198,35,0.14);
+      --warn:        #f0ab35;
+      --warn-soft:   rgba(240,171,53,0.14);
+      --crit:        #e66767;
+      --crit-soft:   rgba(230,103,103,0.16);
+      --fb-muted:    #a79fe6;
+      --fb-soft:     rgba(167,159,230,0.16);
+      --web-muted:   #d6a51f;
+      --web-soft:    rgba(214,165,31,0.16);
+      --grid:        #2a2e36;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --page:        #0f1116;
+    --surface:     #181c23;
+    --surface-2:   #1f242c;
+    --ink:         #ffffff;
+    --ink-2:       #c1c5d6;
+    --muted:       #8891a6;
+    --border:      rgba(255,255,255,0.10);
+    --border-2:    rgba(255,255,255,0.16);
+    --accent:      #3987e5;
+    --accent-ink:  #ffffff;
+    --accent-soft: #1c5cab;
+    --accent-line: #5aa0ee;
+    --accent-fill: rgba(57,135,229,0.18);
+    --views:       #199e70;
+    --views-fill:  rgba(25,158,112,0.20);
+    --good:        #23c623;
+    --good-soft:   rgba(35,198,35,0.14);
+    --warn:        #f0ab35;
+    --warn-soft:   rgba(240,171,53,0.14);
+    --crit:        #e66767;
+    --crit-soft:   rgba(230,103,103,0.16);
+    --fb-muted:    #a79fe6;
+    --fb-soft:     rgba(167,159,230,0.16);
+    --web-muted:   #d6a51f;
+    --web-soft:    rgba(214,165,31,0.16);
+    --grid:        #2a2e36;
+  }
+
+  .viz-root * { box-sizing: border-box; }
+  .viz-root {
+    background: var(--page);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    padding: 40px 20px 80px;
+    min-height: 100vh;
+  }
+  .num { font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace; font-variant-numeric: tabular-nums; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  .breadcrumb {
+    display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted);
+    margin-bottom: 18px; text-decoration: none;
+  }
+  .breadcrumb a { color: var(--accent); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  header.top { margin-bottom: 36px; }
+  .eyebrow {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 8px;
+  }
+  h1 { font-size: 28px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 6px; text-wrap: balance; }
+  .sub { color: var(--ink-2); font-size: 14.5px; margin: 0; max-width: 62ch; line-height: 1.55; }
+
+  .highlight-banner {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: var(--warn-soft); border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px 16px; margin-top: 18px; max-width: 68ch;
+  }
+  .highlight-banner .ico { font-size: 20px; line-height: 1; }
+  .highlight-banner p { margin: 0; font-size: 13.5px; color: var(--ink); line-height: 1.5; }
+  .highlight-banner strong { color: var(--warn); }
+
+  .kpi-row {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin: 28px 0 8px;
+  }
+  @media (max-width: 900px) { .kpi-row { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 560px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
+  .kpi {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 16px 14px;
+  }
+  .kpi .label { font-size: 11.5px; color: var(--muted); font-weight: 600; letter-spacing: 0.02em; margin-bottom: 6px; }
+  .kpi .value { font-size: 24px; font-weight: 800; letter-spacing: -0.01em; }
+  .kpi .note { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+  .kpi .note.up { color: var(--good); font-weight: 700; }
+
+  section { margin-top: 44px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+  h2 { font-size: 18px; font-weight: 800; margin: 0; letter-spacing: -0.005em; }
+  .section-desc { color: var(--ink-2); font-size: 13.5px; margin: 4px 0 18px; max-width: 68ch; line-height: 1.5; }
+
+  .panel {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 20px 16px;
+  }
+
+  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 820px) { .chart-grid { grid-template-columns: 1fr; } }
+
+  /* charts */
+  .chart-svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .axis-label { font-size: 10.5px; fill: var(--muted); font-family: ui-monospace, monospace; }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .tooltip {
+    position: absolute; pointer-events: none; background: var(--ink); color: var(--page);
+    font-size: 12px; padding: 7px 10px; border-radius: 7px; line-height: 1.45; white-space: nowrap;
+    transform: translate(-50%, -110%); opacity: 0; transition: opacity 0.1s ease; z-index: 5;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+  .chart-wrap { position: relative; }
+  .dot { cursor: pointer; }
+  .dot.today { animation: pulse 1.8s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
+  .gap-band { fill: var(--warn-soft); }
+  .alt-band { fill: var(--crit-soft); }
+  .today-band { fill: var(--accent-fill); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); font-weight: 700; padding: 0 10px 10px; border-bottom: 1px solid var(--border-2); white-space: nowrap; }
+  td { padding: 11px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .hook { color: var(--ink); max-width: 260px; line-height: 1.4; }
+  .table-scroll { overflow-x: auto; }
+  .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 100px; }
+  .badge.best { background: var(--good-soft); color: var(--good); }
+  .badge.new { background: var(--accent-soft); color: var(--accent); }
+  .badge.gap { background: var(--warn-soft); color: var(--warn); }
+  .badge.crit { background: var(--crit-soft); color: var(--crit); }
+
+  .findings { display: grid; gap: 12px; }
+  .finding {
+    display: grid; grid-template-columns: 34px 1fr; gap: 14px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px;
+  }
+  .finding.fb-flag { border-color: var(--fb-muted); }
+  .finding.web-flag { border-color: var(--web-muted); }
+  .finding.crit-flag { border-color: var(--crit); }
+  .finding .ico { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 16px; background: var(--surface-2); flex-shrink: 0; }
+  .finding h3 { margin: 0 0 4px; font-size: 14.5px; font-weight: 700; }
+  .finding p { margin: 0; font-size: 13.5px; color: var(--ink-2); line-height: 1.55; }
+
+  .fb-panel { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+  .fb-stat { flex: 1; min-width: 140px; }
+  .fb-stat .value { font-size: 22px; font-weight: 800; color: var(--fb-muted); }
+  .fb-stat .label { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+  .fb-stat .delta { font-size: 11px; color: var(--good); font-weight: 700; margin-top: 2px; }
+
+  .web-panel { display: flex; gap: 18px; align-items: flex-start; flex-wrap: wrap; }
+  .web-stat { flex: 1; min-width: 160px; }
+  .web-stat .value { font-size: 22px; font-weight: 800; color: var(--web-muted); }
+  .web-stat .label { font-size: 11.5px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+
+  .callout {
+    border: 1px dashed var(--border-2); border-radius: 10px; padding: 14px 16px;
+    font-size: 13px; color: var(--ink-2); line-height: 1.55; margin-top: 18px;
+    background: var(--surface-2);
+  }
+  .callout strong { color: var(--ink); }
+
+  .calendar-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .cal-day {
+    flex: 1; min-width: 84px; border-radius: 10px; padding: 10px 8px; text-align: center;
+    border: 1px solid var(--border); background: var(--surface);
+  }
+  .cal-day.post { background: var(--good-soft); border-color: var(--good); }
+  .cal-day.skip { background: var(--surface-2); }
+  .cal-day .d { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); font-weight: 700; }
+  .cal-day .n { font-size: 13px; font-weight: 800; margin: 3px 0; }
+  .cal-day .lbl { font-size: 10px; font-weight: 700; }
+  .cal-day.post .lbl { color: var(--good); }
+  .cal-day.skip .lbl { color: var(--muted); }
+
+  footer.meta { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+  .legend { display: flex; gap: 16px; font-size: 12px; color: var(--ink-2); margin-bottom: 14px; flex-wrap: wrap; }
+  .legend .item { display: flex; align-items: center; gap: 6px; }
+  .legend .swatch { width: 10px; height: 10px; border-radius: 3px; }
+
+  .phase-table td.phase-name { font-weight: 700; color: var(--ink); }
+  .phase-table tr.burst td { background: rgba(35,198,35,0.06); }
+  .phase-table tr.gap td { background: rgba(230,103,103,0.06); }
+</style>
+</head>
+<body>
+<div class="viz-root">
+  <div class="wrap">
+
+    <a class="breadcrumb" href="../../index.html">&larr; Tutti i report</a>
+
+    <header class="top">
+      <p class="eyebrow">ORBIT · Ripetizioni — Bilancio del test e strategia</p>
+      <h1>Perché le views scendono, e cosa fare adesso</h1>
+      <p class="sub">Bilancio conclusivo del test sul ritmo di pubblicazione: 12 reel dall'11 al 27 luglio 2026, con connessione cause-effetto tra frequenza di pubblicazione e reach, e strategia per il nuovo ritmo a giorni alterni. Dati letti in diretta da Instagram, Facebook, Google Analytics e Microsoft Clarity via Composio (sola lettura). Aggiornato alle 01:50 CEST di mercoledì 29/07.</p>
+      <div class="highlight-banner">
+        <span class="ico">⚠️</span>
+        <p><strong>Risposta breve alla domanda "perché scendono le views":</strong> ogni giorno senza un nuovo post fa crollare il reach del profilo a circa 90-110, indipendentemente da quanto era andata bene la pubblicazione del giorno prima. Lo abbiamo visto succedere 3 volte separate (16–19/07, 23/07, e ora 28/07): è un pattern, non una coincidenza.</p>
+      </div>
+    </header>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="label">Reel pubblicati</div>
+        <div class="value num">12</div>
+        <div class="note up">+1, lunedì 27/07</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Views totali (somma per reel)</div>
+        <div class="value num">14.379</div>
+        <div class="note">media 1.198 views/reel</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Reach totale (somma per reel)</div>
+        <div class="value num">11.525</div>
+        <div class="note">media 960 account/reel</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Interazioni totali</div>
+        <div class="value num">554</div>
+        <div class="note">4,8% del reach totale</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Follower IG / fan FB</div>
+        <div class="value num">49 / 5</div>
+        <div class="note up">IG: +3 da lunedì</div>
+      </div>
+    </div>
+
+    <section>
+      <div class="section-head">
+        <h2>Bilancio: cosa succede al reach in ogni fase</h2>
+      </div>
+      <p class="section-desc">Il periodo monitorato ha attraversato 7 fasi nettamente diverse per ritmo di pubblicazione. Confrontandole si vede con chiarezza cosa alza e cosa abbassa il reach.</p>
+      <div class="panel table-scroll">
+        <table class="phase-table">
+          <thead><tr><th>Fase</th><th>Date</th><th style="text-align:right">Giorni</th><th style="text-align:right">Reach medio/giorno</th><th>Cosa dice</th></tr></thead>
+          <tbody>
+            <tr class="burst"><td class="phase-name">Raffica 1</td><td class="num">11–15/07</td><td class="num" style="text-align:right">5</td><td class="num" style="text-align:right;font-weight:700">1.120</td><td>5 giorni consecutivi di post → reach alto e stabile</td></tr>
+            <tr class="gap"><td class="phase-name">Buco totale</td><td class="num">16–19/07</td><td class="num" style="text-align:right">4</td><td class="num" style="text-align:right;font-weight:700">58</td><td>4 giorni senza post → crollo quasi a zero (-95% vs raffica 1)</td></tr>
+            <tr class="burst"><td class="phase-name">Raffica 2</td><td class="num">20–22/07</td><td class="num" style="text-align:right">3</td><td class="num" style="text-align:right;font-weight:700">616</td><td>si riparte, ma solo al 55% del livello pre-buco</td></tr>
+            <tr class="gap"><td class="phase-name">Pausa singola #1</td><td class="num">23/07</td><td class="num" style="text-align:right">1</td><td class="num" style="text-align:right;font-weight:700">107</td><td>anche 1 solo giorno di pausa fa crollare il reach</td></tr>
+            <tr class="burst"><td class="phase-name">Raffica 3</td><td class="num">24–26/07</td><td class="num" style="text-align:right">3</td><td class="num" style="text-align:right;font-weight:700">1.140</td><td>tornando a postare tutti i giorni, il reach torna ai massimi</td></tr>
+            <tr><td class="phase-name">Ritmo alterni — giorno di post</td><td class="num">27/07</td><td class="num" style="text-align:right">1</td><td class="num" style="text-align:right;font-weight:700">435</td><td>un solo post isolato rende meno di un post dentro una raffica</td></tr>
+            <tr class="gap"><td class="phase-name">Ritmo alterni — giorno di pausa</td><td class="num">28/07 (parziale)</td><td class="num" style="text-align:right">1</td><td class="num" style="text-align:right;font-weight:700">90</td><td>stesso crollo della pausa singola del 23/07 (107) — pattern confermato</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        <strong>La causa-effetto in una frase:</strong> non conta solo "hai postato oggi?" ma anche "quanti giorni di fila hai postato prima?". Il 27/07 (primo post dopo il nuovo ritmo) ha reso 435 — meno della media della raffica 2 (616) e un terzo della raffica 3 (1.140), pur essendo un giorno di pubblicazione. L'algoritmo sembra premiare la continuità accumulata, non solo il singolo post del giorno.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Andamento giornaliero (reach di profilo Instagram)</h2>
+      </div>
+      <p class="section-desc">La fascia arancione tratteggiata è il buco totale 16–19/07. La fascia rossa è l'inizio del nuovo ritmo a giorni alterni (27–28/07): si vede subito il gradino verso il basso rispetto alla raffica 3 appena conclusa. Il 28/07 (pallino che pulsa) è ancora parziale — la giornata Instagram si chiude alle 09:00, tra circa 7 ore da questo aggiornamento.</p>
+      <div class="panel">
+        <div class="legend">
+          <span class="item"><span class="swatch" style="background:var(--accent)"></span>Reach giornaliero</span>
+          <span class="item"><span class="swatch" style="background:var(--warn)"></span>Giorno di pubblicazione</span>
+        </div>
+        <div class="chart-wrap" id="trend-chart"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Strategia per i prossimi giorni</h2>
+      </div>
+      <p class="section-desc">Il ritmo a giorni alterni (post/pausa/post/pausa) che avete scelto è legittimo per sostenibilità a lungo termine, ma i dati di questo primo ciclo dicono chiaramente: aspettatevi numeri assoluti più bassi della raffica appena vissuta, almeno finché non si accumulano più cicli. Ecco il calendario dei prossimi giorni secondo il ritmo scelto (partendo da lunedì 27/07 come giorno di post):</p>
+      <div class="panel">
+        <div class="calendar-row" id="calendar"></div>
+      </div>
+      <div class="findings" style="margin-top:16px">
+        <div class="finding">
+          <div class="ico">📅</div>
+          <div>
+            <h3>Oggi (mercoledì 29/07) è giorno di pubblicazione</h3>
+            <p>Secondo il ritmo lunedì-sì/martedì-no/mercoledì-sì, tocca a oggi. Pubblicare oggi è il modo più diretto per far ripartire il reach dal livello basso di ieri (90) verso qualcosa di più vicino ai 400-1.000 visti nei giorni di post precedenti.</p>
+          </div>
+        </div>
+        <div class="finding crit-flag">
+          <div class="ico">⚖️</div>
+          <div>
+            <h3>Il trade-off da tenere a mente</h3>
+            <p>Sostenibilità vs numeri assoluti: postare tutti i giorni (raffiche) produce reach medio 2-3 volte più alto (1.120-1.140/giorno) del ritmo a giorni alterni nel suo primo ciclo (262/giorno, media tra post e pausa). Se il ritmo alterni è pensato per durare mesi senza burnout, ha senso accettare numeri assoluti più bassi nel breve termine — ma è una scelta consapevole da fare, non un effetto collaterale sorprendente.</p>
+          </div>
+        </div>
+        <div class="finding">
+          <div class="ico">🔁</div>
+          <div>
+            <h3>Serve più di un ciclo per sapere se si stabilizza</h3>
+            <p>Un solo ciclo post/pausa (27-28/07) non basta per dire se il reach del giorno di post migliorerà nei prossimi cicli (l'algoritmo "impara" il nuovo ritmo) o se resterà strutturalmente più basso delle raffiche. Servono almeno 3-4 cicli (una decina di giorni) prima di giudicare se il ritmo alterni è sostenibile a parità di reach, o se comporta un compromesso permanente.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Views vs Reach — cosa significano</h2>
+      </div>
+      <p class="section-desc"><strong style="color:var(--ink)">Views</strong> conta ogni riproduzione (anche ripetute dalla stessa persona, anche solo pochi secondi mentre si scorre). <strong style="color:var(--ink)">Reach</strong> conta ogni account una sola volta. Le views sono quindi sempre ≥ del reach.</p>
+      <div class="chart-grid">
+        <div class="panel">
+          <div class="section-head" style="margin-bottom:12px"><h2 style="font-size:14.5px">Classifica reel per views</h2></div>
+          <div class="chart-wrap" id="views-bar-chart"></div>
+        </div>
+        <div class="panel">
+          <div class="section-head" style="margin-bottom:12px"><h2 style="font-size:14.5px">Classifica reel per reach</h2></div>
+          <div class="chart-wrap" id="reach-bar-chart"></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Dettaglio dei 12 reel</h2>
+      </div>
+      <p class="section-desc">Orario di pubblicazione convertito in ora italiana (CEST). "Hook" è la prima riga della didascalia.</p>
+      <div class="panel table-scroll">
+        <table id="reel-table"></table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Facebook — Pagina ORBIT Ripetizioni</h2>
+      </div>
+      <p class="section-desc">Lo stesso pattern "pausa = crollo" si vede anche su Facebook, in modo ancora più marcato.</p>
+      <div class="panel fb-panel">
+        <div class="fb-stat">
+          <div class="value num">5</div>
+          <div class="label">Follower pagina</div>
+          <div class="delta">stabile da domenica</div>
+        </div>
+        <div class="fb-stat">
+          <div class="value num">387</div>
+          <div class="label">Views del reel del 27/07</div>
+          <div class="delta">più basso dei due precedenti (1.321, 1.494)</div>
+        </div>
+        <div class="fb-stat">
+          <div class="value num">376 → 32</div>
+          <div class="label">Visualizzazioni pagina: giorno di post → giorno di pausa</div>
+          <div class="delta">-91%, ancora più netto che su Instagram</div>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>Nota:</strong> anche il reel del 27/07 su Facebook (387 views) rende meno dei due della raffica precedente (1.321 e 1.494) — stesso fenomeno di "momentum accumulato" visto su Instagram: un post isolato dopo una pausa non parte con la stessa spinta di un post dentro una serie continuativa.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Sito web — orbit-ripetizioni.netlify.app</h2>
+      </div>
+      <p class="section-desc">Continuano ad arrivare visite dal link in bio Instagram, con la sessione più lunga mai registrata.</p>
+      <div class="panel web-panel">
+        <div class="web-stat">
+          <div class="value num">6m 33s</div>
+          <div class="label">Nuova sessione dal link in bio IG — la più lunga finora</div>
+        </div>
+        <div class="web-stat">
+          <div class="value num">15</div>
+          <div class="label">Sessioni totali sul sito (Google Analytics, 25–28/07)</div>
+        </div>
+        <div class="web-stat">
+          <div class="value num">1</div>
+          <div class="label">Sessione da Instagram anche nel giorno di pausa (28/07)</div>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>Curiosità da tenere d'occhio:</strong> Microsoft Clarity ha registrato una sessione da un referrer nuovo e inatteso (<code class="num">infononservesaperlo-boop.github.io/ORBIT_SITO</code>), engagement minimo (17 secondi). Non sappiamo cosa sia — potrebbe essere un mirror, uno scraper o un test di terzi. Basso impatto per ora, ma vale la pena ricontrollarlo se ricompare o cresce.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Limite dei dati</h2>
+      </div>
+      <div class="callout">
+        Instagram e Facebook non espongono a terzi l'andamento orario/infra-giornaliero di un singolo reel, né una serie storica giorno-per-giorno delle views a livello di profilo Instagram (solo il totale del periodo). Google Analytics è attiva solo dal 25/07 e Microsoft Clarity copre solo le ultime 72 ore: nessuna delle due può essere correlata ai reel pubblicati prima del 24/07. Il numero del 28/07 è parziale: la giornata Instagram si chiude alle 09:00 CEST, circa 7 ore dopo questo aggiornamento — il reach di quel giorno potrebbe salire leggermente, ma in base ai precedenti (23/07 non è mai salito oltre 107) non ci si aspetta un cambio di quadro.
+      </div>
+    </section>
+
+    <footer class="meta">
+      <span>Dati letti in sola lettura via Composio · Instagram Graph API v21 / Facebook Graph API v20–23 / Google Analytics Data API / Microsoft Clarity Data Export API</span>
+      <span>Generato il 29/07/2026 alle 01:50 (CEST)</span>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  const root = document.querySelector('.viz-root');
+  const css = getComputedStyle(root);
+  const v = (name) => css.getPropertyValue(name).trim();
+
+  // ---------- data ----------
+  const reels = [
+    { date: "2026-07-11", time: "20:19", hook: "Disegnare una parabola NON deve richiederti 5 minuti", reach: 404, views: 659, likes: 31, comments: 7, shares: 4, saved: 0, interactions: 45 },
+    { date: "2026-07-12", time: "21:31", hook: "Chi va bene in matematica, fisica e chimica non è “più intelligente”. Fa 3 cose diverse quando studia", reach: 1604, views: 2015, likes: 63, comments: 5, shares: 2, saved: 24, interactions: 94 },
+    { date: "2026-07-13", time: "21:51", hook: "Se scrivi solo il numero senza l'unità di misura, stai regalando punti gratis", reach: 1180, views: 1500, likes: 42, comments: 0, shares: 3, saved: 3, interactions: 49 },
+    { date: "2026-07-14", time: "20:39", hook: "La tangenza fa paura solo finché non la vedi risolta così", reach: 1526, views: 1827, likes: 35, comments: 3, shares: 5, saved: 5, interactions: 48 },
+    { date: "2026-07-15", time: "18:52", hook: "Ecco i 3 errori che vedo fare più spesso agli studenti", reach: 1086, views: 1347, likes: 35, comments: 0, shares: 0, saved: 3, interactions: 38 },
+    { date: "2026-07-20", time: "22:09", hook: "Se potessi tornare indietro, ci sono 3 cose che farei diversamente", reach: 682, views: 869, likes: 23, comments: 3, shares: 2, saved: 3, interactions: 32 },
+    { date: "2026-07-21", time: "21:53", hook: "3 caratteristiche fondamentali che fanno parte del mio metodo", reach: 548, views: 673, likes: 19, comments: 0, shares: 0, saved: 1, interactions: 21 },
+    { date: "2026-07-22", time: "20:44", hook: "Studi per ore ma il giorno dopo è come se non avessi aperto un libro?", reach: 617, views: 746, likes: 28, comments: 4, shares: 1, saved: 5, interactions: 39 },
+    { date: "2026-07-24", time: "19:17", hook: "“La matematica è un'opinione.” Vero? Ti dimostro (quasi) che 1 = 2", reach: 1358, views: 1788, likes: 46, comments: 1, shares: 4, saved: 5, interactions: 57 },
+    { date: "2026-07-25", time: "20:04", hook: "Fisica ti sembra arabo? Prima di arrenderti, prova questi 3 trucchi", reach: 1211, views: 1399, likes: 47, comments: 0, shares: 8, saved: 25, interactions: 80 },
+    { date: "2026-07-26", time: "16:05", hook: "Se fai anche solo UNO di questi 3 errori, i tuoi punti in verifica stanno scappando", reach: 1068, views: 1224, likes: 28, comments: 0, shares: 2, saved: 5, interactions: 35 },
+    { date: "2026-07-27", time: "19:55", hook: "Debito a settembre? Ecco 3 cose da fare SUBITO, non a fine agosto", reach: 241, views: 332, likes: 13, comments: 2, shares: 0, saved: 0, interactions: 16, isNew: true },
+  ];
+
+  const dailyReach = [
+    ["07-11", 269, true], ["07-12", 1339, true], ["07-13", 1019, true], ["07-14", 1794, true],
+    ["07-15", 1180, true], ["07-16", 213, false], ["07-17", 9, false], ["07-18", 3, false],
+    ["07-19", 6, false], ["07-20", 625, true], ["07-21", 632, true], ["07-22", 592, true],
+    ["07-23", 107, false], ["07-24", 333, true], ["07-25", 1902, true], ["07-26", 1185, true],
+    ["07-27", 435, true], ["07-28", 90, false, true],
+  ];
+
+  function fmt(n) { return n.toLocaleString('it-IT'); }
+  function pct(n) { return n.toLocaleString('it-IT', { maximumFractionDigits: 1, minimumFractionDigits: 1 }); }
+
+  // ---------- line/area chart: daily reach ----------
+  (function lineChart() {
+    const el = document.getElementById('trend-chart');
+    const W = 1000, H = 260, padL = 44, padR = 12, padT = 16, padB = 30;
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const maxY = Math.max(...dailyReach.map(d => d[1])) * 1.12;
+    const n = dailyReach.length;
+    const x = i => padL + (innerW * i) / (n - 1);
+    const y = val => padT + innerH - (innerH * val) / maxY;
+
+    const pathD = dailyReach.map((d, i) => `${i === 0 ? 'M' : 'L'} ${x(i).toFixed(1)} ${y(d[1]).toFixed(1)}`).join(' ');
+    const areaD = `${pathD} L ${x(n - 1).toFixed(1)} ${y(0).toFixed(1)} L ${x(0).toFixed(1)} ${y(0).toFixed(1)} Z`;
+
+    const gridYVals = [0, 0.25, 0.5, 0.75, 1].map(f => Math.round(maxY * f / 100) * 100);
+    const gridLines = gridYVals.map(gy => `
+      <line class="grid-line" x1="${padL}" x2="${W - padR}" y1="${y(gy).toFixed(1)}" y2="${y(gy).toFixed(1)}" />
+      <text class="axis-label num" x="${padL - 8}" y="${y(gy).toFixed(1) - -3}" text-anchor="end">${fmt(gy)}</text>
+    `).join('');
+
+    const gapStart = x(5) - (x(1)-x(0))/2, gapEnd = x(8) + (x(1)-x(0))/2;
+    const altStart = x(16) - (x(1)-x(0))/2, altEnd = x(17) + (x(1)-x(0))/2;
+
+    const dots = dailyReach.map((d, i) => {
+      const cx = x(i), cy = y(d[1]);
+      const isToday = d[3];
+      return `<circle class="dot${isToday ? ' today' : ''}" cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${d[2] ? 5 : 3}"
+        fill="${d[2] ? v('--warn') : v('--accent-line')}" stroke="${v('--surface')}" stroke-width="2"
+        data-date="${d[0]}" data-val="${d[1]}" data-pub="${d[2]}" data-today="${!!isToday}" />`;
+    }).join('');
+
+    const labels = dailyReach.map((d, i) => (i % 2 === 0)
+      ? `<text class="axis-label num" x="${x(i).toFixed(1)}" y="${H - 8}" text-anchor="middle">${d[0]}</text>` : '').join('');
+
+    el.innerHTML = `
+      <svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+        <rect x="${gapStart.toFixed(1)}" y="${padT}" width="${(gapEnd-gapStart).toFixed(1)}" height="${innerH}" class="gap-band" opacity="0.5" />
+        <rect x="${altStart.toFixed(1)}" y="${padT}" width="${(altEnd-altStart).toFixed(1)}" height="${innerH}" class="alt-band" opacity="0.4" />
+        ${gridLines}
+        <path d="${areaD}" fill="${v('--accent-fill')}" stroke="none" />
+        <path d="${pathD}" fill="none" stroke="${v('--accent-line')}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+        ${dots}
+        ${labels}
+      </svg>
+      <div class="tooltip" id="trend-tip"></div>
+    `;
+
+    const tip = el.querySelector('#trend-tip');
+    el.querySelectorAll('.dot').forEach(dot => {
+      dot.addEventListener('mouseenter', () => {
+        const { date, val, pub, today } = dot.dataset;
+        tip.innerHTML = `<strong>${date}/2026</strong><br>Reach: ${fmt(+val)}${pub === 'true' ? '<br><span style="color:#f0ab35">● giorno di pubblicazione</span>' : ''}${today === 'true' ? '<br><span style="color:#3987e5">◐ giornata ancora aperta</span>' : ''}`;
+        const r = dot.getBoundingClientRect(), pr = el.getBoundingClientRect();
+        tip.style.left = (r.left - pr.left + r.width / 2) + 'px';
+        tip.style.top = (r.top - pr.top) + 'px';
+        tip.style.opacity = '1';
+      });
+      dot.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+    });
+  })();
+
+  // ---------- generic ranked bar chart (views or reach) ----------
+  function rankedBarChart(containerId, metricKey, barColor, bestColor) {
+    const el = document.getElementById(containerId);
+    const sorted = [...reels].sort((a, b) => b[metricKey] - a[metricKey]);
+    const maxVal = sorted[0][metricKey];
+    const rowH = 30, gap = 7, labelW = 62, valW = 68, padR = 4;
+    const W = 460, barAreaW = W - labelW - valW - padR;
+    const H = sorted.length * (rowH + gap) - gap + 8;
+
+    const rows = sorted.map((r, i) => {
+      const val = r[metricKey];
+      const barW = Math.max(6, (barAreaW * val) / maxVal);
+      const yTop = i * (rowH + gap);
+      const isBest = i === 0;
+      return `
+        <g transform="translate(0, ${yTop})">
+          <text x="${labelW - 10}" y="${rowH/2 + 4}" text-anchor="end" font-size="11" fill="${v('--ink')}">${r.date.slice(8,10)}/${r.date.slice(5,7)}${r.isNew ? ' •' : ''}</text>
+          <rect x="${labelW}" y="${(rowH-14)/2}" width="${barAreaW}" height="14" rx="4" fill="${v('--surface-2')}" />
+          <rect x="${labelW}" y="${(rowH-14)/2}" width="${barW}" height="14" rx="4" fill="${isBest ? bestColor : barColor}" class="bar" data-i="${i}" />
+          <text x="${labelW + barAreaW + valW - 4}" y="${rowH/2 + 4}" text-anchor="end" font-size="11" font-weight="700" fill="${v('--ink')}" class="num">${fmt(val)}</text>
+        </g>
+      `;
+    }).join('');
+
+    el.innerHTML = `
+      <svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">${rows}</svg>
+      <div class="tooltip" id="${containerId}-tip"></div>
+    `;
+
+    const tip = el.querySelector(`#${containerId}-tip`);
+    el.querySelectorAll('.bar').forEach(bar => {
+      const r = sorted[+bar.dataset.i];
+      bar.addEventListener('mouseenter', () => {
+        tip.innerHTML = `<strong>${r.date.slice(8,10)}/${r.date.slice(5,7)} · ${r.time}</strong>${r.isNew ? ' <span style="color:#3987e5">nuovo</span>' : ''}<br>${r.hook.slice(0, 46)}${r.hook.length > 46 ? '…' : ''}<br>Views ${fmt(r.views)} · Reach ${fmt(r.reach)}`;
+        const br = bar.getBoundingClientRect(), pr = el.getBoundingClientRect();
+        tip.style.left = (br.left - pr.left + br.width / 2) + 'px';
+        tip.style.top = (br.top - pr.top) + 'px';
+        tip.style.opacity = '1';
+      });
+      bar.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+    });
+  }
+  rankedBarChart('views-bar-chart', 'views', v('--views'), v('--good'));
+  rankedBarChart('reach-bar-chart', 'reach', v('--accent'), v('--good'));
+
+  // ---------- table ----------
+  (function table() {
+    const el = document.getElementById('reel-table');
+    const maxReach = Math.max(...reels.map(r => r.reach));
+    const thead = `
+      <thead><tr>
+        <th>Data</th><th>Ora</th><th>Hook</th><th style="text-align:right">Views</th><th style="text-align:right">Reach</th>
+        <th style="text-align:right">Like</th><th style="text-align:right">Comm.</th>
+        <th style="text-align:right">Cond.</th><th style="text-align:right">Salv.</th>
+        <th style="text-align:right">Interaz.</th><th style="text-align:right">Tasso</th>
+      </tr></thead>`;
+    const rows = reels.map(r => {
+      const rate = (r.interactions / r.reach) * 100;
+      const isBest = r.reach === maxReach;
+      return `<tr>
+        <td class="num">${r.date.slice(8,10)}/${r.date.slice(5,7)}</td>
+        <td class="num">${r.time}</td>
+        <td class="hook">${r.hook}${isBest ? ' <span class="badge best">migliore reach</span>' : ''}${r.isNew ? ' <span class="badge new">più recente</span>' : ''}</td>
+        <td class="num" style="text-align:right;font-weight:700">${fmt(r.views)}</td>
+        <td class="num" style="text-align:right">${fmt(r.reach)}</td>
+        <td class="num" style="text-align:right">${r.likes}</td>
+        <td class="num" style="text-align:right">${r.comments}</td>
+        <td class="num" style="text-align:right">${r.shares}</td>
+        <td class="num" style="text-align:right">${r.saved}</td>
+        <td class="num" style="text-align:right">${r.interactions}</td>
+        <td class="num" style="text-align:right">${pct(rate)}%</td>
+      </tr>`;
+    }).join('');
+    el.innerHTML = thead + '<tbody>' + rows + '</tbody>';
+  })();
+
+  // ---------- calendar strip ----------
+  (function calendar() {
+    const el = document.getElementById('calendar');
+    const days = [
+      { d: "LUN", n: "27/07", type: "post", lbl: "✓ Pubblicato" },
+      { d: "MAR", n: "28/07", type: "skip", lbl: "Pausa" },
+      { d: "MER", n: "29/07", type: "post", lbl: "Oggi — da pubblicare" },
+      { d: "GIO", n: "30/07", type: "skip", lbl: "Pausa" },
+      { d: "VEN", n: "31/07", type: "post", lbl: "Pubblicazione" },
+      { d: "SAB", n: "01/08", type: "skip", lbl: "Pausa" },
+      { d: "DOM", n: "02/08", type: "post", lbl: "Pubblicazione" },
+    ];
+    el.innerHTML = days.map(day => `
+      <div class="cal-day ${day.type}">
+        <div class="d">${day.d}</div>
+        <div class="n num">${day.n}</div>
+        <div class="lbl">${day.lbl}</div>
+      </div>
+    `).join('');
+  })();
+
+})();
+</script>
+</body>
+</html>

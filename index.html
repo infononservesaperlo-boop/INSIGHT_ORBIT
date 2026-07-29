@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insight Reel — Report</title>
+<style>
+  :root { color-scheme: light dark; }
+  html, body { margin: 0; padding: 0; }
+  .viz-root {
+    color-scheme: light;
+    --page:        #f3f5f9;
+    --surface:     #ffffff;
+    --surface-2:   #eef1f7;
+    --ink:         #11131a;
+    --ink-2:       #4a5164;
+    --muted:       #848da3;
+    --border:      rgba(16,19,26,0.09);
+    --border-2:    rgba(16,19,26,0.14);
+    --accent:      #2a78d6;
+    --accent-soft: #cde2fb;
+    --good:        #0ca30c;
+    --good-soft:   #e3f6e3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --page:        #0f1116;
+      --surface:     #181c23;
+      --surface-2:   #1f242c;
+      --ink:         #ffffff;
+      --ink-2:       #c1c5d6;
+      --muted:       #8891a6;
+      --border:      rgba(255,255,255,0.10);
+      --border-2:    rgba(255,255,255,0.16);
+      --accent:      #3987e5;
+      --accent-soft: #1c5cab;
+      --good:        #23c623;
+      --good-soft:   rgba(35,198,35,0.14);
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --page:        #0f1116;
+    --surface:     #181c23;
+    --surface-2:   #1f242c;
+    --ink:         #ffffff;
+    --ink-2:       #c1c5d6;
+    --muted:       #8891a6;
+    --border:      rgba(255,255,255,0.10);
+    --border-2:    rgba(255,255,255,0.16);
+    --accent:      #3987e5;
+    --accent-soft: #1c5cab;
+    --good:        #23c623;
+    --good-soft:   rgba(35,198,35,0.14);
+  }
+
+  .viz-root * { box-sizing: border-box; }
+  .viz-root {
+    background: var(--page);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    padding: 48px 20px 80px;
+    min-height: 100vh;
+  }
+  .num { font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace; font-variant-numeric: tabular-nums; }
+  .wrap { max-width: 880px; margin: 0 auto; }
+
+  .eyebrow {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 8px;
+  }
+  h1 { font-size: 30px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 8px; text-wrap: balance; }
+  .sub { color: var(--ink-2); font-size: 14.5px; margin: 0 0 40px; max-width: 62ch; line-height: 1.55; }
+
+  .group-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 12px;
+  }
+
+  .report-list { display: grid; gap: 12px; margin-bottom: 44px; }
+  .report-card {
+    display: block; text-decoration: none; color: inherit;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px 20px; transition: border-color 0.12s ease, transform 0.12s ease;
+  }
+  .report-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .report-card .row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .report-card h2 { font-size: 16px; font-weight: 700; margin: 0; }
+  .report-card .date { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .report-card p { margin: 6px 0 0; font-size: 13px; color: var(--ink-2); line-height: 1.5; }
+  .report-card .tags { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+  .tag {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 100px;
+    background: var(--accent-soft); color: var(--accent);
+  }
+  .tag.good { background: var(--good-soft); color: var(--good); }
+
+  .empty-note {
+    border: 1px dashed var(--border-2); border-radius: 12px; padding: 20px;
+    font-size: 13px; color: var(--muted); text-align: center;
+  }
+
+  footer.meta {
+    margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--border);
+    font-size: 12px; color: var(--muted); display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="viz-root">
+  <div class="wrap">
+
+    <p class="eyebrow">Insight Reel</p>
+    <h1>Report</h1>
+    <p class="sub">Archivio dei report generati leggendo i dati dei profili social via Composio (sola lettura). Apri qualsiasi report qui sotto direttamente nel browser.</p>
+
+    <p class="group-label">Social — ORBIT Ripetizioni</p>
+    <div class="report-list">
+      <a class="report-card" href="reports/2026-07-29-orbit-reel-analysis/index.html">
+        <div class="row">
+          <h2>Bilancio del test &amp; strategia giorni alterni</h2>
+          <span class="date num">29 lug 2026</span>
+        </div>
+        <p>Bilancio conclusivo: perché le views scendono nei giorni di pausa (crollo confermato 3 volte separate), confronto tra raffiche e ritmo a giorni alterni, e calendario di pubblicazione per i prossimi giorni. 12 reel analizzati.</p>
+        <div class="tags">
+          <span class="tag">Instagram</span>
+          <span class="tag">Facebook</span>
+          <span class="tag">Sito web</span>
+          <span class="tag good">Bilancio &amp; strategia</span>
+        </div>
+      </a>
+      <a class="report-card" href="reports/2026-07-27-orbit-reel-analysis/index.html">
+        <div class="row">
+          <h2>Analisi Reel Instagram, Facebook &amp; Sito</h2>
+          <span class="date num">27 lug 2026</span>
+        </div>
+        <p>Il reel di ieri (pubblicato troppo tardi per giudicarlo nel report precedente) è esploso durante la notte: +628% di reach, +544% di views, dal 11° al 7° posto su 11 reel. Confermato anche il boom di Facebook di ieri (dato finale doppio) e risolta la discrepanza GA/Clarity.</p>
+        <div class="tags">
+          <span class="tag">Instagram</span>
+          <span class="tag">Facebook</span>
+          <span class="tag">Sito web</span>
+          <span class="tag good">11 reel analizzati</span>
+        </div>
+      </a>
+      <a class="report-card" href="reports/2026-07-26-1827-orbit-reel-analysis/index.html">
+        <div class="row">
+          <h2>Analisi Reel Instagram, Facebook &amp; Sito</h2>
+          <span class="date num">26 lug 2026, sera</span>
+        </div>
+        <p>11 reel (+1 pubblicato oggi alle 16:05). Prima crescita di follower vista finora (IG 44→46, FB 3→5), Facebook segna il suo miglior giorno (1.321 views sul nuovo reel), e arrivano le prime visite organiche da Google.</p>
+        <div class="tags">
+          <span class="tag">Instagram</span>
+          <span class="tag">Facebook</span>
+          <span class="tag">Sito web</span>
+          <span class="tag good">11 reel analizzati</span>
+        </div>
+      </a>
+      <a class="report-card" href="reports/2026-07-26-orbit-reel-analysis/index.html">
+        <div class="row">
+          <h2>Analisi Reel Instagram, Facebook &amp; Sito</h2>
+          <span class="date num">26 lug 2026</span>
+        </div>
+        <p>Views, reach, engagement e timing dei 10 reel pubblicati tra l'11 e il 25 luglio 2026. Il 25/07 è il giorno record di sempre (1.902 reach), il reel più recente cresce del 47% in 8 ore, Facebook si sblocca e compaiono i primi dati del sito (Google Analytics + Microsoft Clarity).</p>
+        <div class="tags">
+          <span class="tag">Instagram</span>
+          <span class="tag">Facebook</span>
+          <span class="tag">Sito web</span>
+          <span class="tag good">10 reel analizzati</span>
+        </div>
+      </a>
+      <a class="report-card" href="reports/2026-07-25-orbit-reel-analysis/index.html">
+        <div class="row">
+          <h2>Analisi Reel Instagram &amp; Facebook</h2>
+          <span class="date num">25 lug 2026</span>
+        </div>
+        <p>Views, reach, engagement e timing dei 9 reel pubblicati tra l'11 e il 24 luglio 2026. Instagram in crescita organica, Facebook sostanzialmente inattivo.</p>
+        <div class="tags">
+          <span class="tag">Instagram</span>
+          <span class="tag">Facebook</span>
+          <span class="tag good">9 reel analizzati</span>
+        </div>
+      </a>
+    </div>
+
+    <footer class="meta">
+      <span>Dati letti in sola lettura via Composio</span>
+      <span>Ultimo aggiornamento: 29/07/2026 01:50 CEST</span>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>

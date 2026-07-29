@@ -1,0 +1,70 @@
+{
+  "generated_at": "2026-07-26T03:37:00+02:00",
+  "updated_at": "2026-07-26T12:12:00+02:00",
+  "account": {
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 44, "media_count": 10, "account_type": "BUSINESS" },
+    "facebook": { "page_name": "ORBIT Ripetizioni", "page_id": "1174493162403104", "fan_count": 3, "fan_count_previous": 0 }
+  },
+  "period": { "since": "2026-07-01", "until": "2026-07-26" },
+  "reels": [
+    { "id": "18107487581472350", "date": "2026-07-11", "time": "20:19", "hook": "Disegnare una parabola NON deve richiederti 5 minuti", "reach": 404, "views": 657, "likes": 31, "comments": 7, "shares": 4, "saved": 0, "total_interactions": 45 },
+    { "id": "18122271751690757", "date": "2026-07-12", "time": "21:31", "hook": "Chi va bene in matematica, fisica e chimica non e' piu' intelligente. Fa 3 cose diverse quando studia", "reach": 1601, "views": 2010, "likes": 63, "comments": 5, "shares": 2, "saved": 24, "total_interactions": 94 },
+    { "id": "17911837206242674", "date": "2026-07-13", "time": "21:51", "hook": "Se scrivi solo il numero senza l'unita' di misura, stai regalando punti gratis", "reach": 1177, "views": 1496, "likes": 42, "comments": 0, "shares": 3, "saved": 3, "total_interactions": 49 },
+    { "id": "17857755861676625", "date": "2026-07-14", "time": "20:39", "hook": "La tangenza fa paura solo finche' non la vedi risolta cosi'", "reach": 1524, "views": 1821, "likes": 35, "comments": 3, "shares": 5, "saved": 5, "total_interactions": 48 },
+    { "id": "18107935754083307", "date": "2026-07-15", "time": "18:52", "hook": "Ecco i 3 errori che vedo fare piu' spesso agli studenti", "reach": 1079, "views": 1338, "likes": 35, "comments": 0, "shares": 0, "saved": 3, "total_interactions": 38 },
+    { "id": "17909440137441600", "date": "2026-07-20", "time": "22:09", "hook": "Se potessi tornare indietro, ci sono 3 cose che farei diversamente", "reach": 675, "views": 856, "likes": 23, "comments": 3, "shares": 2, "saved": 3, "total_interactions": 32 },
+    { "id": "18610859146016436", "date": "2026-07-21", "time": "21:53", "hook": "3 caratteristiche fondamentali che fanno parte del mio metodo", "reach": 539, "views": 663, "likes": 19, "comments": 0, "shares": 0, "saved": 1, "total_interactions": 21 },
+    { "id": "18359620243240936", "date": "2026-07-22", "time": "20:44", "hook": "Studi per ore ma il giorno dopo e' come se non avessi aperto un libro?", "reach": 613, "views": 733, "likes": 27, "comments": 4, "shares": 1, "saved": 5, "total_interactions": 38 },
+    { "id": "17899857864509452", "date": "2026-07-24", "time": "19:17", "hook": "\"La matematica e' un'opinione.\" Vero? Ti dimostro (quasi) che 1 = 2", "reach": 1240, "views": 1631, "likes": 42, "comments": 1, "shares": 4, "saved": 5, "total_interactions": 53 },
+    { "id": "18003434624973564", "date": "2026-07-25", "time": "20:04", "hook": "Fisica ti sembra arabo? Prima di arrenderti, prova questi 3 trucchi", "reach": 1090, "views": 1241, "likes": 39, "comments": 0, "shares": 5, "saved": 21, "total_interactions": 65, "is_new": true, "note": "crescita +47% reach / +39% views tra le 03:37 e le 12:12 dello stesso giorno" }
+  ],
+  "instagram_daily_reach": [
+    { "date": "2026-07-11", "reach": 269, "published": true },
+    { "date": "2026-07-12", "reach": 1339, "published": true },
+    { "date": "2026-07-13", "reach": 1019, "published": true },
+    { "date": "2026-07-14", "reach": 1794, "published": true },
+    { "date": "2026-07-15", "reach": 1180, "published": true },
+    { "date": "2026-07-16", "reach": 213, "published": false },
+    { "date": "2026-07-17", "reach": 9, "published": false },
+    { "date": "2026-07-18", "reach": 3, "published": false },
+    { "date": "2026-07-19", "reach": 6, "published": false },
+    { "date": "2026-07-20", "reach": 625, "published": true },
+    { "date": "2026-07-21", "reach": 632, "published": true },
+    { "date": "2026-07-22", "reach": 592, "published": true },
+    { "date": "2026-07-23", "reach": 107, "published": false },
+    { "date": "2026-07-24", "reach": 333, "published": true },
+    { "date": "2026-07-25", "reach": 1902, "published": true, "note": "record: massimo storico, supera il precedente record di 1794 del 14/07" },
+    { "date": "2026-07-26", "reach": 104, "published": false, "day_still_open_at_extraction": true }
+  ],
+  "facebook": {
+    "reel_crosspost_new": { "post_id": "1174493162403104_122113499259302797", "post_media_view": 323, "created_time": "2026-07-25T18:04:16+0000" },
+    "reel_crosspost_previous": { "post_id": "1174493162403104_122113480503302797", "post_media_view": 23 },
+    "page_daily_2026-07-26": { "page_follows_new": 3, "page_media_view": 719, "page_video_views": 208 },
+    "note": "prima rottura di zero da inizio monitoraggio; numeri stabili tra le 03:37 e le 12:12"
+  },
+  "website": {
+    "domain": "orbit-ripetizioni.netlify.app",
+    "google_analytics": {
+      "property": "properties/547052651",
+      "property_created_at": "2026-07-25T01:04:10Z",
+      "note": "nessun dato storico prima della creazione della property",
+      "sessions_total_2026-07-25_to_26": 9,
+      "sessions_by_source_medium": [
+        { "sourceMedium": "(direct) / (none)", "date": "2026-07-25", "sessions": 5 },
+        { "sourceMedium": "ig / social", "date": "2026-07-25", "sessions": 2 },
+        { "sourceMedium": "(direct) / (none)", "date": "2026-07-26", "sessions": 2 }
+      ]
+    },
+    "microsoft_clarity": {
+      "window": "last 72 hours (API hard limit, numOfDays max 3)",
+      "sessions_from_ig_bio_link": [
+        { "source": "ig", "landing": "homepage (utm_source=ig&utm_medium=social&utm_content=link_in_bio)", "active_time_seconds": 302, "total_time_seconds": 322, "scroll_depth_pct": 55 },
+        { "source": "ig", "landing": "homepage (utm_source=ig&utm_medium=social&utm_content=link_in_bio)", "active_time_seconds": 2, "total_time_seconds": 2, "scroll_depth_pct": 2 }
+      ],
+      "notable": { "page": "/blog/il-metodo-orbit-perche-non-ti-do-mai-la-soluzione-subito/", "scroll_depth_pct": 100, "source": "direct/organic" },
+      "note": "nessuna nuova sessione ig da bio link tra le 04:05 e le 12:12"
+    },
+    "limitation": "GA e Clarity connessi solo dal 25/07 (Clarity limitata a 72h dall'API): nessuna correlazione possibile con i reel pubblicati prima del 24-25/07"
+  },
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23 / Google Analytics Data API / Microsoft Clarity Data Export API"
+}

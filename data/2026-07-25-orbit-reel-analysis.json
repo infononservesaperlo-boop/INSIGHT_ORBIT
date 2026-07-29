@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-07-25T16:38:00+02:00",
+  "updated_at": "2026-07-25T16:47:00+02:00",
+  "account": {
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 44, "account_type": "BUSINESS" },
+    "facebook": { "page_name": "ORBIT Ripetizioni", "page_id": "1174493162403104", "fan_count": 0 }
+  },
+  "period": { "since": "2026-07-01", "until": "2026-07-25" },
+  "reels": [
+    { "id": "18107487581472350", "date": "2026-07-11", "time": "20:19", "hook": "Disegnare una parabola NON deve richiederti 5 minuti", "reach": 404, "views": 657, "likes": 31, "comments": 7, "shares": 4, "saved": 0, "total_interactions": 45 },
+    { "id": "18122271751690757", "date": "2026-07-12", "time": "21:31", "hook": "Chi va bene in matematica, fisica e chimica non e' piu' intelligente. Fa 3 cose diverse quando studia", "reach": 1601, "views": 2009, "likes": 63, "comments": 5, "shares": 2, "saved": 24, "total_interactions": 94 },
+    { "id": "17911837206242674", "date": "2026-07-13", "time": "21:51", "hook": "Se scrivi solo il numero senza l'unita' di misura, stai regalando punti gratis", "reach": 1177, "views": 1495, "likes": 42, "comments": 0, "shares": 3, "saved": 3, "total_interactions": 49 },
+    { "id": "17857755861676625", "date": "2026-07-14", "time": "20:39", "hook": "La tangenza fa paura solo finche' non la vedi risolta cosi'", "reach": 1524, "views": 1819, "likes": 35, "comments": 3, "shares": 5, "saved": 5, "total_interactions": 48 },
+    { "id": "18107935754083307", "date": "2026-07-15", "time": "18:52", "hook": "Ecco i 3 errori che vedo fare piu' spesso agli studenti", "reach": 1079, "views": 1335, "likes": 35, "comments": 0, "shares": 0, "saved": 3, "total_interactions": 38 },
+    { "id": "17909440137441600", "date": "2026-07-20", "time": "22:09", "hook": "Se potessi tornare indietro, ci sono 3 cose che farei diversamente", "reach": 675, "views": 851, "likes": 23, "comments": 3, "shares": 2, "saved": 3, "total_interactions": 32 },
+    { "id": "18610859146016436", "date": "2026-07-21", "time": "21:53", "hook": "3 caratteristiche fondamentali che fanno parte del mio metodo", "reach": 539, "views": 654, "likes": 19, "comments": 0, "shares": 0, "saved": 1, "total_interactions": 21 },
+    { "id": "18359620243240936", "date": "2026-07-22", "time": "20:44", "hook": "Studi per ore ma il giorno dopo e' come se non avessi aperto un libro?", "reach": 611, "views": 727, "likes": 27, "comments": 4, "shares": 1, "saved": 5, "total_interactions": 38 },
+    { "id": "17899857864509452", "date": "2026-07-24", "time": "19:17", "hook": "\"La matematica e' un'opinione.\" Vero? Ti dimostro (quasi) che 1 = 2", "reach": 1105, "views": 1465, "likes": 39, "comments": 0, "shares": 4, "saved": 5, "total_interactions": 49, "note": "reach salito da 1057 a 1105 tra la prima lettura (16:20) e il refresh (16:47)" }
+  ],
+  "instagram_daily_reach": [
+    { "date": "2026-07-11", "reach": 269, "published": true },
+    { "date": "2026-07-12", "reach": 1339, "published": true },
+    { "date": "2026-07-13", "reach": 1019, "published": true },
+    { "date": "2026-07-14", "reach": 1794, "published": true },
+    { "date": "2026-07-15", "reach": 1180, "published": true },
+    { "date": "2026-07-16", "reach": 213, "published": false },
+    { "date": "2026-07-17", "reach": 9, "published": false },
+    { "date": "2026-07-18", "reach": 3, "published": false },
+    { "date": "2026-07-19", "reach": 6, "published": false },
+    { "date": "2026-07-20", "reach": 625, "published": true },
+    { "date": "2026-07-21", "reach": 632, "published": true },
+    { "date": "2026-07-22", "reach": 592, "published": true },
+    { "date": "2026-07-23", "reach": 107, "published": false },
+    { "date": "2026-07-24", "reach": 333, "published": true },
+    { "date": "2026-07-25", "reach": 828, "published": false, "note": "reach residuo del reel del 24/07, nessun nuovo reel" }
+  ],
+  "instagram_views_total_period": { "since": "2026-07-01", "until": "2026-07-25", "value": 12074, "note": "l'API espone views solo come totale del periodo (metric_type=total_value), non come serie giornaliera come per reach" },
+  "facebook": {
+    "reel_crosspost": { "post_id": "1174493162403104_122113480503302797", "post_media_view": 23, "note": "Graph API restituisce solo post_media_view per i reel; altre metriche sostituite silenziosamente da Meta" },
+    "page_daily": { "page_follows": "0 ogni giorno", "page_media_view": "0-5 al giorno", "page_video_views": "0 ogni giorno" }
+  },
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23"
+}

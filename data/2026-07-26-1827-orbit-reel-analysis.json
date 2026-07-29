@@ -1,0 +1,69 @@
+{
+  "generated_at": "2026-07-26T18:27:00+02:00",
+  "account": {
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 46, "followers_count_previous": 44, "media_count": 11, "account_type": "BUSINESS" },
+    "facebook": { "page_name": "ORBIT Ripetizioni", "page_id": "1174493162403104", "fan_count": 5, "fan_count_previous": 3 }
+  },
+  "period": { "since": "2026-07-01", "until": "2026-07-26" },
+  "reels": [
+    { "id": "18107487581472350", "date": "2026-07-11", "time": "20:19", "hook": "Disegnare una parabola NON deve richiederti 5 minuti", "reach": 404, "views": 659, "likes": 31, "comments": 7, "shares": 4, "saved": 0, "total_interactions": 45 },
+    { "id": "18122271751690757", "date": "2026-07-12", "time": "21:31", "hook": "Chi va bene in matematica, fisica e chimica non e' piu' intelligente. Fa 3 cose diverse quando studia", "reach": 1604, "views": 2014, "likes": 63, "comments": 5, "shares": 2, "saved": 24, "total_interactions": 94 },
+    { "id": "17911837206242674", "date": "2026-07-13", "time": "21:51", "hook": "Se scrivi solo il numero senza l'unita' di misura, stai regalando punti gratis", "reach": 1178, "views": 1499, "likes": 42, "comments": 0, "shares": 3, "saved": 3, "total_interactions": 49 },
+    { "id": "17857755861676625", "date": "2026-07-14", "time": "20:39", "hook": "La tangenza fa paura solo finche' non la vedi risolta cosi'", "reach": 1524, "views": 1824, "likes": 35, "comments": 3, "shares": 5, "saved": 5, "total_interactions": 48 },
+    { "id": "18107935754083307", "date": "2026-07-15", "time": "18:52", "hook": "Ecco i 3 errori che vedo fare piu' spesso agli studenti", "reach": 1083, "views": 1342, "likes": 35, "comments": 0, "shares": 0, "saved": 3, "total_interactions": 38 },
+    { "id": "17909440137441600", "date": "2026-07-20", "time": "22:09", "hook": "Se potessi tornare indietro, ci sono 3 cose che farei diversamente", "reach": 678, "views": 860, "likes": 23, "comments": 3, "shares": 2, "saved": 3, "total_interactions": 32 },
+    { "id": "18610859146016436", "date": "2026-07-21", "time": "21:53", "hook": "3 caratteristiche fondamentali che fanno parte del mio metodo", "reach": 542, "views": 667, "likes": 19, "comments": 0, "shares": 0, "saved": 1, "total_interactions": 21 },
+    { "id": "18359620243240936", "date": "2026-07-22", "time": "20:44", "hook": "Studi per ore ma il giorno dopo e' come se non avessi aperto un libro?", "reach": 616, "views": 740, "likes": 27, "comments": 4, "shares": 1, "saved": 5, "total_interactions": 38 },
+    { "id": "17899857864509452", "date": "2026-07-24", "time": "19:17", "hook": "\"La matematica e' un'opinione.\" Vero? Ti dimostro (quasi) che 1 = 2", "reach": 1271, "views": 1679, "likes": 45, "comments": 1, "shares": 4, "saved": 5, "total_interactions": 56 },
+    { "id": "18003434624973564", "date": "2026-07-25", "time": "20:04", "hook": "Fisica ti sembra arabo? Prima di arrenderti, prova questi 3 trucchi", "reach": 1147, "views": 1319, "likes": 42, "comments": 0, "shares": 7, "saved": 21, "total_interactions": 70 },
+    { "id": "18096252128019965", "date": "2026-07-26", "time": "16:05", "hook": "Se fai anche solo UNO di questi 3 errori, i tuoi punti in verifica stanno scappando", "reach": 143, "views": 185, "likes": 3, "comments": 0, "shares": 1, "saved": 0, "total_interactions": 4, "is_new": true, "note": "dati rilevati ~2.5h dopo la pubblicazione, non ancora significativi" }
+  ],
+  "instagram_daily_reach": [
+    { "date": "2026-07-11", "reach": 269, "published": true },
+    { "date": "2026-07-12", "reach": 1339, "published": true },
+    { "date": "2026-07-13", "reach": 1019, "published": true },
+    { "date": "2026-07-14", "reach": 1794, "published": true },
+    { "date": "2026-07-15", "reach": 1180, "published": true },
+    { "date": "2026-07-16", "reach": 213, "published": false },
+    { "date": "2026-07-17", "reach": 9, "published": false },
+    { "date": "2026-07-18", "reach": 3, "published": false },
+    { "date": "2026-07-19", "reach": 6, "published": false },
+    { "date": "2026-07-20", "reach": 625, "published": true },
+    { "date": "2026-07-21", "reach": 632, "published": true },
+    { "date": "2026-07-22", "reach": 592, "published": true },
+    { "date": "2026-07-23", "reach": 107, "published": false },
+    { "date": "2026-07-24", "reach": 333, "published": true },
+    { "date": "2026-07-25", "reach": 1902, "published": true, "note": "record storico" },
+    { "date": "2026-07-26", "reach": 363, "published": true, "day_still_open_at_extraction": true }
+  ],
+  "facebook": {
+    "reel_crosspost_history": [
+      { "post_id": "1174493162403104_122113480503302797", "date": "2026-07-24", "post_media_view": 23 },
+      { "post_id": "1174493162403104_122113499259302797", "date": "2026-07-25", "post_media_view": 323 },
+      { "post_id": "1174493162403104_122113568613302797", "date": "2026-07-26", "post_media_view": 1321 }
+    ],
+    "page_level_insights_lag_note": "page_media_view/page_video_views a livello di pagina non ancora aggiornati alle 18:27 (ferme a 719/208 dalle 12:12) - ritardo di elaborazione Meta tipico per contenuti recenti, il dato per-post e' invece gia' aggiornato"
+  },
+  "website": {
+    "domain": "orbit-ripetizioni.netlify.app",
+    "google_analytics": {
+      "sessions_total_2026-07-25_to_26": 11,
+      "sessions_ig_social_ga_count": 2,
+      "note": "GA mostra ancora 2 sessioni ig/social (invariato da stamattina) - probabile lag di attribuzione, vedi discrepanza con Clarity"
+    },
+    "microsoft_clarity": {
+      "window": "last 72 hours (API hard limit, numOfDays max 3)",
+      "sessions_from_ig_bio_link": [
+        { "active_time_seconds": 303, "total_time_seconds": 338, "scroll_depth_pct": 100, "note": "nuova sessione, non presente nel check delle 12:12" },
+        { "active_time_seconds": 302, "total_time_seconds": 322, "scroll_depth_pct": 55 },
+        { "active_time_seconds": 2, "total_time_seconds": 2, "scroll_depth_pct": 2 }
+      ],
+      "sessions_from_google_organic": [
+        { "active_time_seconds": 218, "total_time_seconds": 219, "scroll_depth_pct": 88, "note": "prima sessione organica da Google mai registrata" },
+        { "active_time_seconds": 70, "total_time_seconds": 70, "scroll_depth_pct": 58 }
+      ],
+      "ga_clarity_discrepancy_note": "GA conta 2 sessioni ig/social, Clarity ne conta 3 nello stesso periodo - sistemi di tracciamento e finestre diverse, non un errore di uno dei due"
+    }
+  },
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23 / Google Analytics Data API / Microsoft Clarity Data Export API"
+}

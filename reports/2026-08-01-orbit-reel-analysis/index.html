@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORBIT — Cosa va bene, cosa va male (01/08)</title>
+<style>
+  :root { color-scheme: light dark; }
+  html, body { margin: 0; padding: 0; }
+  .viz-root {
+    color-scheme: light;
+    --page:        #f3f5f9;
+    --surface:     #ffffff;
+    --surface-2:   #eef1f7;
+    --ink:         #11131a;
+    --ink-2:       #4a5164;
+    --muted:       #848da3;
+    --border:      rgba(16,19,26,0.09);
+    --border-2:    rgba(16,19,26,0.14);
+    --accent:      #2a78d6;
+    --accent-ink:  #ffffff;
+    --accent-soft: #cde2fb;
+    --accent-line: #2a78d6;
+    --accent-fill: rgba(42,120,214,0.14);
+    --views:       #1baf7a;
+    --views-fill:  rgba(27,175,122,0.16);
+    --good:        #0ca30c;
+    --good-soft:   #e3f6e3;
+    --warn:        #b9790a;
+    --warn-soft:   #fbeed1;
+    --crit:        #d03b3b;
+    --crit-soft:   #fbe3e3;
+    --fb-muted:    #9a93d6;
+    --fb-soft:     #ecebfa;
+    --web-muted:   #b8860a;
+    --web-soft:    #faf1d9;
+    --grid:        #e3e2da;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --page:        #0f1116;
+      --surface:     #181c23;
+      --surface-2:   #1f242c;
+      --ink:         #ffffff;
+      --ink-2:       #c1c5d6;
+      --muted:       #8891a6;
+      --border:      rgba(255,255,255,0.10);
+      --border-2:    rgba(255,255,255,0.16);
+      --accent:      #3987e5;
+      --accent-ink:  #ffffff;
+      --accent-soft: #1c5cab;
+      --accent-line: #5aa0ee;
+      --accent-fill: rgba(57,135,229,0.18);
+      --views:       #199e70;
+      --views-fill:  rgba(25,158,112,0.20);
+      --good:        #23c623;
+      --good-soft:   rgba(35,198,35,0.14);
+      --warn:        #f0ab35;
+      --warn-soft:   rgba(240,171,53,0.14);
+      --crit:        #e66767;
+      --crit-soft:   rgba(230,103,103,0.16);
+      --fb-muted:    #a79fe6;
+      --fb-soft:     rgba(167,159,230,0.16);
+      --web-muted:   #d6a51f;
+      --web-soft:    rgba(214,165,31,0.16);
+      --grid:        #2a2e36;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --page:        #0f1116;
+    --surface:     #181c23;
+    --surface-2:   #1f242c;
+    --ink:         #ffffff;
+    --ink-2:       #c1c5d6;
+    --muted:       #8891a6;
+    --border:      rgba(255,255,255,0.10);
+    --border-2:    rgba(255,255,255,0.16);
+    --accent:      #3987e5;
+    --accent-ink:  #ffffff;
+    --accent-soft: #1c5cab;
+    --accent-line: #5aa0ee;
+    --accent-fill: rgba(57,135,229,0.18);
+    --views:       #199e70;
+    --views-fill:  rgba(25,158,112,0.20);
+    --good:        #23c623;
+    --good-soft:   rgba(35,198,35,0.14);
+    --warn:        #f0ab35;
+    --warn-soft:   rgba(240,171,53,0.14);
+    --crit:        #e66767;
+    --crit-soft:   rgba(230,103,103,0.16);
+    --fb-muted:    #a79fe6;
+    --fb-soft:     rgba(167,159,230,0.16);
+    --web-muted:   #d6a51f;
+    --web-soft:    rgba(214,165,31,0.16);
+    --grid:        #2a2e36;
+  }
+
+  .viz-root * { box-sizing: border-box; }
+  .viz-root {
+    background: var(--page);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    padding: 40px 20px 80px;
+    min-height: 100vh;
+  }
+  .num { font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace; font-variant-numeric: tabular-nums; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  .breadcrumb {
+    display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted);
+    margin-bottom: 18px; text-decoration: none;
+  }
+  .breadcrumb a { color: var(--accent); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  header.top { margin-bottom: 36px; }
+  .eyebrow {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 8px;
+  }
+  h1 { font-size: 28px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 6px; text-wrap: balance; }
+  .sub { color: var(--ink-2); font-size: 14.5px; margin: 0; max-width: 62ch; line-height: 1.55; }
+
+  .kpi-row {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin: 28px 0 8px;
+  }
+  @media (max-width: 900px) { .kpi-row { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 560px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
+  .kpi {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 16px 14px;
+  }
+  .kpi .label { font-size: 11.5px; color: var(--muted); font-weight: 600; letter-spacing: 0.02em; margin-bottom: 6px; }
+  .kpi .value { font-size: 24px; font-weight: 800; letter-spacing: -0.01em; }
+  .kpi .note { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+  .kpi .note.up { color: var(--good); font-weight: 700; }
+  .kpi .note.down { color: var(--crit); font-weight: 700; }
+
+  section { margin-top: 44px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+  h2 { font-size: 18px; font-weight: 800; margin: 0; letter-spacing: -0.005em; }
+  .section-desc { color: var(--ink-2); font-size: 13.5px; margin: 4px 0 18px; max-width: 68ch; line-height: 1.5; }
+
+  .panel {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 20px 16px;
+  }
+
+  .verdict-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .verdict-grid { grid-template-columns: 1fr; } }
+  .verdict-col {
+    border-radius: 12px; padding: 18px 20px; border: 1px solid var(--border);
+  }
+  .verdict-col.good-col { background: var(--good-soft); border-color: var(--good); }
+  .verdict-col.bad-col { background: var(--crit-soft); border-color: var(--crit); }
+  .verdict-col h3 { margin: 0 0 12px; font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+  .verdict-col.good-col h3 { color: var(--good); }
+  .verdict-col.bad-col h3 { color: var(--crit); }
+  .verdict-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .verdict-list li { font-size: 13.5px; color: var(--ink); line-height: 1.5; padding-left: 20px; position: relative; }
+  .verdict-list li::before { content: ""; position: absolute; left: 0; top: 7px; width: 8px; height: 8px; border-radius: 50%; }
+  .good-col .verdict-list li::before { background: var(--good); }
+  .bad-col .verdict-list li::before { background: var(--crit); }
+  .verdict-list li strong { display: block; margin-bottom: 2px; }
+  .verdict-list li span { color: var(--ink-2); }
+
+  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 820px) { .chart-grid { grid-template-columns: 1fr; } }
+
+  .chart-svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .axis-label { font-size: 10.5px; fill: var(--muted); font-family: ui-monospace, monospace; }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .tooltip {
+    position: absolute; pointer-events: none; background: var(--ink); color: var(--page);
+    font-size: 12px; padding: 7px 10px; border-radius: 7px; line-height: 1.45; white-space: nowrap;
+    transform: translate(-50%, -110%); opacity: 0; transition: opacity 0.1s ease; z-index: 5;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+  .chart-wrap { position: relative; }
+  .dot { cursor: pointer; }
+  .dot.today { animation: pulse 1.8s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
+  .gap-band { fill: var(--warn-soft); }
+  .alt-band { fill: var(--crit-soft); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); font-weight: 700; padding: 0 10px 10px; border-bottom: 1px solid var(--border-2); white-space: nowrap; }
+  td { padding: 11px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .hook { color: var(--ink); max-width: 250px; line-height: 1.4; }
+  .table-scroll { overflow-x: auto; }
+  .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 100px; }
+  .badge.best { background: var(--good-soft); color: var(--good); }
+  .badge.new { background: var(--accent-soft); color: var(--accent); }
+  .badge.alt { background: var(--crit-soft); color: var(--crit); }
+
+  .findings { display: grid; gap: 12px; }
+  .finding {
+    display: grid; grid-template-columns: 34px 1fr; gap: 14px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px;
+  }
+  .finding.fb-flag { border-color: var(--fb-muted); }
+  .finding.web-flag { border-color: var(--web-muted); }
+  .finding .ico { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 16px; background: var(--surface-2); flex-shrink: 0; }
+  .finding h3 { margin: 0 0 4px; font-size: 14.5px; font-weight: 700; }
+  .finding p { margin: 0; font-size: 13.5px; color: var(--ink-2); line-height: 1.55; }
+
+  .fb-panel { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+  .fb-stat { flex: 1; min-width: 140px; }
+  .fb-stat .value { font-size: 22px; font-weight: 800; color: var(--fb-muted); }
+  .fb-stat .label { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+  .fb-stat .delta { font-size: 11px; color: var(--good); font-weight: 700; margin-top: 2px; }
+
+  .web-panel { display: flex; gap: 18px; align-items: flex-start; flex-wrap: wrap; }
+  .web-stat { flex: 1; min-width: 160px; }
+  .web-stat .value { font-size: 22px; font-weight: 800; color: var(--web-muted); }
+  .web-stat .label { font-size: 11.5px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+
+  .callout {
+    border: 1px dashed var(--border-2); border-radius: 10px; padding: 14px 16px;
+    font-size: 13px; color: var(--ink-2); line-height: 1.55; margin-top: 18px;
+    background: var(--surface-2);
+  }
+  .callout strong { color: var(--ink); }
+
+  footer.meta { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+  .legend { display: flex; gap: 16px; font-size: 12px; color: var(--ink-2); margin-bottom: 14px; flex-wrap: wrap; }
+  .legend .item { display: flex; align-items: center; gap: 6px; }
+  .legend .swatch { width: 10px; height: 10px; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="viz-root">
+  <div class="wrap">
+
+    <a class="breadcrumb" href="../../index.html">&larr; Tutti i report</a>
+
+    <header class="top">
+      <p class="eyebrow">ORBIT · Ripetizioni — Report social</p>
+      <h1>Cosa sta andando bene, cosa male: 3 cicli del nuovo ritmo</h1>
+      <p class="sub">14 reel dall'11 luglio al 31 luglio 2026. Dopo 3 cicli completi del ritmo a giorni alterni (lun/mer/ven post, mar/gio/sab pausa), i dati raccontano una storia a due facce: reach molto più basso, ma qualità dell'engagement più alta. Dati Instagram, Facebook, Google Analytics e Microsoft Clarity via Composio (sola lettura). Aggiornato alle 02:10 CEST di sabato 1/08.</p>
+    </header>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="label">Reel pubblicati</div>
+        <div class="value num">14</div>
+        <div class="note">+2 dall'ultimo report (29/07, 31/07)</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Views totali (somma per reel)</div>
+        <div class="value num">15.562</div>
+        <div class="note">media 1.112 views/reel</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Reach totale (somma per reel)</div>
+        <div class="value num">12.465</div>
+        <div class="note">media 890 account/reel</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Interazioni totali</div>
+        <div class="value num">628</div>
+        <div class="note">5,0% del reach totale</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Follower IG / fan FB</div>
+        <div class="value num">53 / 7</div>
+        <div class="note up">↑ IG +9 (+21%) · FB +4 dall'inizio</div>
+      </div>
+    </div>
+
+    <section>
+      <div class="section-head">
+        <h2>Il bilancio in due colonne</h2>
+      </div>
+      <p class="section-desc">Confronto diretto tra i 3 reel pubblicati col nuovo ritmo (27/07, 29/07, 31/07) e gli 11 delle raffiche precedenti (11–26/07).</p>
+      <div class="verdict-grid">
+        <div class="verdict-col good-col">
+          <h3>✅ Cosa va bene</h3>
+          <ul class="verdict-list">
+            <li><strong>I follower crescono, e sempre più in fretta</strong><span>Instagram: 44 → 46 → 49 → 53 in una settimana (+21%). Facebook: 3 → 5 → 7 (+133%). È la prima crescita sostenuta vista da quando monitoriamo — prima il reach saliva ma i follower restavano fermi.</span></li>
+            <li><strong>Il tasso di interazione è più alto sui nuovi reel</strong><span>7,3% medio sui 3 reel del nuovo ritmo, contro il 4,8% delle raffiche precedenti. Reach più piccolo, ma chi vede i reel interagisce di più — pubblico più mirato o contenuti che funzionano meglio, probabilmente entrambi.</span></li>
+            <li><strong>Facebook si è stabilizzato su un livello sano</strong><span>I 3 reel del nuovo ritmo prendono 380-660 views ciascuno — molto sopra i 23 del primissimo cross-post, anche se sotto il picco isolato di 1.494 del 26/07.</span></li>
+            <li><strong>Il sito continua a ricevere visite qualificate da Instagram</strong><span>Sessioni dal link in bio con permanenza di 5-6 minuti e lettura completa della pagina continuano ad arrivare, anche se con meno frequenza rispetto al picco del 25-26/07.</span></li>
+          </ul>
+        </div>
+        <div class="verdict-col bad-col">
+          <h3>⚠️ Cosa va male</h3>
+          <ul class="verdict-list">
+            <li><strong>Il reach è crollato del 63% rispetto alle raffiche</strong><span>381 reach medio per i 3 reel del nuovo ritmo, contro 1.029 delle raffiche. Non è più un singolo dato isolato (come nel report del 29/07): con 3 reel è un pattern consolidato.</span></li>
+            <li><strong>Il giorno di pausa resta imprevedibile ma sempre debole</strong><span>28/07: 93 reach. 30/07: 278 reach. La differenza sembra dipendere da quanto era andato bene il post del giorno prima, ma resta sempre ben sotto i giorni di pubblicazione.</span></li>
+            <li><strong>Il traffico sul sito da Instagram si è raffreddato</strong><span>Nessuna nuova sessione dal link in bio registrata negli ultimi 2-3 giorni (Google Analytics), a differenza del flusso quasi quotidiano visto durante il picco del 25-26/07.</span></li>
+            <li><strong>Il reel più recente (31/07) è tra i più deboli di sempre</strong><span>170 reach, 233 views dopo ~10 ore — ancora presto per giudicarlo definitivamente, ma parte più piano di quasi tutti gli altri.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Andamento giornaliero (reach di profilo Instagram)</h2>
+      </div>
+      <p class="section-desc">La fascia arancione tratteggiata è il vecchio buco totale 16–19/07. La fascia rossa (27/07 in poi) è il nuovo ritmo a giorni alterni: si vede il "dente di sega" continuo — su nei giorni di post, giù nei giorni di pausa — molto più basso dell'altopiano delle raffiche precedenti.</p>
+      <div class="panel">
+        <div class="legend">
+          <span class="item"><span class="swatch" style="background:var(--accent)"></span>Reach giornaliero</span>
+          <span class="item"><span class="swatch" style="background:var(--warn)"></span>Giorno di pubblicazione</span>
+        </div>
+        <div class="chart-wrap" id="trend-chart"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Reach medio: raffiche vs ritmo a giorni alterni</h2>
+      </div>
+      <p class="section-desc">Il confronto diretto che spiega il calo.</p>
+      <div class="panel">
+        <div class="chart-wrap" id="phase-chart"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Ragionamento sulla strategia</h2>
+      </div>
+      <div class="findings">
+        <div class="finding">
+          <div class="ico">🎯</div>
+          <div>
+            <h3>La domanda giusta non è "reach o engagement", ma cosa serve davvero adesso</h3>
+            <p>Se l'obiettivo è farsi scoprire da più persone possibili (awareness), le raffiche vincono nettamente: 2-3 volte più reach. Se l'obiettivo è costruire un pubblico che poi diventa cliente (i follower che crescono, il tasso di interazione più alto, le visite al sito da 5-6 minuti), il ritmo a giorni alterni sta effettivamente funzionando meglio di quanto sembri guardando solo il reach — sta convertendo meglio chi arriva.</p>
+          </div>
+        </div>
+        <div class="finding">
+          <div class="ico">📊</div>
+          <div>
+            <h3>3 cicli sono un campione più solido, ma non ancora definitivo</h3>
+            <p>Il pattern "reach basso, engagement alto" si è ripetuto 3 volte su 3 — non è più un caso isolato. Ma non sappiamo ancora se il reach continuerà a scendere, si stabilizzerà qui, o (come successo con Facebook) l'algoritmo "si scalderà" col nuovo ritmo dopo altri cicli. Servirebbero altri 5-7 giorni per dirlo con più sicurezza.</p>
+          </div>
+        </div>
+        <div class="finding">
+          <div class="ico">💡</div>
+          <div>
+            <h3>Un esperimento a basso rischio da considerare</h3>
+            <p>Se volete testare se è il "buco" tra i post a raffreddare l'algoritmo o semplicemente la minore frequenza assoluta, potreste provare una settimana con 2 post consecutivi occasionali (es. sab+dom) invece di sempre alternati, e confrontare il reach di quella coppia con le raffiche originali. Non è necessario — il ritmo attuale ha già segnali positivi reali — ma darebbe un dato in più per decidere con cognizione di causa.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Views vs Reach — classifiche</h2>
+      </div>
+      <div class="chart-grid">
+        <div class="panel">
+          <div class="section-head" style="margin-bottom:12px"><h2 style="font-size:14.5px">Classifica reel per views</h2></div>
+          <div class="chart-wrap" id="views-bar-chart"></div>
+        </div>
+        <div class="panel">
+          <div class="section-head" style="margin-bottom:12px"><h2 style="font-size:14.5px">Classifica reel per reach</h2></div>
+          <div class="chart-wrap" id="reach-bar-chart"></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Dettaglio dei 14 reel</h2>
+      </div>
+      <p class="section-desc">I reel del nuovo ritmo a giorni alterni sono evidenziati. Orario di pubblicazione in ora italiana (CEST).</p>
+      <div class="panel table-scroll">
+        <table id="reel-table"></table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Facebook — Pagina ORBIT Ripetizioni</h2>
+      </div>
+      <div class="panel fb-panel">
+        <div class="fb-stat">
+          <div class="value num">7</div>
+          <div class="label">Follower pagina</div>
+          <div class="delta">↑ da 5 — continua a crescere</div>
+        </div>
+        <div class="fb-stat">
+          <div class="value num">389 · 386 · 664</div>
+          <div class="label">Views dei 3 reel del nuovo ritmo (27, 29, 31/07)</div>
+        </div>
+      </div>
+      <div class="callout">
+        Le views si sono stabilizzate in un range 380-660, più basso del picco isolato di 1.494 (26/07) ma nettamente sopra la base di partenza (23). Facebook sembra seguire lo stesso pattern di Instagram: reach più contenuto col nuovo ritmo, ma un canale ormai stabilmente "vivo" invece che dormiente.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Sito web — orbit-ripetizioni.netlify.app</h2>
+      </div>
+      <div class="panel web-panel">
+        <div class="web-stat">
+          <div class="value num">16</div>
+          <div class="label">Sessioni totali sul sito (Google Analytics, da quando è attiva il 25/07)</div>
+        </div>
+        <div class="web-stat">
+          <div class="value num">5</div>
+          <div class="label">Sessioni dal link in bio Instagram (su 16 totali)</div>
+        </div>
+        <div class="web-stat">
+          <div class="value num">0</div>
+          <div class="label">Nuove sessioni da Instagram negli ultimi 2-3 giorni</div>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>Il rallentamento coincide col cambio di ritmo:</strong> le sessioni dal link in bio erano quasi quotidiane durante il picco 25-26/07 (quando il reach era alto), e si sono fermate da quando il reach dei singoli post è sceso col nuovo ritmo. È coerente con quanto visto sopra: meno reach probabilmente significa meno persone che notano il link in bio e ci cliccano, anche se quelle che lo fanno restano molto coinvolte.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Limite dei dati</h2>
+      </div>
+      <div class="callout">
+        Instagram e Facebook non espongono a terzi l'andamento orario/infra-giornaliero di un singolo reel, né una serie storica giorno-per-giorno delle views a livello di profilo Instagram (solo il totale del periodo). Il reel del 31/07 ha solo ~10 ore di dati al momento dell'estrazione: i suoi numeri saliranno nei prossimi giorni, come già successo con ogni altro reel pubblicato finora — non va giudicato definitivamente adesso.
+      </div>
+    </section>
+
+    <footer class="meta">
+      <span>Dati letti in sola lettura via Composio · Instagram Graph API v21 / Facebook Graph API v20–23 / Google Analytics Data API / Microsoft Clarity Data Export API</span>
+      <span>Generato il 01/08/2026 alle 02:10 (CEST)</span>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  const root = document.querySelector('.viz-root');
+  const css = getComputedStyle(root);
+  const v = (name) => css.getPropertyValue(name).trim();
+
+  // ---------- data ----------
+  const reels = [
+    { date: "2026-07-11", time: "20:19", hook: "Disegnare una parabola NON deve richiederti 5 minuti", reach: 406, views: 660, likes: 31, comments: 7, shares: 4, saved: 0, interactions: 45 },
+    { date: "2026-07-12", time: "21:31", hook: "Chi va bene in matematica, fisica e chimica non è “più intelligente”. Fa 3 cose diverse quando studia", reach: 1606, views: 2017, likes: 63, comments: 5, shares: 2, saved: 24, interactions: 94 },
+    { date: "2026-07-13", time: "21:51", hook: "Se scrivi solo il numero senza l'unità di misura, stai regalando punti gratis", reach: 1180, views: 1502, likes: 42, comments: 0, shares: 3, saved: 3, interactions: 49 },
+    { date: "2026-07-14", time: "20:39", hook: "La tangenza fa paura solo finché non la vedi risolta così", reach: 1526, views: 1827, likes: 35, comments: 3, shares: 5, saved: 5, interactions: 48 },
+    { date: "2026-07-15", time: "18:52", hook: "Ecco i 3 errori che vedo fare più spesso agli studenti", reach: 1086, views: 1347, likes: 35, comments: 0, shares: 0, saved: 3, interactions: 38 },
+    { date: "2026-07-20", time: "22:09", hook: "Se potessi tornare indietro, ci sono 3 cose che farei diversamente", reach: 683, views: 870, likes: 23, comments: 3, shares: 2, saved: 3, interactions: 32 },
+    { date: "2026-07-21", time: "21:53", hook: "3 caratteristiche fondamentali che fanno parte del mio metodo", reach: 551, views: 677, likes: 19, comments: 0, shares: 0, saved: 1, interactions: 21 },
+    { date: "2026-07-22", time: "20:44", hook: "Studi per ore ma il giorno dopo è come se non avessi aperto un libro?", reach: 619, views: 750, likes: 29, comments: 4, shares: 1, saved: 5, interactions: 40 },
+    { date: "2026-07-24", time: "19:17", hook: "“La matematica è un'opinione.” Vero? Ti dimostro (quasi) che 1 = 2", reach: 1380, views: 1809, likes: 47, comments: 1, shares: 4, saved: 5, interactions: 58 },
+    { date: "2026-07-25", time: "20:04", hook: "Fisica ti sembra arabo? Prima di arrenderti, prova questi 3 trucchi", reach: 1211, views: 1405, likes: 48, comments: 0, shares: 8, saved: 25, interactions: 81 },
+    { date: "2026-07-26", time: "16:05", hook: "Se fai anche solo UNO di questi 3 errori, i tuoi punti in verifica stanno scappando", reach: 1073, views: 1232, likes: 30, comments: 0, shares: 2, saved: 5, interactions: 38 },
+    { date: "2026-07-27", time: "19:55", hook: "Debito a settembre? Ecco 3 cose da fare SUBITO, non a fine agosto", reach: 253, views: 356, likes: 14, comments: 2, shares: 0, saved: 0, interactions: 17, isAlt: true },
+    { date: "2026-07-29", time: "18:28", hook: "Perché il cervello si annoia? Perché non ha un obiettivo", reach: 721, views: 877, likes: 33, comments: 0, shares: 1, saved: 19, interactions: 53, isAlt: true },
+    { date: "2026-07-31", time: "15:58", hook: "Segui la lezione, capisci tutto, studi tutta la teoria… ma quando arriva la verifica…", reach: 170, views: 233, likes: 12, comments: 0, shares: 1, saved: 1, interactions: 14, isAlt: true, isNew: true },
+  ];
+
+  const dailyReach = [
+    ["07-11", 269, true], ["07-12", 1339, true], ["07-13", 1019, true], ["07-14", 1794, true],
+    ["07-15", 1180, true], ["07-16", 213, false], ["07-17", 9, false], ["07-18", 3, false],
+    ["07-19", 6, false], ["07-20", 625, true], ["07-21", 632, true], ["07-22", 592, true],
+    ["07-23", 107, false], ["07-24", 333, true], ["07-25", 1902, true], ["07-26", 1185, true],
+    ["07-27", 435, true], ["07-28", 93, false], ["07-29", 538, true], ["07-30", 278, false],
+    ["07-31", 208, true, true],
+  ];
+
+  function fmt(n) { return n.toLocaleString('it-IT'); }
+  function pct(n) { return n.toLocaleString('it-IT', { maximumFractionDigits: 1, minimumFractionDigits: 1 }); }
+
+  // ---------- line/area chart: daily reach ----------
+  (function lineChart() {
+    const el = document.getElementById('trend-chart');
+    const W = 1000, H = 260, padL = 44, padR = 12, padT = 16, padB = 30;
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const maxY = Math.max(...dailyReach.map(d => d[1])) * 1.12;
+    const n = dailyReach.length;
+    const x = i => padL + (innerW * i) / (n - 1);
+    const y = val => padT + innerH - (innerH * val) / maxY;
+
+    const pathD = dailyReach.map((d, i) => `${i === 0 ? 'M' : 'L'} ${x(i).toFixed(1)} ${y(d[1]).toFixed(1)}`).join(' ');
+    const areaD = `${pathD} L ${x(n - 1).toFixed(1)} ${y(0).toFixed(1)} L ${x(0).toFixed(1)} ${y(0).toFixed(1)} Z`;
+
+    const gridYVals = [0, 0.25, 0.5, 0.75, 1].map(f => Math.round(maxY * f / 100) * 100);
+    const gridLines = gridYVals.map(gy => `
+      <line class="grid-line" x1="${padL}" x2="${W - padR}" y1="${y(gy).toFixed(1)}" y2="${y(gy).toFixed(1)}" />
+      <text class="axis-label num" x="${padL - 8}" y="${y(gy).toFixed(1) - -3}" text-anchor="end">${fmt(gy)}</text>
+    `).join('');
+
+    const gapStart = x(5) - (x(1)-x(0))/2, gapEnd = x(8) + (x(1)-x(0))/2;
+    const altStart = x(16) - (x(1)-x(0))/2, altEnd = x(n-1) + (x(1)-x(0))/2;
+
+    const dots = dailyReach.map((d, i) => {
+      const cx = x(i), cy = y(d[1]);
+      const isToday = d[3];
+      return `<circle class="dot${isToday ? ' today' : ''}" cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${d[2] ? 5 : 3}"
+        fill="${d[2] ? v('--warn') : v('--accent-line')}" stroke="${v('--surface')}" stroke-width="2"
+        data-date="${d[0]}" data-val="${d[1]}" data-pub="${d[2]}" data-today="${!!isToday}" />`;
+    }).join('');
+
+    const labels = dailyReach.map((d, i) => (i % 2 === 0)
+      ? `<text class="axis-label num" x="${x(i).toFixed(1)}" y="${H - 8}" text-anchor="middle">${d[0]}</text>` : '').join('');
+
+    el.innerHTML = `
+      <svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+        <rect x="${gapStart.toFixed(1)}" y="${padT}" width="${(gapEnd-gapStart).toFixed(1)}" height="${innerH}" class="gap-band" opacity="0.5" />
+        <rect x="${altStart.toFixed(1)}" y="${padT}" width="${(altEnd-altStart).toFixed(1)}" height="${innerH}" class="alt-band" opacity="0.28" />
+        ${gridLines}
+        <path d="${areaD}" fill="${v('--accent-fill')}" stroke="none" />
+        <path d="${pathD}" fill="none" stroke="${v('--accent-line')}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+        ${dots}
+        ${labels}
+      </svg>
+      <div class="tooltip" id="trend-tip"></div>
+    `;
+
+    const tip = el.querySelector('#trend-tip');
+    el.querySelectorAll('.dot').forEach(dot => {
+      dot.addEventListener('mouseenter', () => {
+        const { date, val, pub, today } = dot.dataset;
+        tip.innerHTML = `<strong>${date}/2026</strong><br>Reach: ${fmt(+val)}${pub === 'true' ? '<br><span style="color:#f0ab35">● giorno di pubblicazione</span>' : ''}${today === 'true' ? '<br><span style="color:#3987e5">◐ giornata ancora aperta</span>' : ''}`;
+        const r = dot.getBoundingClientRect(), pr = el.getBoundingClientRect();
+        tip.style.left = (r.left - pr.left + r.width / 2) + 'px';
+        tip.style.top = (r.top - pr.top) + 'px';
+        tip.style.opacity = '1';
+      });
+      dot.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+    });
+  })();
+
+  // ---------- phase comparison bar chart ----------
+  (function phaseChart() {
+    const el = document.getElementById('phase-chart');
+    const phases = [
+      { name: "Raffica 1 (11-15/07)", val: 1120, color: v('--good') },
+      { name: "Buco totale (16-19/07)", val: 58, color: v('--crit') },
+      { name: "Raffica 2 (20-22/07)", val: 616, color: v('--good') },
+      { name: "Raffica 3 (24-26/07)", val: 1140, color: v('--good') },
+      { name: "Ritmo alterni — giorni post", val: 394, color: v('--web-muted') },
+      { name: "Ritmo alterni — giorni pausa", val: 186, color: v('--crit') },
+    ];
+    const maxVal = Math.max(...phases.map(p => p.val));
+    const rowH = 40, gap = 12, labelW = 210, valW = 60, padR = 4;
+    const W = 900, barAreaW = W - labelW - valW - padR;
+    const H = phases.length * (rowH + gap) - gap + 8;
+
+    const rows = phases.map((p, i) => {
+      const barW = Math.max(6, (barAreaW * p.val) / maxVal);
+      const yTop = i * (rowH + gap);
+      return `
+        <g transform="translate(0, ${yTop})">
+          <text x="${labelW - 12}" y="${rowH/2 + 4}" text-anchor="end" font-size="12.5" fill="${v('--ink')}">${p.name}</text>
+          <rect x="${labelW}" y="${(rowH-18)/2}" width="${barAreaW}" height="18" rx="5" fill="${v('--surface-2')}" />
+          <rect x="${labelW}" y="${(rowH-18)/2}" width="${barW}" height="18" rx="5" fill="${p.color}" />
+          <text x="${labelW + barAreaW + valW - 4}" y="${rowH/2 + 4}" text-anchor="end" font-size="13" font-weight="700" fill="${v('--ink')}" class="num">${fmt(p.val)}</text>
+        </g>
+      `;
+    }).join('');
+
+    el.innerHTML = `<svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">${rows}</svg>`;
+  })();
+
+  // ---------- generic ranked bar chart (views or reach) ----------
+  function rankedBarChart(containerId, metricKey, barColor, bestColor) {
+    const el = document.getElementById(containerId);
+    const sorted = [...reels].sort((a, b) => b[metricKey] - a[metricKey]);
+    const maxVal = sorted[0][metricKey];
+    const rowH = 28, gap = 7, labelW = 62, valW = 68, padR = 4;
+    const W = 460, barAreaW = W - labelW - valW - padR;
+    const H = sorted.length * (rowH + gap) - gap + 8;
+
+    const rows = sorted.map((r, i) => {
+      const val = r[metricKey];
+      const barW = Math.max(6, (barAreaW * val) / maxVal);
+      const yTop = i * (rowH + gap);
+      const isBest = i === 0;
+      return `
+        <g transform="translate(0, ${yTop})">
+          <text x="${labelW - 10}" y="${rowH/2 + 4}" text-anchor="end" font-size="10.5" fill="${v('--ink')}">${r.date.slice(8,10)}/${r.date.slice(5,7)}${r.isAlt ? ' •' : ''}</text>
+          <rect x="${labelW}" y="${(rowH-13)/2}" width="${barAreaW}" height="13" rx="3" fill="${v('--surface-2')}" />
+          <rect x="${labelW}" y="${(rowH-13)/2}" width="${barW}" height="13" rx="3" fill="${isBest ? bestColor : (r.isAlt ? v('--web-muted') : barColor)}" class="bar" data-i="${i}" />
+          <text x="${labelW + barAreaW + valW - 4}" y="${rowH/2 + 4}" text-anchor="end" font-size="10.5" font-weight="700" fill="${v('--ink')}" class="num">${fmt(val)}</text>
+        </g>
+      `;
+    }).join('');
+
+    el.innerHTML = `
+      <svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">${rows}</svg>
+      <div class="tooltip" id="${containerId}-tip"></div>
+    `;
+
+    const tip = el.querySelector(`#${containerId}-tip`);
+    el.querySelectorAll('.bar').forEach(bar => {
+      const r = sorted[+bar.dataset.i];
+      bar.addEventListener('mouseenter', () => {
+        tip.innerHTML = `<strong>${r.date.slice(8,10)}/${r.date.slice(5,7)} · ${r.time}</strong>${r.isAlt ? ' <span style="color:#b8860a">ritmo alterni</span>' : ''}<br>${r.hook.slice(0, 46)}${r.hook.length > 46 ? '…' : ''}<br>Views ${fmt(r.views)} · Reach ${fmt(r.reach)}`;
+        const br = bar.getBoundingClientRect(), pr = el.getBoundingClientRect();
+        tip.style.left = (br.left - pr.left + br.width / 2) + 'px';
+        tip.style.top = (br.top - pr.top) + 'px';
+        tip.style.opacity = '1';
+      });
+      bar.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+    });
+  }
+  rankedBarChart('views-bar-chart', 'views', v('--views'), v('--good'));
+  rankedBarChart('reach-bar-chart', 'reach', v('--accent'), v('--good'));
+
+  // ---------- table ----------
+  (function table() {
+    const el = document.getElementById('reel-table');
+    const maxReach = Math.max(...reels.map(r => r.reach));
+    const thead = `
+      <thead><tr>
+        <th>Data</th><th>Ora</th><th>Hook</th><th style="text-align:right">Views</th><th style="text-align:right">Reach</th>
+        <th style="text-align:right">Like</th><th style="text-align:right">Comm.</th>
+        <th style="text-align:right">Cond.</th><th style="text-align:right">Salv.</th>
+        <th style="text-align:right">Interaz.</th><th style="text-align:right">Tasso</th>
+      </tr></thead>`;
+    const rows = reels.map(r => {
+      const rate = (r.interactions / r.reach) * 100;
+      const isBest = r.reach === maxReach;
+      return `<tr>
+        <td class="num">${r.date.slice(8,10)}/${r.date.slice(5,7)}</td>
+        <td class="num">${r.time}</td>
+        <td class="hook">${r.hook}${isBest ? ' <span class="badge best">migliore reach</span>' : ''}${r.isAlt ? ' <span class="badge alt">ritmo alterni</span>' : ''}</td>
+        <td class="num" style="text-align:right;font-weight:700">${fmt(r.views)}</td>
+        <td class="num" style="text-align:right">${fmt(r.reach)}</td>
+        <td class="num" style="text-align:right">${r.likes}</td>
+        <td class="num" style="text-align:right">${r.comments}</td>
+        <td class="num" style="text-align:right">${r.shares}</td>
+        <td class="num" style="text-align:right">${r.saved}</td>
+        <td class="num" style="text-align:right">${r.interactions}</td>
+        <td class="num" style="text-align:right">${pct(rate)}%</td>
+      </tr>`;
+    }).join('');
+    el.innerHTML = thead + '<tbody>' + rows + '</tbody>';
+  })();
+
+})();
+</script>
+</body>
+</html>

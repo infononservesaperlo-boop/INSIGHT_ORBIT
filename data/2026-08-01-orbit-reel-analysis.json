@@ -1,0 +1,83 @@
+{
+  "generated_at": "2026-08-01T02:10:00+02:00",
+  "purpose": "cosa va bene / cosa va male dopo 3 cicli del ritmo a giorni alterni",
+  "account": {
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 53, "followers_count_history": [44, 46, 49, 53], "media_count": 14, "account_type": "BUSINESS" },
+    "facebook": { "page_name": "ORBIT Ripetizioni", "page_id": "1174493162403104", "fan_count": 7, "fan_count_history": [0, 3, 5, 7] }
+  },
+  "period": { "since": "2026-07-01", "until": "2026-08-01" },
+  "reels": [
+    { "id": "18107487581472350", "date": "2026-07-11", "time": "20:19", "hook": "Disegnare una parabola NON deve richiederti 5 minuti", "reach": 406, "views": 660, "likes": 31, "comments": 7, "shares": 4, "saved": 0, "total_interactions": 45 },
+    { "id": "18122271751690757", "date": "2026-07-12", "time": "21:31", "hook": "Chi va bene in matematica, fisica e chimica non e' piu' intelligente. Fa 3 cose diverse quando studia", "reach": 1606, "views": 2017, "likes": 63, "comments": 5, "shares": 2, "saved": 24, "total_interactions": 94 },
+    { "id": "17911837206242674", "date": "2026-07-13", "time": "21:51", "hook": "Se scrivi solo il numero senza l'unita' di misura, stai regalando punti gratis", "reach": 1180, "views": 1502, "likes": 42, "comments": 0, "shares": 3, "saved": 3, "total_interactions": 49 },
+    { "id": "17857755861676625", "date": "2026-07-14", "time": "20:39", "hook": "La tangenza fa paura solo finche' non la vedi risolta cosi'", "reach": 1526, "views": 1827, "likes": 35, "comments": 3, "shares": 5, "saved": 5, "total_interactions": 48 },
+    { "id": "18107935754083307", "date": "2026-07-15", "time": "18:52", "hook": "Ecco i 3 errori che vedo fare piu' spesso agli studenti", "reach": 1086, "views": 1347, "likes": 35, "comments": 0, "shares": 0, "saved": 3, "total_interactions": 38 },
+    { "id": "17909440137441600", "date": "2026-07-20", "time": "22:09", "hook": "Se potessi tornare indietro, ci sono 3 cose che farei diversamente", "reach": 683, "views": 870, "likes": 23, "comments": 3, "shares": 2, "saved": 3, "total_interactions": 32 },
+    { "id": "18610859146016436", "date": "2026-07-21", "time": "21:53", "hook": "3 caratteristiche fondamentali che fanno parte del mio metodo", "reach": 551, "views": 677, "likes": 19, "comments": 0, "shares": 0, "saved": 1, "total_interactions": 21 },
+    { "id": "18359620243240936", "date": "2026-07-22", "time": "20:44", "hook": "Studi per ore ma il giorno dopo e' come se non avessi aperto un libro?", "reach": 619, "views": 750, "likes": 29, "comments": 4, "shares": 1, "saved": 5, "total_interactions": 40 },
+    { "id": "17899857864509452", "date": "2026-07-24", "time": "19:17", "hook": "\"La matematica e' un'opinione.\" Vero? Ti dimostro (quasi) che 1 = 2", "reach": 1380, "views": 1809, "likes": 47, "comments": 1, "shares": 4, "saved": 5, "total_interactions": 58 },
+    { "id": "18003434624973564", "date": "2026-07-25", "time": "20:04", "hook": "Fisica ti sembra arabo? Prima di arrenderti, prova questi 3 trucchi", "reach": 1211, "views": 1405, "likes": 48, "comments": 0, "shares": 8, "saved": 25, "total_interactions": 81 },
+    { "id": "18096252128019965", "date": "2026-07-26", "time": "16:05", "hook": "Se fai anche solo UNO di questi 3 errori, i tuoi punti in verifica stanno scappando", "reach": 1073, "views": 1232, "likes": 30, "comments": 0, "shares": 2, "saved": 5, "total_interactions": 38 },
+    { "id": "18053840564557058", "date": "2026-07-27", "time": "19:55", "hook": "Debito a settembre? Ecco 3 cose da fare SUBITO, non a fine agosto", "reach": 253, "views": 356, "likes": 14, "comments": 2, "shares": 0, "saved": 0, "total_interactions": 17, "is_alt_cadence": true },
+    { "id": "18100186193254537", "date": "2026-07-29", "time": "18:28", "hook": "Perche' il cervello si annoia? Perche' non ha un obiettivo", "reach": 721, "views": 877, "likes": 33, "comments": 0, "shares": 1, "saved": 19, "total_interactions": 53, "is_alt_cadence": true },
+    { "id": "17918261931421916", "date": "2026-07-31", "time": "15:58", "hook": "Segui la lezione, capisci tutto, studi tutta la teoria... ma quando arriva la verifica...", "reach": 170, "views": 233, "likes": 12, "comments": 0, "shares": 1, "saved": 1, "total_interactions": 14, "is_alt_cadence": true, "is_new": true, "note": "solo ~10h di dati al momento dell'estrazione" }
+  ],
+  "instagram_daily_reach": [
+    { "date": "2026-07-11", "reach": 269, "published": true },
+    { "date": "2026-07-12", "reach": 1339, "published": true },
+    { "date": "2026-07-13", "reach": 1019, "published": true },
+    { "date": "2026-07-14", "reach": 1794, "published": true },
+    { "date": "2026-07-15", "reach": 1180, "published": true },
+    { "date": "2026-07-16", "reach": 213, "published": false },
+    { "date": "2026-07-17", "reach": 9, "published": false },
+    { "date": "2026-07-18", "reach": 3, "published": false },
+    { "date": "2026-07-19", "reach": 6, "published": false },
+    { "date": "2026-07-20", "reach": 625, "published": true },
+    { "date": "2026-07-21", "reach": 632, "published": true },
+    { "date": "2026-07-22", "reach": 592, "published": true },
+    { "date": "2026-07-23", "reach": 107, "published": false },
+    { "date": "2026-07-24", "reach": 333, "published": true },
+    { "date": "2026-07-25", "reach": 1902, "published": true },
+    { "date": "2026-07-26", "reach": 1185, "published": true },
+    { "date": "2026-07-27", "reach": 435, "published": true },
+    { "date": "2026-07-28", "reach": 93, "published": false },
+    { "date": "2026-07-29", "reach": 538, "published": true },
+    { "date": "2026-07-30", "reach": 278, "published": false },
+    { "date": "2026-07-31", "reach": 208, "published": true, "day_still_open_at_extraction": true }
+  ],
+  "phase_analysis": {
+    "phases": [
+      { "name": "Raffica 1", "dates": "11-15/07", "avg_daily_reach": 1120 },
+      { "name": "Buco totale", "dates": "16-19/07", "avg_daily_reach": 58 },
+      { "name": "Raffica 2", "dates": "20-22/07", "avg_daily_reach": 616 },
+      { "name": "Raffica 3", "dates": "24-26/07", "avg_daily_reach": 1140 },
+      { "name": "Ritmo alterni - giorni post", "dates": "27,29,31/07", "avg_daily_reach": 394 },
+      { "name": "Ritmo alterni - giorni pausa", "dates": "28,30/07", "avg_daily_reach": 186 }
+    ],
+    "reel_level_comparison": {
+      "burst_era_11_reels": { "avg_reach": 1029, "avg_views": 1281, "aggregate_engagement_rate_pct": 4.8 },
+      "alt_cadence_3_reels": { "avg_reach": 381, "avg_views": 489, "aggregate_engagement_rate_pct": 7.3 },
+      "reach_change_pct": -63.0,
+      "engagement_rate_change_pct": 52.1
+    }
+  },
+  "facebook": {
+    "reel_crosspost_history": [
+      { "date": "2026-07-24", "post_media_view": 23 },
+      { "date": "2026-07-25", "post_media_view": 323 },
+      { "date": "2026-07-26", "post_media_view": 1494 },
+      { "date": "2026-07-27", "post_media_view": 389, "is_alt_cadence": true },
+      { "date": "2026-07-29", "post_media_view": 386, "is_alt_cadence": true },
+      { "date": "2026-07-31", "post_media_view": 664, "is_alt_cadence": true, "note": "ancora in crescita, dato parziale" }
+    ]
+  },
+  "website": {
+    "domain": "orbit-ripetizioni.netlify.app",
+    "google_analytics": {
+      "sessions_total_since_2026-07-25": 16,
+      "sessions_ig_social_total": 5,
+      "note": "nessuna nuova sessione ig/social registrata negli ultimi 2-3 giorni (30-31/07), rallentamento rispetto al flusso quasi quotidiano del 25-26/07"
+    }
+  },
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23 / Google Analytics Data API / Microsoft Clarity Data Export API"
+}

@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-08-01T19:14:00+02:00",
+  "purpose": "analisi dettagliata delle cause del calo su reach/views/interazioni/follower dopo il cambio a ritmo giorni alterni, con soluzioni collegate a ciascuna causa",
+  "account": {
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 53, "media_count": 14 },
+    "facebook": { "page_name": "ORBIT Ripetizioni", "fan_count": 7 }
+  },
+  "reels_alt_cadence": [
+    { "date": "2026-07-27", "time": "19:55", "hook": "Debito a settembre? Ecco 3 cose da fare SUBITO", "reach": 254, "views": 361, "interactions": 18, "engagement_rate_pct": 7.09 },
+    { "date": "2026-07-29", "time": "18:28", "hook": "Perche' il cervello si annoia? Perche' non ha un obiettivo", "reach": 724, "views": 885, "interactions": 54, "engagement_rate_pct": 7.46 },
+    { "date": "2026-07-31", "time": "15:58", "hook": "Segui la lezione, capisci tutto... ma quando arriva la verifica...", "reach": 239, "views": 330, "interactions": 18, "engagement_rate_pct": 7.53, "note": "unico reel pubblicato fuori dalla finestra 18-22 (pomeriggio, 15:58)" }
+  ],
+  "reels_burst_era_summary": { "count": 11, "avg_reach": 1030, "avg_views": 1284, "aggregate_engagement_rate_pct": 4.81 },
+  "cause_analysis": [
+    { "cause": "cambio ritmo pubblicazione", "verdict": "confermata", "evidence": "reach medio 1030 (raffiche) vs 406 (alterni), -61%; pattern identico ai buchi pre-cambio (16-19/07, 23/07)" },
+    { "cause": "orario pubblicazione fuori finestra 18-22", "verdict": "parzialmente confermata", "evidence": "31/07 pubblicato 15:58 (unico fuori orario) ha reso 239, ma anche 27/07 in orario normale (19:55) ha reso solo 254 - non spiega tutto" },
+    { "cause": "stagionalita agosto/esodo estivo", "verdict": "plausibile non verificabile", "evidence": "nessun dato storico agosto per confronto diretto" },
+    { "cause": "tipo contenuto (motivazionale vs trucco pratico)", "verdict": "ipotesi debole, n=3", "evidence": "i migliori storici (12/07, 14/07, 24/07) erano tecnica concreta; gli ultimi 3 sono piu' astratti/motivazionali" },
+    { "cause": "rumore statistico", "verdict": "parzialmente vero", "evidence": "andamento non monotono: 254 -> 724 -> 239, non un declino lineare" }
+  ],
+  "followers_note": "IG 53 e FB 7 fermi rispetto al check precedente, ma l'intervallo tra i due check e' stato di sole ~17h contro le 24h+ abituali - troppo presto per concludere che la crescita si sia fermata",
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23"
+}

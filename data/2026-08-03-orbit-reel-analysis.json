@@ -32,6 +32,19 @@
   ],
   "facebook": { "reel_02_08_final_views": 1071 },
   "website": { "new_ig_sessions_2026-08-03": 2, "engagement_seconds": [152, 90], "note": "traffico ripartito dopo 4 giorni di silenzio (30/07-2/08)" },
+  "leads": {
+    "note": "dati anonimizzati - nessun username o testo di conversazioni private viene salvato qui",
+    "entries": [
+      {
+        "first_message_at": "2026-08-03T03:08:00+02:00",
+        "first_reply_at": "2026-08-03T10:13:45+02:00",
+        "response_time": "7h05m",
+        "topic": "fisica, in vista di settembre",
+        "channel": "Instagram DM diretto al profilo (nessun referral/story/ad allegato al messaggio)",
+        "attribution": "non verificabile con certezza dall'API; indizio circostanziale: arrivato ~7h30 dopo la pubblicazione del reel del 02/08 (miglior reel del ritmo alterni, 928 reach)"
+      }
+    ]
+  },
   "notes": {
     "publish_time_hypothesis": "confermata piu' fortemente: reel in finestra 18-22 (2/08, 19:43) ha reso quasi 3x il reel fuori orario (31/07, 15:58)",
     "followers_stall_resolved": "il plateau di 53 follower segnalato ieri era temporaneo: ripartito a 56 durante la notte, in coincidenza col reel forte"

@@ -1,0 +1,45 @@
+{
+  "generated_at": "2026-08-04T13:05:00+02:00",
+  "purpose": "analisi del reel peggiore di sempre (03/08), cause verificate una per una",
+  "account": {
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 57, "followers_count_previous": 56, "media_count": 16 },
+    "facebook": { "page_name": "ORBIT Ripetizioni", "fan_count": 10 }
+  },
+  "reels": [
+    { "date": "2026-07-11", "time": "20:19", "reach": 406, "views": 662, "interactions": 45 },
+    { "date": "2026-07-12", "time": "21:31", "reach": 1606, "views": 2020, "interactions": 94 },
+    { "date": "2026-07-13", "time": "21:51", "reach": 1180, "views": 1504, "interactions": 49 },
+    { "date": "2026-07-14", "time": "20:39", "reach": 1526, "views": 1829, "interactions": 48 },
+    { "date": "2026-07-15", "time": "18:52", "reach": 1086, "views": 1349, "interactions": 38 },
+    { "date": "2026-07-20", "time": "22:09", "reach": 685, "views": 874, "interactions": 32 },
+    { "date": "2026-07-21", "time": "21:53", "reach": 552, "views": 682, "interactions": 21 },
+    { "date": "2026-07-22", "time": "20:44", "reach": 623, "views": 756, "interactions": 41 },
+    { "date": "2026-07-24", "time": "19:17", "reach": 1386, "views": 1821, "interactions": 60 },
+    { "date": "2026-07-25", "time": "20:04", "reach": 1216, "views": 1412, "interactions": 82 },
+    { "date": "2026-07-26", "time": "16:05", "reach": 1081, "views": 1248, "interactions": 40 },
+    { "date": "2026-07-27", "time": "19:55", "reach": 261, "views": 368, "interactions": 18 },
+    { "date": "2026-07-29", "time": "18:28", "reach": 731, "views": 896, "interactions": 54 },
+    { "date": "2026-07-31", "time": "15:58", "reach": 313, "views": 421, "interactions": 26 },
+    { "date": "2026-08-02", "time": "19:43", "reach": 971, "views": 1160, "interactions": 47 },
+    { "date": "2026-08-03", "time": "19:49", "reach": 146, "views": 193, "interactions": 9, "note": "peggior reel di sempre, primo con orario giusto ma risultato pessimo; pubblicato lunedi, primo giorno consecutivo di post nel ritmo alterni (dopo domenica 02/08)" }
+  ],
+  "instagram_daily_reach": [
+    { "date": "2026-08-02", "reach": 925 }, { "date": "2026-08-03", "reach": 268 },
+    { "date": "2026-08-04", "reach": 18, "day_still_open_at_extraction": true }
+  ],
+  "facebook": {
+    "reel_history_recent": [
+      { "date": "2026-07-31", "post_media_view": 680 },
+      { "date": "2026-08-02", "post_media_view": 1071 },
+      { "date": "2026-08-03", "post_media_view": 231, "note": "debole anche su FB, conferma incrociata" }
+    ]
+  },
+  "cause_analysis": [
+    { "cause": "orario di pubblicazione", "verdict": "esclusa", "evidence": "19:49, dentro la finestra 18-22 gia' confermata efficace col reel del 02/08 (19:43, 971 reach)" },
+    { "cause": "rottura del ritmo (2 post consecutivi)", "verdict": "causa probabile", "evidence": "prima volta che succede da quando e' iniziato il ritmo alterni il 27/07; domenica 02/08 post, lunedi 03/08 post (avrebbe dovuto essere pausa)" },
+    { "cause": "hook astratto vs tecnica concreta", "verdict": "plausibile, pattern ricorrente", "evidence": "quarto reel debole con hook concettuale/motivazionale (dopo 27/07, 29/07, 31/07)" },
+    { "cause": "debolezza cross-piattaforma", "verdict": "conferma incrociata", "evidence": "231 views su FB, ben sotto il range recente 680-1071" },
+    { "cause": "rumore statistico", "verdict": "non da escludere ma insufficiente da sola", "evidence": "146 e' un outlier estremo rispetto alla media di 861" }
+  ],
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23"
+}

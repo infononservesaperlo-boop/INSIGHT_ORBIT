@@ -160,7 +160,7 @@
       <p class="sub">146 reach e 193 views dopo quasi 18 ore — il risultato più basso di tutti i 16 reel pubblicati dall'11 luglio, peggio anche del primissimo reel di sempre (406) e del più debole del ritmo alterni finora (261, il 27/07). Non è un'impressione: è il dato peggiore in assoluto. Ecco perché, con le cause verificate una per una.</p>
       <div class="highlight-banner">
         <span class="ico">📉</span>
-        <p><strong>Cosa lo rende diverso dagli altri:</strong> orario giusto (19:49, dentro la finestra 18-22 che di solito funziona) — ma pubblicato il giorno DOPO un altro post (2/08), la prima volta che succede da quando è iniziato il ritmo alterni. Debole anche su Facebook (231 views, contro le 680-1.071 recenti).</p>
+        <p><strong>Cosa lo rende diverso dagli altri:</strong> orario giusto (19:49, dentro la finestra 18-22 che di solito funziona) — ma pubblicato il giorno DOPO un altro post (2/08), rompendo per la prima volta il ritmo di +2 giorni che si era stabilizzato nelle 3 pubblicazioni precedenti (27→29→31→02/07-08). Debole anche su Facebook (231 views, contro le 680-1.071 recenti).</p>
       </div>
     </header>
 
@@ -203,11 +203,11 @@
       <div class="cause-card">
         <div class="cause-head">
           <span class="rank">1</span>
-          <h3>Rottura del ritmo: due post di fila, mai successo prima nel ritmo alterni</h3>
+          <h3>Rottura del pattern +2 giorni consolidato (non del "mai postato 2 giorni di fila")</h3>
           <span class="verdict likely">Causa probabile</span>
         </div>
-        <p>Dal 27/07 il pattern era rigidamente "un giorno sì, un giorno no" — fino ad ora. Il 2/08 (domenica) era giorno di post, il 3/08 (lunedì) avrebbe dovuto essere pausa secondo lo schema seguito fino a quel momento, ma è uscito un altro reel. È la prima volta che due pubblicazioni escono in giorni consecutivi durante questa fase.</p>
-        <div class="evidence"><strong>Ipotesi:</strong> l'algoritmo potrebbe "spalmare" la distribuzione tra due contenuti dello stesso account usciti troppo vicini, penalizzando il secondo mentre il primo (2/08) sta ancora guadagnando reach. Non possiamo provarlo con i dati Instagram disponibili, ma il fatto che sia la prima violazione del pattern e coincida con il risultato peggiore di sempre è un indizio forte.</div>
+        <p>Guardando tutta la storia dei 16 reel, pubblicare due giorni consecutivi <strong style="color:var(--ink)">non è inedito in assoluto</strong> — è successo 8 volte durante le raffiche di luglio (es. 24→25→26→27/07, quattro giorni di fila). Quello che è davvero nuovo è romperlo <strong style="color:var(--ink)">dopo che si era stabilizzato</strong> un ritmo preciso di +2 giorni tra un post e l'altro (27→29→31→02, sempre esattamente una pausa in mezzo). Il 2→3/08 è il primo +1 dopo tre cicli consecutivi di +2.</p>
+        <div class="evidence"><strong>Ipotesi:</strong> se l'algoritmo "impara" un ritmo di pubblicazione e programma la distribuzione di conseguenza, un cambio improvviso di cadenza — anche verso una frequenza più alta — potrebbe confonderlo momentaneamente, in modo simile a come i buchi lo confondono nella direzione opposta. Resta un'ipotesi non verificabile con i dati Instagram disponibili, ma la sequenza completa (vedi tabella sotto) rende il collegamento più solido.</div>
       </div>
 
       <div class="cause-card">
@@ -236,6 +236,17 @@
           <span class="verdict weak">Non da escludere</span>
         </div>
         <p>Con solo 16 reel totali, un risultato anomalo capita. Ma un solo reel su 16 così nettamente sotto tutti gli altri (146 contro una media di 861) è un'anomalia abbastanza estrema da meritare più delle solite spiegazioni casuali — motivo per cui le cause sopra restano le ipotesi principali.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Storico completo delle pubblicazioni</h2></div>
+      <p class="section-desc">Tutti i 16 reel in ordine, con i giorni di distanza dal precedente. La terza raffica è durata in realtà <strong style="color:var(--ink)">4 giorni consecutivi</strong> (24-27/07), non 3 — il ritmo alterni vero e proprio comincia solo dal salto 27→29/07 (+2 giorni, prima pausa). Il salto 2→3/08 (+1 giorno) è il primo passo indietro dopo tre cicli consecutivi di +2.</p>
+      <div class="panel table-scroll">
+        <table>
+          <thead><tr><th>Data</th><th>Giorno</th><th style="text-align:right">Distanza dal precedente</th><th>Fase</th></tr></thead>
+          <tbody id="sequence-table"></tbody>
+        </table>
       </div>
     </section>
 
@@ -300,7 +311,7 @@
 
     <footer class="meta">
       <span>Dati letti in sola lettura via Composio · Instagram Graph API v21 / Facebook Graph API v20–23</span>
-      <span>Generato martedì 4 agosto 2026 alle 13:05 (CEST)</span>
+      <span>Generato martedì 4 agosto 2026 alle 13:05 · corretto alle 13:17 (CEST)</span>
     </footer>
 
   </div>
@@ -436,6 +447,37 @@
   }
   rankedBarChart('views-bar-chart', 'views', v('--views'), v('--good'), v('--crit'));
   rankedBarChart('reach-bar-chart', 'reach', v('--accent'), v('--good'), v('--crit'));
+
+  (function sequenceTable() {
+    const el = document.getElementById('sequence-table');
+    const giorni = ['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'];
+    const seq = [
+      { date: "2026-07-11", fase: "Raffica 1" }, { date: "2026-07-12", fase: "Raffica 1" },
+      { date: "2026-07-13", fase: "Raffica 1" }, { date: "2026-07-14", fase: "Raffica 1" },
+      { date: "2026-07-15", fase: "Raffica 1" }, { date: "2026-07-20", fase: "Raffica 2" },
+      { date: "2026-07-21", fase: "Raffica 2" }, { date: "2026-07-22", fase: "Raffica 2" },
+      { date: "2026-07-24", fase: "Raffica 3" }, { date: "2026-07-25", fase: "Raffica 3" },
+      { date: "2026-07-26", fase: "Raffica 3" }, { date: "2026-07-27", fase: "Raffica 3" },
+      { date: "2026-07-29", fase: "Ritmo alterni" }, { date: "2026-07-31", fase: "Ritmo alterni" },
+      { date: "2026-08-02", fase: "Ritmo alterni" }, { date: "2026-08-03", fase: "Ritmo alterni · rottura" },
+    ];
+    let prev = null;
+    const rows = seq.map(s => {
+      const d = new Date(s.date + "T12:00:00");
+      const gap = prev ? Math.round((d - prev) / 86400000) : null;
+      prev = d;
+      const isBreak = s.fase.includes('rottura');
+      const gapLabel = gap === null ? '<span class="num" style="color:var(--muted)">primo</span>'
+        : `<span class="num" style="color:${gap === 1 ? 'var(--crit)' : 'var(--ink-2)'}">+${gap}gg</span>`;
+      return `<tr${isBreak ? ' style="background:var(--crit-soft)"' : ''}>
+        <td class="num">${s.date.slice(8,10)}/${s.date.slice(5,7)}</td>
+        <td>${giorni[d.getDay()]}</td>
+        <td style="text-align:right">${gapLabel}</td>
+        <td>${s.fase}</td>
+      </tr>`;
+    }).join('');
+    el.innerHTML = rows;
+  })();
 
   (function table() {
     const el = document.getElementById('reel-table');

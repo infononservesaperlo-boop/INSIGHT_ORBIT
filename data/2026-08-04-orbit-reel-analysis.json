@@ -36,7 +36,7 @@
   },
   "cause_analysis": [
     { "cause": "orario di pubblicazione", "verdict": "esclusa", "evidence": "19:49, dentro la finestra 18-22 gia' confermata efficace col reel del 02/08 (19:43, 971 reach)" },
-    { "cause": "rottura del ritmo (2 post consecutivi)", "verdict": "causa probabile", "evidence": "prima volta che succede da quando e' iniziato il ritmo alterni il 27/07; domenica 02/08 post, lunedi 03/08 post (avrebbe dovuto essere pausa)" },
+    { "cause": "rottura del pattern +2 giorni consolidato", "verdict": "causa probabile", "evidence": "postare 2 giorni consecutivi non e' inedito in assoluto (successo 8 volte durante le raffiche di luglio, es. 24-27/07 quattro giorni di fila); la vera anomalia e' romperlo dopo che si era stabilizzato un ritmo preciso di +2 giorni (27->29->31->02, sempre una pausa in mezzo) - il salto 02->03/08 e' il primo +1 dopo tre cicli consecutivi di +2" },
     { "cause": "hook astratto vs tecnica concreta", "verdict": "plausibile, pattern ricorrente", "evidence": "quarto reel debole con hook concettuale/motivazionale (dopo 27/07, 29/07, 31/07)" },
     { "cause": "debolezza cross-piattaforma", "verdict": "conferma incrociata", "evidence": "231 views su FB, ben sotto il range recente 680-1071" },
     { "cause": "rumore statistico", "verdict": "non da escludere ma insufficiente da sola", "evidence": "146 e' un outlier estremo rispetto alla media di 861" }

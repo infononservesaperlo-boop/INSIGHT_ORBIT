@@ -1,0 +1,31 @@
+{
+  "generated_at": "2026-08-05T20:52:00+02:00",
+  "purpose": "previsione documentata PRIMA di conoscere l'esito, per il reel del 05/08 - test pulito con ritmo e orario entrambi corretti dopo il flop del 03/08",
+  "account": {
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 57, "media_count": 17 },
+    "facebook": { "fan_count": 10 }
+  },
+  "test_reel": {
+    "id": "18110800190101902",
+    "date": "2026-08-05",
+    "time": "20:39",
+    "hook": "Perche' ti blocchi sempre durante una verifica? Ecco la causa principale",
+    "data_at_prediction_time": { "reach": 2, "views": 99, "interactions": 5, "hours_since_publish": 2.2 },
+    "variables_restored": {
+      "ritmo": "+2 giorni da 03/08, torna al pattern 27->29->31->02",
+      "orario": "20:39 CEST, dentro la finestra 18-22"
+    },
+    "content_assessment": "intermedio - hook su un problema specifico (bloccarsi in verifica) ma non un formato tecnica-in-20-secondi",
+    "prediction": {
+      "if_reach_recovers_400_900_plus": "conferma che il flop del 03/08 era legato alla rottura del ritmo, non un problema piu' profondo",
+      "if_reach_stays_below_250": "esclude ritmo+orario come spiegazione sufficiente, punta verso contenuto o fattore stagionale/strutturale"
+    }
+  },
+  "previous_reel_03_08_final_check": { "reach": 152, "views": 204, "note": "confermato debole, crescita minima rispetto al check precedente (146/193)" },
+  "instagram_daily_reach_recent": [
+    { "date": "2026-08-02", "reach": 925 }, { "date": "2026-08-03", "reach": 268 },
+    { "date": "2026-08-04", "reach": 37, "note": "residuo minimo del reel debole del 3/08" },
+    { "date": "2026-08-05", "reach": 4, "day_still_open_at_extraction": true }
+  ],
+  "source": "Composio (sola lettura) - Instagram Graph API v21"
+}

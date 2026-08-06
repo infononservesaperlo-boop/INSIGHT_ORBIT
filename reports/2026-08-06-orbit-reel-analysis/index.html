@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORBIT — Verdetto del test: il reel del 5/08</title>
+<style>
+  :root { color-scheme: light dark; }
+  html, body { margin: 0; padding: 0; }
+  .viz-root {
+    color-scheme: light;
+    --page: #f3f5f9; --surface: #ffffff; --surface-2: #eef1f7;
+    --ink: #11131a; --ink-2: #4a5164; --muted: #848da3;
+    --border: rgba(16,19,26,0.09); --border-2: rgba(16,19,26,0.14);
+    --accent: #2a78d6; --accent-soft: #cde2fb; --accent-line: #2a78d6; --accent-fill: rgba(42,120,214,0.14);
+    --views: #1baf7a; --views-fill: rgba(27,175,122,0.16);
+    --good: #0ca30c; --good-soft: #e3f6e3;
+    --warn: #b9790a; --warn-soft: #fbeed1;
+    --crit: #d03b3b; --crit-soft: #fbe3e3;
+    --violet: #4a3aa7; --violet-soft: #e9e6f8;
+    --fb-muted: #9a93d6; --fb-soft: #ecebfa;
+    --grid: #e3e2da;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+      --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+      --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+      --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee; --accent-fill: rgba(57,135,229,0.18);
+      --views: #199e70; --views-fill: rgba(25,158,112,0.20);
+      --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+      --warn: #f0ab35; --warn-soft: rgba(240,171,53,0.14);
+      --crit: #e66767; --crit-soft: rgba(230,103,103,0.16);
+      --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+      --fb-muted: #a79fe6; --fb-soft: rgba(167,159,230,0.16);
+      --grid: #2a2e36;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+    --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+    --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+    --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee; --accent-fill: rgba(57,135,229,0.18);
+    --views: #199e70; --views-fill: rgba(25,158,112,0.20);
+    --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+    --warn: #f0ab35; --warn-soft: rgba(240,171,53,0.14);
+    --crit: #e66767; --crit-soft: rgba(230,103,103,0.16);
+    --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+    --fb-muted: #a79fe6; --fb-soft: rgba(167,159,230,0.16);
+    --grid: #2a2e36;
+  }
+
+  .viz-root * { box-sizing: border-box; }
+  .viz-root { background: var(--page); color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; padding: 40px 20px 80px; min-height: 100vh; }
+  .num { font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace; font-variant-numeric: tabular-nums; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); margin-bottom: 18px; text-decoration: none; }
+  .breadcrumb a { color: var(--accent); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  header.top { margin-bottom: 36px; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--warn); margin: 0 0 8px; }
+  h1 { font-size: 27px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 6px; text-wrap: balance; }
+  .sub { color: var(--ink-2); font-size: 14.5px; margin: 0; max-width: 66ch; line-height: 1.55; }
+
+  .verdict-banner {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: var(--warn-soft); border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px 16px; margin-top: 18px; max-width: 68ch;
+  }
+  .verdict-banner .ico { font-size: 20px; line-height: 1; }
+  .verdict-banner p { margin: 0; font-size: 13.5px; color: var(--ink); line-height: 1.5; }
+  .verdict-banner strong { color: var(--warn); }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 28px 0 8px; }
+  @media (max-width: 760px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 16px 14px; }
+  .kpi .label { font-size: 11.5px; color: var(--muted); font-weight: 600; letter-spacing: 0.02em; margin-bottom: 6px; }
+  .kpi .value { font-size: 22px; font-weight: 800; letter-spacing: -0.01em; }
+  .kpi .note { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+  .kpi .note.up { color: var(--good); font-weight: 700; }
+
+  section { margin-top: 44px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+  h2 { font-size: 18px; font-weight: 800; margin: 0; letter-spacing: -0.005em; }
+  .section-desc { color: var(--ink-2); font-size: 13.5px; margin: 4px 0 18px; max-width: 68ch; line-height: 1.5; }
+
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 20px 16px; }
+
+  .verdict-card { background: var(--surface); border: 2px solid var(--warn); border-radius: 14px; padding: 20px 22px; }
+  .verdict-card h3 { margin: 0 0 10px; font-size: 15.5px; font-weight: 800; color: var(--warn); }
+  .predict-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
+  .predict-table th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--border-2); }
+  .predict-table td { padding: 10px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; color: var(--ink-2); }
+  .predict-table tr.hit td { background: rgba(35,198,35,0.08); }
+  .predict-table td.outcome { font-weight: 700; color: var(--ink); white-space: nowrap; }
+
+  .chain-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 16px 0; }
+  .chain-item { background: var(--surface-2); border-radius: 10px; padding: 10px 14px; text-align: center; min-width: 90px; }
+  .chain-item .d { font-size: 10.5px; color: var(--muted); font-weight: 700; }
+  .chain-item .v { font-size: 16px; font-weight: 800; margin-top: 2px; }
+  .chain-item.weak .v { color: var(--crit); }
+  .chain-item.strong .v { color: var(--good); }
+  .chain-item.mid .v { color: var(--warn); }
+  .chain-arrow { color: var(--muted); font-size: 16px; }
+
+  .chart-svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .axis-label { font-size: 10.5px; fill: var(--muted); font-family: ui-monospace, monospace; }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .tooltip {
+    position: absolute; pointer-events: none; background: var(--ink); color: var(--page);
+    font-size: 12px; padding: 7px 10px; border-radius: 7px; line-height: 1.45; white-space: nowrap;
+    transform: translate(-50%, -110%); opacity: 0; transition: opacity 0.1s ease; z-index: 5;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+  .chart-wrap { position: relative; }
+  .dot { cursor: pointer; }
+  .dot.today { animation: pulse 1.8s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); font-weight: 700; padding: 0 10px 10px; border-bottom: 1px solid var(--border-2); white-space: nowrap; }
+  td { padding: 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .hook { color: var(--ink); max-width: 240px; line-height: 1.4; }
+  .table-scroll { overflow-x: auto; }
+  .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 100px; }
+  .badge.best { background: var(--good-soft); color: var(--good); }
+  .badge.worst { background: var(--crit-soft); color: var(--crit); }
+  .badge.test { background: var(--warn-soft); color: var(--warn); }
+
+  .fb-panel { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+  .fb-stat { flex: 1; min-width: 140px; }
+  .fb-stat .value { font-size: 22px; font-weight: 800; color: var(--fb-muted); }
+  .fb-stat .label { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+
+  .callout { border: 1px dashed var(--border-2); border-radius: 10px; padding: 14px 16px; font-size: 13px; color: var(--ink-2); line-height: 1.55; margin-top: 18px; background: var(--surface-2); }
+  .callout strong { color: var(--ink); }
+
+  footer.meta { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .legend { display: flex; gap: 16px; font-size: 12px; color: var(--ink-2); margin-bottom: 14px; flex-wrap: wrap; }
+  .legend .item { display: flex; align-items: center; gap: 6px; }
+  .legend .swatch { width: 10px; height: 10px; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="viz-root">
+  <div class="wrap">
+
+    <a class="breadcrumb" href="../../index.html">&larr; Tutti i report</a>
+
+    <header class="top">
+      <p class="eyebrow">ORBIT · Ripetizioni — Verdetto del test</p>
+      <h1>Il verdetto: recupero parziale, sul filo della soglia</h1>
+      <p class="sub">Il test era: ritmo (+2 giorni) e orario (18-22) tornano entrambi corretti dopo il flop del 3/08 — il reach recupera davvero o resta debole? Risposta a ~21 ore dalla pubblicazione: 446 reach, dentro la fascia di "recupero" fissata in anticipo (400-900+), ma al margine più basso.</p>
+      <div class="verdict-banner">
+        <span class="ico">⚖️</span>
+        <p><strong>Verdetto per la soglia che avevamo fissato prima di sapere l'esito:</strong> 446 reach è tecnicamente dentro la fascia "torna alto" (400-900+) definita nel report precedente — quindi il test conferma che ritmo+orario contano. Ma è al limite basso della fascia, ben lontano dai migliori (734, 982) e ancora in crescita: non è una conferma schiacciante, è un sì con riserva.</p>
+      </div>
+    </header>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="label">Reach del reel test (5/08), a ~21h</div>
+        <div class="value num">446</div>
+        <div class="note up">+186% vs il flop del 3/08 (156 finale)</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Views dello stesso reel</div>
+        <div class="value num">544</div>
+        <div class="note">18 interazioni, tasso 4,0%</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Views su Facebook</div>
+        <div class="value num">1.080</div>
+        <div class="note up">quasi identico al miglior risultato FB (1.071, 2/08)</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Follower IG / fan FB</div>
+        <div class="value num">61 / 11</div>
+        <div class="note up">IG +4, FB +1 — crescita ripartita</div>
+      </div>
+    </div>
+
+    <section>
+      <div class="section-head"><h2>La catena dei risultati recenti, in ordine</h2></div>
+      <p class="section-desc">Il reel del 5/08 si inserisce a metà tra i migliori e i peggiori del ritmo alterni — non ripete il flop, ma non eguaglia nemmeno i due picchi.</p>
+      <div class="panel">
+        <div class="chain-row" id="chain"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Cosa significa per le cause discusse finora</h2></div>
+      <div class="verdict-card">
+        <h3>Lettura onesta del risultato</h3>
+        <table class="predict-table">
+          <thead><tr><th>Causa</th><th>Cosa dice questo risultato</th></tr></thead>
+          <tbody>
+            <tr class="hit">
+              <td class="outcome">Rottura del ritmo</td>
+              <td>Rafforzata: tornando al pattern +2 giorni, il reach è più che raddoppiato rispetto al flop. Non prova la causalità al 100%, ma il segnale va nella direzione attesa.</td>
+            </tr>
+            <tr class="hit">
+              <td class="outcome">Orario di pubblicazione</td>
+              <td>Rafforzata: pubblicato nella finestra 18-22, come tutti i migliori risultati storici.</td>
+            </tr>
+            <tr>
+              <td class="outcome">Tipo di contenuto</td>
+              <td>Ancora indeciso: il reach è a metà classifica, coerente con un hook "intermedio" (concreto ma non tecnica-in-20-secondi). Non conferma né esclude questa causa.</td>
+            </tr>
+            <tr>
+              <td class="outcome">Facebook</td>
+              <td>Il dato più netto del test: 1.080 views, quasi il miglior risultato di sempre sul canale — Facebook ha reagito molto meglio di Instagram alla stessa correzione.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        <strong>Perché non è una conferma al 100%:</strong> 446 è comunque meno della metà dei due migliori risultati del ritmo alterni (734 e 982). Se ritmo e orario fossero le uniche variabili in gioco, ci si aspetterebbe un risultato più vicino a quei livelli, non al margine basso della fascia. È possibile che il reach stia ancora salendo — altri reel hanno continuato a crescere per 2-3 giorni — quindi vale la pena ricontrollare tra 24-48 ore prima di chiudere il caso.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Andamento giornaliero (reach di profilo Instagram)</h2></div>
+      <div class="panel">
+        <div class="legend">
+          <span class="item"><span class="swatch" style="background:var(--accent)"></span>Reach giornaliero</span>
+          <span class="item"><span class="swatch" style="background:var(--warn)"></span>Giorno di pubblicazione</span>
+        </div>
+        <div class="chart-wrap" id="trend-chart"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Dettaglio dei 17 reel</h2></div>
+      <div class="panel table-scroll">
+        <table id="reel-table"></table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Cosa fare adesso</h2></div>
+      <div class="callout">
+        <strong>Prossimo passo:</strong> ricontrolla il reach del 5/08 tra 24-48 ore. Se sale oltre i 700-800, il "recupero parziale" diventa una conferma solida. Se si ferma vicino a 450-500, resta un risultato intermedio che suggerisce che ritmo e orario aiutano ma non bastano da soli — e a quel punto varrebbe la pena guardare più da vicino il tipo di contenuto o testare consapevolmente due giorni consecutivi di post per isolare quella variabile, come proposto nei report precedenti.
+      </div>
+    </section>
+
+    <footer class="meta">
+      <span>Dati letti in sola lettura via Composio · Instagram Graph API v21 / Facebook Graph API v20–23</span>
+      <span>Generato giovedì 6 agosto 2026 alle 17:28 (CEST)</span>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  const root = document.querySelector('.viz-root');
+  const css = getComputedStyle(root);
+  const v = (name) => css.getPropertyValue(name).trim();
+
+  const reels = [
+    { date: "2026-07-11", time: "20:19", hook: "Disegnare una parabola NON deve richiederti 5 minuti", reach: 407, views: 665, likes: 31, comments: 7, shares: 4, saved: 0, interactions: 45 },
+    { date: "2026-07-12", time: "21:31", hook: "Chi va bene in matematica, fisica e chimica non è “più intelligente”. Fa 3 cose diverse quando studia", reach: 1608, views: 2026, likes: 64, comments: 5, shares: 2, saved: 24, interactions: 95 },
+    { date: "2026-07-13", time: "21:51", hook: "Se scrivi solo il numero senza l'unità di misura, stai regalando punti gratis", reach: 1180, views: 1509, likes: 42, comments: 0, shares: 3, saved: 3, interactions: 49 },
+    { date: "2026-07-14", time: "20:39", hook: "La tangenza fa paura solo finché non la vedi risolta così", reach: 1526, views: 1834, likes: 36, comments: 3, shares: 5, saved: 5, interactions: 49 },
+    { date: "2026-07-15", time: "18:52", hook: "Ecco i 3 errori che vedo fare più spesso agli studenti", reach: 1088, views: 1354, likes: 35, comments: 0, shares: 0, saved: 3, interactions: 38 },
+    { date: "2026-07-20", time: "22:09", hook: "Se potessi tornare indietro, ci sono 3 cose che farei diversamente", reach: 685, views: 878, likes: 23, comments: 3, shares: 2, saved: 3, interactions: 32 },
+    { date: "2026-07-21", time: "21:53", hook: "3 caratteristiche fondamentali che fanno parte del mio metodo", reach: 555, views: 687, likes: 19, comments: 0, shares: 0, saved: 1, interactions: 21 },
+    { date: "2026-07-22", time: "20:44", hook: "Studi per ore ma il giorno dopo è come se non avessi aperto un libro?", reach: 624, views: 760, likes: 30, comments: 4, shares: 1, saved: 5, interactions: 41 },
+    { date: "2026-07-24", time: "19:17", hook: "“La matematica è un'opinione.” Vero? Ti dimostro (quasi) che 1 = 2", reach: 1392, views: 1829, likes: 49, comments: 1, shares: 4, saved: 5, interactions: 60 },
+    { date: "2026-07-25", time: "20:04", hook: "Fisica ti sembra arabo? Prima di arrenderti, prova questi 3 trucchi", reach: 1218, views: 1417, likes: 49, comments: 0, shares: 8, saved: 25, interactions: 82 },
+    { date: "2026-07-26", time: "16:05", hook: "Se fai anche solo UNO di questi 3 errori, i tuoi punti in verifica stanno scappando", reach: 1086, views: 1254, likes: 32, comments: 0, shares: 2, saved: 5, interactions: 40 },
+    { date: "2026-07-27", time: "19:55", hook: "Debito a settembre? Ecco 3 cose da fare SUBITO, non a fine agosto", reach: 267, views: 374, likes: 15, comments: 2, shares: 0, saved: 0, interactions: 18 },
+    { date: "2026-07-29", time: "18:28", hook: "Perché il cervello si annoia? Perché non ha un obiettivo", reach: 734, views: 904, likes: 36, comments: 0, shares: 1, saved: 18, interactions: 55 },
+    { date: "2026-07-31", time: "15:58", hook: "Segui la lezione, capisci tutto… ma quando arriva la verifica…", reach: 315, views: 427, likes: 21, comments: 0, shares: 1, saved: 5, interactions: 27 },
+    { date: "2026-08-02", time: "19:43", hook: "Conosci tutte le formule a memoria ma non sai ancora risolvere gli esercizi", reach: 982, views: 1174, likes: 39, comments: 1, shares: 2, saved: 8, interactions: 50 },
+    { date: "2026-08-03", time: "19:49", hook: "Leggere e basta non ti fa capire niente. Il tuo cervello sta solo riconoscendo", reach: 156, views: 216, likes: 11, comments: 0, shares: 1, saved: 0, interactions: 12, isWorst: true },
+    { date: "2026-08-05", time: "20:39", hook: "Perché ti blocchi sempre durante una verifica? Ecco la causa principale", reach: 446, views: 544, likes: 16, comments: 0, shares: 1, saved: 1, interactions: 18, isTest: true },
+  ];
+
+  const dailyReach = [
+    ["07-25", 1902, true], ["07-26", 1185, true],
+    ["07-27", 435, true], ["07-28", 93, false], ["07-29", 538, true], ["07-30", 278, false],
+    ["07-31", 232, true], ["08-01", 123, false], ["08-02", 925, true], ["08-03", 268, true],
+    ["08-04", 37, false], ["08-05", 412, true], ["08-06", 89, false, true],
+  ];
+
+  function fmt(n) { return n.toLocaleString('it-IT'); }
+  function pct(n) { return n.toLocaleString('it-IT', { maximumFractionDigits: 1, minimumFractionDigits: 1 }); }
+
+  (function chain() {
+    const el = document.getElementById('chain');
+    const items = [
+      { d: "27/07", v: 267, cls: "weak" },
+      { d: "29/07", v: 734, cls: "strong" },
+      { d: "31/07", v: 315, cls: "weak" },
+      { d: "02/08", v: 982, cls: "strong" },
+      { d: "03/08", v: 156, cls: "weak" },
+      { d: "05/08", v: 446, cls: "mid" },
+    ];
+    el.innerHTML = items.map((it, i) => `
+      ${i > 0 ? '<span class="chain-arrow">→</span>' : ''}
+      <div class="chain-item ${it.cls}">
+        <div class="d">${it.d}</div>
+        <div class="v num">${fmt(it.v)}</div>
+      </div>
+    `).join('');
+  })();
+
+  (function lineChart() {
+    const el = document.getElementById('trend-chart');
+    const W = 1000, H = 260, padL = 44, padR = 12, padT = 16, padB = 30;
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const maxY = Math.max(...dailyReach.map(d => d[1])) * 1.12;
+    const n = dailyReach.length;
+    const x = i => padL + (innerW * i) / (n - 1);
+    const y = val => padT + innerH - (innerH * val) / maxY;
+    const pathD = dailyReach.map((d, i) => `${i === 0 ? 'M' : 'L'} ${x(i).toFixed(1)} ${y(d[1]).toFixed(1)}`).join(' ');
+    const areaD = `${pathD} L ${x(n - 1).toFixed(1)} ${y(0).toFixed(1)} L ${x(0).toFixed(1)} ${y(0).toFixed(1)} Z`;
+    const gridYVals = [0, 0.25, 0.5, 0.75, 1].map(f => Math.round(maxY * f / 100) * 100);
+    const gridLines = gridYVals.map(gy => `
+      <line class="grid-line" x1="${padL}" x2="${W - padR}" y1="${y(gy).toFixed(1)}" y2="${y(gy).toFixed(1)}" />
+      <text class="axis-label num" x="${padL - 8}" y="${y(gy).toFixed(1) - -3}" text-anchor="end">${fmt(gy)}</text>
+    `).join('');
+    const dots = dailyReach.map((d, i) => {
+      const cx = x(i), cy = y(d[1]);
+      const isToday = d[3];
+      return `<circle class="dot${isToday ? ' today' : ''}" cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${d[2] ? 5 : 3}"
+        fill="${d[2] ? v('--warn') : v('--accent-line')}" stroke="${v('--surface')}" stroke-width="2"
+        data-date="${d[0]}" data-val="${d[1]}" data-pub="${d[2]}" data-today="${!!isToday}" />`;
+    }).join('');
+    const labels = dailyReach.map((d, i) =>
+      `<text class="axis-label num" x="${x(i).toFixed(1)}" y="${H - 8}" text-anchor="middle">${d[0]}</text>`).join('');
+    el.innerHTML = `
+      <svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+        ${gridLines}
+        <path d="${areaD}" fill="${v('--accent-fill')}" stroke="none" />
+        <path d="${pathD}" fill="none" stroke="${v('--accent-line')}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+        ${dots}${labels}
+      </svg>
+      <div class="tooltip" id="trend-tip"></div>
+    `;
+    const tip = el.querySelector('#trend-tip');
+    el.querySelectorAll('.dot').forEach(dot => {
+      dot.addEventListener('mouseenter', () => {
+        const { date, val, pub, today } = dot.dataset;
+        tip.innerHTML = `<strong>${date}/2026</strong><br>Reach: ${fmt(+val)}${pub === 'true' ? '<br><span style="color:#f0ab35">● giorno di pubblicazione</span>' : ''}${today === 'true' ? '<br><span style="color:#3987e5">◐ giornata ancora aperta</span>' : ''}`;
+        const r = dot.getBoundingClientRect(), pr = el.getBoundingClientRect();
+        tip.style.left = (r.left - pr.left + r.width / 2) + 'px';
+        tip.style.top = (r.top - pr.top) + 'px';
+        tip.style.opacity = '1';
+      });
+      dot.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+    });
+  })();
+
+  (function table() {
+    const el = document.getElementById('reel-table');
+    const maxReach = Math.max(...reels.map(r => r.reach));
+    const thead = `
+      <thead><tr>
+        <th>Data</th><th>Ora</th><th>Hook</th><th style="text-align:right">Views</th><th style="text-align:right">Reach</th>
+        <th style="text-align:right">Like</th><th style="text-align:right">Comm.</th>
+        <th style="text-align:right">Cond.</th><th style="text-align:right">Salv.</th>
+        <th style="text-align:right">Interaz.</th><th style="text-align:right">Tasso</th>
+      </tr></thead>`;
+    const rows = reels.map(r => {
+      const rate = (r.interactions / r.reach) * 100;
+      const isBest = r.reach === maxReach;
+      return `<tr>
+        <td class="num">${r.date.slice(8,10)}/${r.date.slice(5,7)}/2026</td>
+        <td class="num">${r.time}</td>
+        <td class="hook">${r.hook}${isBest ? ' <span class="badge best">migliore reach</span>' : ''}${r.isWorst ? ' <span class="badge worst">peggiore di sempre</span>' : ''}${r.isTest ? ' <span class="badge test">reel del test</span>' : ''}</td>
+        <td class="num" style="text-align:right;font-weight:700">${fmt(r.views)}</td>
+        <td class="num" style="text-align:right">${fmt(r.reach)}</td>
+        <td class="num" style="text-align:right">${r.likes}</td>
+        <td class="num" style="text-align:right">${r.comments}</td>
+        <td class="num" style="text-align:right">${r.shares}</td>
+        <td class="num" style="text-align:right">${r.saved}</td>
+        <td class="num" style="text-align:right">${r.interactions}</td>
+        <td class="num" style="text-align:right">${pct(rate)}%</td>
+      </tr>`;
+    }).join('');
+    el.innerHTML = thead + '<tbody>' + rows + '</tbody>';
+  })();
+
+})();
+</script>
+</body>
+</html>

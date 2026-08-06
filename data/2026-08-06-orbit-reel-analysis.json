@@ -1,0 +1,34 @@
+{
+  "generated_at": "2026-08-06T17:28:00+02:00",
+  "purpose": "verdetto del test documentato il 05/08 - reach del reel del 5/08 controllato a ~21h dalla pubblicazione",
+  "account": {
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 61, "followers_count_previous": 57, "media_count": 17 },
+    "facebook": { "fan_count": 11, "fan_count_previous": 10 }
+  },
+  "test_verdict": {
+    "reel_id": "18110800190101902",
+    "date": "2026-08-05",
+    "hours_since_publish": 20.8,
+    "reach": 446,
+    "views": 544,
+    "interactions": 18,
+    "engagement_rate_pct": 4.04,
+    "threshold_set_in_advance": { "recovery": "400-900+", "stays_low": "<250" },
+    "result_vs_threshold": "dentro la fascia recovery, ma al margine basso",
+    "vs_previous_flop_03_08": { "flop_final_reach": 156, "growth_pct": 185.9 },
+    "vs_best_alt_cadence_reels": { "reach_29_07": 734, "reach_02_08": 982, "note": "446 e' meno della meta' di entrambi" },
+    "facebook_views": 1080,
+    "facebook_note": "quasi identico al miglior risultato FB di sempre (1071, 02/08) - segnale piu' netto del test"
+  },
+  "reels_chain_reach_chronological": [
+    { "date": "2026-07-27", "reach": 267 }, { "date": "2026-07-29", "reach": 734 },
+    { "date": "2026-07-31", "reach": 315 }, { "date": "2026-08-02", "reach": 982 },
+    { "date": "2026-08-03", "reach": 156 }, { "date": "2026-08-05", "reach": 446 }
+  ],
+  "instagram_daily_reach_recent": [
+    { "date": "2026-08-04", "reach": 37 }, { "date": "2026-08-05", "reach": 412 },
+    { "date": "2026-08-06", "reach": 89, "day_still_open_at_extraction": true }
+  ],
+  "next_check_recommended": "ricontrollare il reach del reel del 5/08 tra 24-48h dall'estrazione per vedere se supera 700-800 (conferma solida) o si ferma vicino a 450-500 (risultato intermedio permanente)",
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23"
+}

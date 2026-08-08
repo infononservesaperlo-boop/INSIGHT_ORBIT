@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-08-08T13:00:00+02:00",
+  "purpose": "analisi comparativa completa: perche' Instagram peggiora mentre Facebook migliora",
+  "comparison_cross_posted": [
+    { "date": "2026-07-24", "ig_reach": 1394, "fb_views": 23 },
+    { "date": "2026-07-25", "ig_reach": 1218, "fb_views": 323 },
+    { "date": "2026-07-26", "ig_reach": 1090, "fb_views": 1494 },
+    { "date": "2026-07-27", "ig_reach": 269, "fb_views": 389 },
+    { "date": "2026-07-29", "ig_reach": 734, "fb_views": 386 },
+    { "date": "2026-07-31", "ig_reach": 315, "fb_views": 680 },
+    { "date": "2026-08-02", "ig_reach": 983, "fb_views": 1071 },
+    { "date": "2026-08-03", "ig_reach": 159, "fb_views": 231 },
+    { "date": "2026-08-05", "ig_reach": 503, "fb_views": 1080 },
+    { "date": "2026-08-08", "ig_reach": 150, "fb_views": 1059 }
+  ],
+  "summary_stats": {
+    "instagram": { "burst_era_avg_reach": 1034, "recent_7_avg_reach": 445, "change_pct": -57.0 },
+    "facebook": { "first_3_avg_views": 613, "recent_7_avg_views": 699, "change_pct": 14.0, "recent_4_excluding_dip_avg": 972 }
+  },
+  "followers": {
+    "instagram": { "start": 44, "current": 62, "change_pct": 40.9, "note": "crescita in rallentamento (+4 poi +1 negli ultimi controlli)" },
+    "facebook": { "start": 0, "current": 11, "note": "crescita costante, nessun plateau osservato finora" }
+  },
+  "night_reel_case_study": {
+    "date": "2026-08-08T00:18:00+02:00",
+    "instagram_reach": 150,
+    "facebook_views": 1059,
+    "note": "stesso contenuto, stesso minuto - prova diretta che le due piattaforme reagiscono diversamente alle stesse condizioni"
+  },
+  "cause_hypotheses": [
+    { "cause": "algoritmo Reels IG piu' sensibile alla continuita' di pubblicazione", "verdict": "segnale forte", "evidence": "ogni rottura di ritmo/orario ha fatto crollare IG ma non FB" },
+    { "cause": "Facebook in fase di luna di miele algoritmica (pagina appena riattivata)", "verdict": "plausibile", "evidence": "pagina dormiente fino al 25/07, poi crescita rapida e costante" },
+    { "cause": "pubblico diverso, sensibilita' diversa alla stagionalita' agosto (studenti vs genitori)", "verdict": "plausibile non verificabile", "evidence": "nessun dato demografico disponibile via API" },
+    { "cause": "base fan FB piccola ma qualificata", "verdict": "speculativa", "evidence": "solo 11 fan, ogni nuovo fan pesa molto di piu' nella distribuzione percentuale" }
+  ],
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23"
+}

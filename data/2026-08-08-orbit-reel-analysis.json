@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-08-08T12:48:00+02:00",
+  "purpose": "reel notturno con esito opposto IG vs FB; chiusura del test del 05/08",
+  "account": {
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 62, "followers_count_previous": 61, "media_count": 18 },
+    "facebook": { "fan_count": 11, "fan_count_previous": 11 }
+  },
+  "night_reel": {
+    "id": "18094050137566023",
+    "published_utc": "2026-08-07T22:18:44Z",
+    "published_cest": "2026-08-08T00:18:00+02:00",
+    "note": "primo reel mai pubblicato fuori dalla finestra 18-22, in piena notte",
+    "instagram": { "reach": 150, "views": 197, "interactions": 6, "hours_since_publish": 12.5 },
+    "facebook": { "views": 1059, "note": "secondo miglior risultato di sempre sul canale, nonostante orario notturno" }
+  },
+  "test_05_08_closure": {
+    "reel_id": "18110800190101902",
+    "final_reach": 503,
+    "growth_from_446": 12.8,
+    "verdict": "confermato: recupero parziale, mai raggiunti i livelli dei migliori (734, 982)"
+  },
+  "instagram_daily_reach_recent": [
+    { "date": "2026-08-05", "reach": 412 }, { "date": "2026-08-06", "reach": 149 },
+    { "date": "2026-08-07", "reach": 173 }, { "date": "2026-08-08", "reach": 38, "day_still_open_at_extraction": true }
+  ],
+  "github_pages_incident_note": "risolto un'interruzione lato GitHub (Pages Deployment Lag, iniziata 06/08 15:03 UTC) che aveva bloccato la pubblicazione del sito per ~2 giorni; aggiunto anche .nojekyll per evitare processing Jekyll non necessario",
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23"
+}

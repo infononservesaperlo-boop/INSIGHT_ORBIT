@@ -1,0 +1,73 @@
+{
+  "generated_at": "2026-08-13T13:55:00+02:00",
+  "purpose": "il reel 'Hai 3 secondi per risolverlo' (11/08) e' il 2 miglior reel di sempre e il migliore dell'era ritmo-alterni; primo salto di follower vero da settimane; aggiornato il leads-log con 2 nuovi contatti",
+  "account": {
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 69, "followers_count_previous": 62, "media_count": 20 },
+    "facebook": { "page_name": "ORBIT Ripetizioni", "fan_count": 14, "fan_count_previous": 12 }
+  },
+  "breakout_reel": {
+    "id": "18112680481992211",
+    "date": "2026-08-11",
+    "time": "20:46",
+    "hook": "Hai 3 secondi per risolvere questo. Se hai provato a isolare la x, hai gia' perso: 5^(x+1) non si 'spacca', si legge come 5^x * 5. Se sai che 5^x = 7... il risultato lo becchi senza calcolatrice",
+    "format": "sfida a tempo (countdown/riconoscimento del trucco), non spiegazione lineare",
+    "topic": "esponenziali - trucco di lettura, non calcolo",
+    "cta": "Seguimi per altri trucchi cosi' (nessun invito diretto a scrivere in DM o visitare il sito)",
+    "instagram": { "reach": 1194, "views": 1444, "likes": 26, "comments": 0, "shares": 5, "saved": 4, "total_interactions": 35 },
+    "facebook": { "views": 1099 },
+    "rank_instagram": "2 miglior reel di sempre (dopo 1606 del 12/07), miglior reel dall'inizio del ritmo alterni (batte 971 del 02/08 e 627 del 09/08)",
+    "rank_facebook": "tra i migliori 4 risultati di sempre sulla pagina"
+  },
+  "instagram_daily_reach_recent": [
+    { "date": "2026-08-05", "reach": 412 },
+    { "date": "2026-08-06", "reach": 149 },
+    { "date": "2026-08-07", "reach": 173 },
+    { "date": "2026-08-08", "reach": 93 },
+    { "date": "2026-08-09", "reach": 565 },
+    { "date": "2026-08-10", "reach": 163 },
+    { "date": "2026-08-11", "reach": 1117 },
+    { "date": "2026-08-12", "reach": 154 },
+    { "date": "2026-08-13", "reach": 4, "day_still_open_at_extraction": true }
+  ],
+  "cross_posted_comparison_recent": [
+    { "date": "2026-08-05", "ig_reach": 507, "fb_views": 1126 },
+    { "date": "2026-08-07", "ig_reach": 186, "fb_views": 1086, "note": "reel notturno" },
+    { "date": "2026-08-09", "ig_reach": 627, "fb_views": 262 },
+    { "date": "2026-08-11", "ig_reach": 1194, "fb_views": 1099, "note": "breakout: entrambe le piattaforme fortissime sullo stesso reel" }
+  ],
+  "followers_growth": {
+    "instagram": { "current": 69, "previous_08_10": 62, "delta": 7, "note": "salto piu' grande mai registrato in un singolo check, coincide col reel del 11/08" },
+    "facebook": { "current": 14, "previous_08_10": 12, "delta": 2 }
+  },
+  "website": {
+    "domain": "orbit-ripetizioni.netlify.app",
+    "google_analytics": {
+      "period": "2026-08-10 to 2026-08-13",
+      "sessions_total": 5,
+      "by_channel": { "Direct": 2, "Organic Social": 2, "Organic Search": 1 },
+      "note": "1 sessione organic-social il 12/08 (giorno dopo il reel breakout) - piccolo ma presente, a differenza del silenzio totale dopo il reel del 09/08"
+    },
+    "microsoft_clarity_last_3_days": {
+      "total_sessions": 1,
+      "distinct_users": 2,
+      "avg_scroll_depth_pct": 53,
+      "avg_active_time_seconds": 54,
+      "avg_total_time_seconds": 84,
+      "referrer": "l.instagram.com",
+      "browser": "InstagramApp su Android",
+      "country": "Italy",
+      "page_title": "Orbit Ripetizioni — Matematica, Fisica, Chimica, Informatica | Milano",
+      "note": "visita di qualita' nettamente migliore della media storica (scroll 53% vs ~20% dei check precedenti, 54s di tempo attivo vs 24s) - arrivata direttamente da Instagram"
+    }
+  },
+  "leads_update": {
+    "total_logged": 3,
+    "new_since_last_report": 2,
+    "see": "data/leads-log.json",
+    "summary": [
+      { "id": "lead-002", "date_approx": "2026-08-08 (sabato)", "outcome": "rifiutato - richiesta ripetizioni a domicilio, non offerte" },
+      { "id": "lead-003", "date_approx": "2026-08-12 ore 18:00 circa", "outcome": "da verificare - chiamata telefonica, fonte non attribuibile con certezza (IG/FB/passaparola/spam)" }
+    ]
+  },
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23 / Google Analytics Data API / Microsoft Clarity Data Export API"
+}

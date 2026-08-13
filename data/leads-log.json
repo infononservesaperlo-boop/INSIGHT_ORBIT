@@ -1,0 +1,35 @@
+{
+  "note": "log persistente e anonimizzato dei contatti/richieste ricevuti da Matteo. Nessun username o testo di conversazioni private viene salvato. Instagram/Facebook non espongono via API l'attribuzione DM-to-post: questi dati esistono solo perche' riportati direttamente da Matteo in chat.",
+  "entries": [
+    {
+      "id": "lead-001",
+      "reported_date": "2026-08-03",
+      "approx_contact_time": "2026-08-03T03:08:00+02:00",
+      "channel": "Instagram DM",
+      "topic": "fisica, in vista di settembre",
+      "likely_trigger_reel": { "date": "2026-08-02", "reach": 971, "note": "arrivato ~7h30 dopo la pubblicazione; nessun referral/story allegato al DM, quindi attribuzione circostanziale non certa" },
+      "outcome": "non specificato"
+    },
+    {
+      "id": "lead-002",
+      "reported_date": "2026-08-13",
+      "approx_contact_time": "2026-08-08",
+      "approx_contact_time_note": "sabato scorso, orario non specificato",
+      "channel": "non specificato",
+      "topic": "richiesta ripetizioni a domicilio",
+      "likely_trigger_reel": null,
+      "outcome": "rifiutato",
+      "outcome_note": "Matteo non offre ripetizioni a domicilio"
+    },
+    {
+      "id": "lead-003",
+      "reported_date": "2026-08-13",
+      "approx_contact_time": "2026-08-12T18:00:00+02:00",
+      "channel": "chiamata telefonica",
+      "channel_note": "fonte non verificata: potrebbe arrivare da Instagram, Facebook, passaparola o essere spam",
+      "topic": "non specificato",
+      "likely_trigger_reel": { "date": "2026-08-11", "reach": 1194, "fb_views": 1099, "note": "arrivato ~21h dopo il reel 'Hai 3 secondi per risolverlo' (2° miglior reel di sempre); nessuna prova diretta di attribuzione, solo prossimita' temporale" },
+      "outcome": "da verificare"
+    }
+  ]
+}

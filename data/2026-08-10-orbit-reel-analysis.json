@@ -1,0 +1,74 @@
+{
+  "generated_at": "2026-08-10T13:28:00+02:00",
+  "purpose": "aggiornamento completo IG/FB/sito: nuovo miglior reel da 3 settimane (08/09), ma il pattern di divergenza IG/FB del report precedente si ribalta",
+  "account": {
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 62, "followers_count_previous": 62, "media_count": 19 },
+    "facebook": { "page_name": "ORBIT Ripetizioni", "fan_count": 12, "fan_count_previous": 11 }
+  },
+  "reels_recent": [
+    { "id": "17918261931421916", "date": "2026-07-31", "time": "15:58", "reach": 315, "views": 421, "total_interactions": 26, "fb_views": 680 },
+    { "id": "18112357495942410", "date": "2026-08-02", "time": "19:43", "reach": 971, "views": 1160, "total_interactions": 47, "fb_views": 1071 },
+    { "id": "18071673152416960", "date": "2026-08-03", "time": "17:49", "reach": 146, "views": 193, "total_interactions": 9, "fb_views": 231, "note": "peggior reel di sempre" },
+    { "id": "18110800190101902", "date": "2026-08-05", "time": "18:39", "reach": 507, "views": 623, "likes": 20, "comments": 0, "shares": 1, "saved": 1, "total_interactions": 23, "fb_views": 1126, "note": "test rispetto ritmo+orario, ora maturo (era 503 l'8/08, 446 al primo check)" },
+    { "id": "18094050137566023", "date": "2026-08-07", "time": "22:18", "cest_time": "00:18 (08/08)", "reach": 186, "views": 254, "likes": 10, "comments": 0, "shares": 0, "saved": 0, "total_interactions": 10, "fb_views": 1086, "note": "reel notturno, primo mai fuori dalla finestra 18-22; ora maturo (era 150 reach a +12.5h)" },
+    { "id": "18428237626176053", "date": "2026-08-09", "time": "20:03", "reach": 627, "views": 798, "likes": 23, "comments": 2, "shares": 4, "saved": 9, "total_interactions": 39, "fb_views": 262, "note": "miglior reel IG da 3 settimane; ma FB fa il suo secondo peggior risultato di sempre sullo stesso identico contenuto" }
+  ],
+  "instagram_daily_reach_recent": [
+    { "date": "2026-08-05", "reach": 412 },
+    { "date": "2026-08-06", "reach": 149 },
+    { "date": "2026-08-07", "reach": 173 },
+    { "date": "2026-08-08", "reach": 93 },
+    { "date": "2026-08-09", "reach": 565 },
+    { "date": "2026-08-10", "reach": 71, "day_still_open_at_extraction": true }
+  ],
+  "cross_posted_comparison": [
+    { "date": "2026-07-24", "ig_reach": 1394, "fb_views": 23 },
+    { "date": "2026-07-25", "ig_reach": 1218, "fb_views": 323 },
+    { "date": "2026-07-26", "ig_reach": 1090, "fb_views": 1494 },
+    { "date": "2026-07-27", "ig_reach": 269, "fb_views": 389 },
+    { "date": "2026-07-29", "ig_reach": 734, "fb_views": 386 },
+    { "date": "2026-07-31", "ig_reach": 315, "fb_views": 680 },
+    { "date": "2026-08-02", "ig_reach": 971, "fb_views": 1071 },
+    { "date": "2026-08-03", "ig_reach": 146, "fb_views": 231 },
+    { "date": "2026-08-05", "ig_reach": 507, "fb_views": 1126 },
+    { "date": "2026-08-07", "ig_reach": 186, "fb_views": 1086, "note": "reel notturno" },
+    { "date": "2026-08-09", "ig_reach": 627, "fb_views": 262, "note": "ribaltamento: IG migliore, FB peggiore" }
+  ],
+  "summary_stats": {
+    "instagram": {
+      "burst_era_avg_reach_11_15_luglio": 1161,
+      "recent_7_reels": [734, 315, 971, 146, 507, 186, 627],
+      "recent_7_avg_reach": 498,
+      "best_reel_since": "08/09 (627) e' il migliore da 15 giorni, secondo solo a 02/08 (971) nell'intero mese di agosto"
+    },
+    "facebook": {
+      "recent_7_fb_views": [386, 680, 1071, 231, 1126, 1086, 262],
+      "recent_7_avg_fb_views": 692,
+      "worst_since": "08/09 (262) e' il secondo peggior risultato di sempre, dopo il primissimo cross-post del 24/07 (23)"
+    }
+  },
+  "reversal_note": "Il report dell'8/08 documentava Instagram in calo (-57%) e Facebook in crescita (+14%) sullo stesso contenuto. Nei due giorni successivi il pattern si e' ribaltato sul reel piu' recente: IG fa il suo miglior risultato in 3 settimane (627, +160% vs media ultimi 7), FB fa uno dei suoi peggiori di sempre (262, -62% vs media ultimi 7). Nessuna variabile di pubblicazione e' cambiata (stesso formato, stesso orario 20:03 CEST, dentro la finestra 18-22). L'idea di una separazione stabile e unidirezionale tra le due piattaforme non regge piu': sembra piu' probabile un'alternanza/rumore settimana per settimana che una tendenza strutturale.",
+  "website": {
+    "domain": "orbit-ripetizioni.netlify.app",
+    "google_analytics": {
+      "property": "properties/547052651",
+      "period": "2026-07-24 to 2026-08-10",
+      "sessions_total": 31,
+      "sessions_total_previous_2026-08-02": 16,
+      "by_channel": { "Direct": 17, "Organic Social": 11, "Organic Search": 3 },
+      "last_organic_social_session": "2026-08-06",
+      "note": "nessuna sessione da traffico social (IG/FB) dal 06/08, nonostante il picco di reach del reel del 09/08 (627, il migliore in 3 settimane) - coerente con l'osservazione gia' fatta che i reel recenti chiedono di scrivere in DM, non di visitare il sito"
+    },
+    "microsoft_clarity_last_3_days": {
+      "total_sessions": 4,
+      "bot_sessions": 2,
+      "distinct_users": 6,
+      "avg_scroll_depth_pct": 20.25,
+      "avg_active_time_seconds": 24,
+      "avg_total_time_seconds": 52,
+      "sources": { "Chrome": 1, "ChromeMobile": 1, "InstagramApp": 1, "GoogleApp": 1 },
+      "devices": { "Mobile": 3, "PC": 1 }
+    }
+  },
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23 / Google Analytics Data API / Microsoft Clarity Data Export API"
+}

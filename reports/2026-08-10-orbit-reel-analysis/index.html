@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORBIT — Il ribaltamento IG/FB del 09/08</title>
+<style>
+  :root { color-scheme: light dark; }
+  html, body { margin: 0; padding: 0; }
+  .viz-root {
+    color-scheme: light;
+    --page: #f3f5f9; --surface: #ffffff; --surface-2: #eef1f7;
+    --ink: #11131a; --ink-2: #4a5164; --muted: #848da3;
+    --border: rgba(16,19,26,0.09); --border-2: rgba(16,19,26,0.14);
+    --accent: #2a78d6; --accent-soft: #cde2fb; --accent-line: #2a78d6; --accent-fill: rgba(42,120,214,0.14);
+    --good: #0ca30c; --good-soft: #e3f6e3;
+    --warn: #b9790a; --warn-soft: #fbeed1;
+    --crit: #d03b3b; --crit-soft: #fbe3e3;
+    --violet: #4a3aa7; --violet-soft: #e9e6f8;
+    --fb-muted: #4a3aa7; --fb-line: #4a3aa7; --fb-fill: rgba(74,58,167,0.14);
+    --grid: #e3e2da;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+      --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+      --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+      --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee; --accent-fill: rgba(57,135,229,0.18);
+      --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+      --warn: #f0ab35; --warn-soft: rgba(240,171,53,0.14);
+      --crit: #e66767; --crit-soft: rgba(230,103,103,0.16);
+      --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+      --fb-muted: #9085e9; --fb-line: #9085e9; --fb-fill: rgba(144,133,233,0.18);
+      --grid: #2a2e36;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+    --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+    --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+    --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee; --accent-fill: rgba(57,135,229,0.18);
+    --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+    --warn: #f0ab35; --warn-soft: rgba(240,171,53,0.14);
+    --crit: #e66767; --crit-soft: rgba(230,103,103,0.16);
+    --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+    --fb-muted: #9085e9; --fb-line: #9085e9; --fb-fill: rgba(144,133,233,0.18);
+    --grid: #2a2e36;
+  }
+
+  .viz-root * { box-sizing: border-box; }
+  .viz-root { background: var(--page); color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; padding: 40px 20px 80px; min-height: 100vh; }
+  .num { font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace; font-variant-numeric: tabular-nums; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); margin-bottom: 18px; text-decoration: none; }
+  .breadcrumb a { color: var(--accent); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  header.top { margin-bottom: 36px; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--violet); margin: 0 0 8px; }
+  h1 { font-size: 27px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 6px; text-wrap: balance; }
+  .sub { color: var(--ink-2); font-size: 14.5px; margin: 0; max-width: 68ch; line-height: 1.55; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 28px 0 8px; }
+  @media (max-width: 760px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 16px 14px; }
+  .kpi .label { font-size: 11.5px; color: var(--muted); font-weight: 600; letter-spacing: 0.02em; margin-bottom: 6px; }
+  .kpi .value { font-size: 24px; font-weight: 800; letter-spacing: -0.01em; }
+  .kpi .note { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+  .kpi .note.up { color: var(--good); font-weight: 700; }
+  .kpi .note.down { color: var(--crit); font-weight: 700; }
+
+  section { margin-top: 44px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+  h2 { font-size: 18px; font-weight: 800; margin: 0; letter-spacing: -0.005em; }
+  .section-desc { color: var(--ink-2); font-size: 13.5px; margin: 4px 0 18px; max-width: 70ch; line-height: 1.5; }
+
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 20px 16px; }
+
+  .split-card { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .split-card { grid-template-columns: 1fr; } }
+  .split-col { border-radius: 14px; padding: 18px 20px; }
+  .split-col.ig { background: var(--good-soft); border: 2px solid var(--good); }
+  .split-col.fb { background: var(--crit-soft); border: 2px solid var(--crit); }
+  .split-col .platform { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px; }
+  .split-col.ig .platform { color: var(--good); }
+  .split-col.fb .platform { color: var(--crit); }
+  .split-col .big-num { font-size: 30px; font-weight: 800; }
+  .split-col .sub-label { font-size: 12.5px; color: var(--ink-2); margin-top: 4px; line-height: 1.5; }
+
+  .mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .mini-grid { grid-template-columns: 1fr; } }
+  .mini-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+  .mini-card h3 { margin: 0 0 8px; font-size: 14.5px; font-weight: 800; }
+  .mini-card .row2 { display: flex; gap: 18px; margin: 10px 0; }
+  .mini-card .row2 .col { flex: 1; }
+  .mini-card .row2 .col .l { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; }
+  .mini-card .row2 .col .v { font-size: 20px; font-weight: 800; margin-top: 2px; }
+  .mini-card p { margin: 8px 0 0; font-size: 12.5px; color: var(--ink-2); line-height: 1.55; }
+
+  .cause-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 14px; }
+  .cause-card p { margin: 0 0 8px; font-size: 13.5px; color: var(--ink-2); line-height: 1.6; }
+  .cause-card p:last-child { margin-bottom: 0; }
+  .cause-card .evidence { font-size: 12.5px; background: var(--surface-2); border-radius: 8px; padding: 10px 12px; margin-top: 8px; }
+  .cause-card .evidence strong { color: var(--ink); }
+
+  .chart-svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .axis-label { font-size: 10.5px; fill: var(--muted); font-family: ui-monospace, monospace; }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .tooltip {
+    position: absolute; pointer-events: none; background: var(--ink); color: var(--page);
+    font-size: 12px; padding: 7px 10px; border-radius: 7px; line-height: 1.45; white-space: nowrap;
+    transform: translate(-50%, -110%); opacity: 0; transition: opacity 0.1s ease; z-index: 5;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+  .chart-wrap { position: relative; }
+  .dot { cursor: pointer; }
+  .bar { cursor: pointer; }
+
+  .legend { display: flex; gap: 16px; font-size: 12px; color: var(--ink-2); margin-bottom: 14px; flex-wrap: wrap; }
+  .legend .item { display: flex; align-items: center; gap: 6px; }
+  .legend .swatch { width: 10px; height: 10px; border-radius: 3px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); font-weight: 700; padding: 0 10px 10px; border-bottom: 1px solid var(--border-2); white-space: nowrap; }
+  td { padding: 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .table-scroll { overflow-x: auto; }
+
+  .callout { border: 1px dashed var(--border-2); border-radius: 10px; padding: 14px 16px; font-size: 13px; color: var(--ink-2); line-height: 1.55; margin-top: 18px; background: var(--surface-2); }
+  .callout strong { color: var(--ink); }
+
+  footer.meta { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+</style>
+</head>
+<body>
+<div class="viz-root">
+  <div class="wrap">
+
+    <a class="breadcrumb" href="../../index.html">&larr; Tutti i report</a>
+
+    <header class="top">
+      <p class="eyebrow">ORBIT · Ripetizioni — Aggiornamento 10 agosto 2026</p>
+      <h1>Il ribaltamento: miglior reel Instagram in 3 settimane, ma Facebook fa il suo secondo peggior risultato di sempre</h1>
+      <p class="sub">Il report dell'8/08 documentava Instagram in calo strutturale e Facebook in crescita, sullo stesso contenuto. Due giorni dopo il reel del 9/08 ribalta lo schema: stesso formato, stesso orario nella finestra giusta (20:03 CEST) — ma questa volta è Instagram a volare (627 reach) e Facebook a crollare (262 views). Con questo, e con i due test precedenti ormai maturati, la storia "le due piattaforme si stanno separando" non regge più: sembra più alternanza settimanale che tendenza stabile.</p>
+    </header>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="label">Instagram — reel del 09/08</div>
+        <div class="value num">627</div>
+        <div class="note up">+160% vs media ultimi 7 (498) — migliore da 3 settimane</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Facebook — stesso post</div>
+        <div class="value num">262</div>
+        <div class="note down">-62% vs media ultimi 7 (692) — secondo peggiore di sempre</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Follower Instagram</div>
+        <div class="value num">62</div>
+        <div class="note">fermo dall'8/08</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Fan Facebook</div>
+        <div class="value num">12</div>
+        <div class="note up">+1 dall'8/08</div>
+      </div>
+    </div>
+
+    <section>
+      <div class="section-head"><h2>Il caso più netto: stesso reel, stesso orario, esito ribaltato</h2></div>
+      <p class="section-desc">Pubblicato alle 20:03 CEST del 9/08 — dentro la finestra 18-22 già confermata efficace, nessuna variabile di formato o timing è cambiata rispetto ai reel precedenti.</p>
+      <div class="split-card">
+        <div class="split-col ig">
+          <div class="platform">Instagram</div>
+          <div class="big-num num">627</div>
+          <div class="sub-label">reach — il migliore dal reel del 02/08 (971), secondo miglior risultato di tutto agosto</div>
+        </div>
+        <div class="split-col fb">
+          <div class="platform">Facebook</div>
+          <div class="big-num num">262</div>
+          <div class="sub-label">views — battuto solo dal primissimo cross-post del 24/07 (23), quando la pagina era ancora inattiva</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Le due curve, aggiornate</h2></div>
+      <p class="section-desc">Stessi post cross-pubblicati su entrambe le piattaforme, dal 24/07. I due nuovi punti (07/08 notturno, 09/08) e il valore finale maturato del 05/08 sono evidenziati.</p>
+      <div class="panel">
+        <div class="legend">
+          <span class="item"><span class="swatch" style="background:var(--accent)"></span>Instagram — reach</span>
+          <span class="item"><span class="swatch" style="background:var(--fb-line)"></span>Facebook — views</span>
+        </div>
+        <div class="chart-wrap" id="compare-chart"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Gli altri due aggiornamenti maturati</h2></div>
+      <p class="section-desc">Il reel notturno del 7/08 e il test del 5/08 (rispetto di ritmo e orario) erano ancora "acerbi" nel report precedente. Ecco i valori finali.</p>
+      <div class="mini-grid">
+        <div class="mini-card">
+          <h3>Reel notturno del 7/08 (00:18 CEST, 8/08)</h3>
+          <div class="row2">
+            <div class="col"><div class="l">IG reach finale</div><div class="v num">186</div></div>
+            <div class="col"><div class="l">FB views finale</div><div class="v num">1.086</div></div>
+          </div>
+          <p>Era a 150/1.059 nel report dell'8/08. Conferma quanto già visto: pubblicare fuori dalla finestra 18-22 penalizza Instagram in modo netto, ma non Facebook.</p>
+        </div>
+        <div class="mini-card">
+          <h3>Test del 5/08 (ritmo + orario ripristinati)</h3>
+          <div class="row2">
+            <div class="col"><div class="l">IG reach finale</div><div class="v num">507</div></div>
+            <div class="col"><div class="l">FB views finale</div><div class="v num">1.126</div></div>
+          </div>
+          <p>Era a 503/1.080 nell'8/08, prima a 446 nella verifica del 6/08. Verdetto confermato: recupero parziale, mai tornato ai livelli dei migliori reel (734, 971).</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Reach giornaliero Instagram, ultimi 6 giorni</h2></div>
+      <p class="section-desc">Non solo il singolo reel: anche il reach complessivo dell'account per giornata mostra lo stesso picco il 9/08.</p>
+      <div class="panel">
+        <div class="chart-wrap" id="daily-chart"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Cosa significa per la teoria "le piattaforme si stanno separando"</h2></div>
+
+      <div class="cause-card">
+        <p><strong>La teoria del report dell'8/08 va rivista.</strong> Allora i dati mostravano Instagram in calo strutturale (-57% raffiche→recente) e Facebook in crescita costante (+14%), con l'ipotesi che l'algoritmo Reels penalizzasse le rotture di ritmo mentre Facebook restasse insensibile al timing. Il reel del 9/08 smentisce la parte "insensibile": è lo stesso identico formato e orario dei reel precedenti, eppure Facebook ha appena fatto il suo secondo peggior risultato di sempre, mentre Instagram ha fatto il suo migliore in 3 settimane.</p>
+        <div class="evidence"><strong>Lettura più solida ora:</strong> entrambe le piattaforme oscillano, ma non in sincronia — a volte in modo scorrelato, a volte inverso. Con solo 12 fan Facebook e ~62 follower Instagram, i campioni sono piccoli abbastanza perché il rumore statistico settimana-per-settimana pesi quanto o più di un vero trend algoritmico. Non c'è ancora abbastanza storia per distinguere "l'algoritmo FB premia la costanza" da "un singolo post ha avuto una settimana storta".</div>
+      </div>
+
+      <div class="cause-card">
+        <p><strong>Cosa resta valido:</strong> l'orario 18-22 CEST per Instagram continua a essere l'unica variabile con prove ripetute e coerenti (il reel notturno del 7/08 è ancora il più debole su IG tra i cross-postati, per il terzo report di fila). Il resto — quale piattaforma "vince" in un dato momento — sembra meno prevedibile di quanto sembrasse due giorni fa.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Il sito</h2></div>
+      <p class="section-desc">orbit-ripetizioni.netlify.app — Google Analytics (dal 24/07) e Microsoft Clarity (ultimi 3 giorni).</p>
+      <div class="mini-grid">
+        <div class="mini-card">
+          <h3>Google Analytics — sessioni dal 24/07</h3>
+          <div class="row2">
+            <div class="col"><div class="l">Totale</div><div class="v num">31</div></div>
+            <div class="col"><div class="l">Erano (2/08)</div><div class="v num">16</div></div>
+          </div>
+          <p><strong>Diretto:</strong> 17 · <strong>Social organico:</strong> 11 · <strong>Ricerca organica:</strong> 3.<br>Nessuna sessione da social dal 06/08 — nemmeno il reel record del 9/08 ha portato clic al sito, coerente col fatto che i reel recenti chiedono di scrivere in DM, non di visitare il sito.</p>
+        </div>
+        <div class="mini-card">
+          <h3>Microsoft Clarity — ultimi 3 giorni</h3>
+          <div class="row2">
+            <div class="col"><div class="l">Sessioni</div><div class="v num">4 <span style="font-size:11px;color:var(--muted);font-weight:600">(2 bot)</span></div></div>
+            <div class="col"><div class="l">Utenti distinti</div><div class="v num">6</div></div>
+          </div>
+          <p>Scroll medio 20%, tempo attivo medio 24s su 52s totali — visite brevi e superficiali. Una sessione arriva dal browser in-app di Instagram, coerente con un piccolo flusso residuo dai reel.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Dettaglio: reel per reel, piattaforma per piattaforma</h2></div>
+      <p class="section-desc">Solo i post cross-pubblicati su entrambe le piattaforme (dal 24/07). Le righe in grassetto sono i due aggiornamenti di questo report.</p>
+      <div class="panel table-scroll">
+        <table id="compare-table"></table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Cosa fare con questa informazione</h2></div>
+      <div class="callout">
+        Non cambiare rotta sulla base di un singolo reel in nessuna delle due direzioni. Continuare a rispettare rigorosamente orario (18-22 CEST) e ritmo su Instagram — l'unica leva con prove ripetute — e continuare a cross-postare su Facebook senza sforzo aggiuntivo, visto che costa zero e i suoi risultati restano in media alti anche dopo un singolo post debole. Vale la pena osservare altri 3-4 cicli prima di trarre conclusioni definitive su "quale piattaforma sta vincendo": con campioni così piccoli, una sola settimana non basta a distinguere un vero trend da rumore.
+      </div>
+    </section>
+
+    <footer class="meta">
+      <span>Dati letti in sola lettura via Composio · Instagram Graph API v21 / Facebook Graph API v20–23 / Google Analytics Data API / Microsoft Clarity</span>
+      <span>Generato lunedì 10 agosto 2026 alle 13:28 (CEST)</span>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  const root = document.querySelector('.viz-root');
+  const css = getComputedStyle(root);
+  const v = (name) => css.getPropertyValue(name).trim();
+
+  const compare = [
+    { date: "2026-07-24", ig: 1394, fb: 23 },
+    { date: "2026-07-25", ig: 1218, fb: 323 },
+    { date: "2026-07-26", ig: 1090, fb: 1494 },
+    { date: "2026-07-27", ig: 269, fb: 389 },
+    { date: "2026-07-29", ig: 734, fb: 386 },
+    { date: "2026-07-31", ig: 315, fb: 680 },
+    { date: "2026-08-02", ig: 971, fb: 1071 },
+    { date: "2026-08-03", ig: 146, fb: 231 },
+    { date: "2026-08-05", ig: 507, fb: 1126 },
+    { date: "2026-08-07", ig: 186, fb: 1086, highlight: true },
+    { date: "2026-08-09", ig: 627, fb: 262, highlight: true },
+  ];
+
+  const daily = [
+    { date: "2026-08-05", reach: 412 },
+    { date: "2026-08-06", reach: 149 },
+    { date: "2026-08-07", reach: 173 },
+    { date: "2026-08-08", reach: 93 },
+    { date: "2026-08-09", reach: 565 },
+    { date: "2026-08-10", reach: 71, open: true },
+  ];
+
+  function fmt(n) { return n.toLocaleString('it-IT'); }
+
+  (function lineChart() {
+    const el = document.getElementById('compare-chart');
+    const W = 1000, H = 300, padL = 50, padR = 16, padT = 16, padB = 30;
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const maxY = Math.max(...compare.map(d => Math.max(d.ig, d.fb))) * 1.1;
+    const n = compare.length;
+    const x = i => padL + (innerW * i) / (n - 1);
+    const y = val => padT + innerH - (innerH * val) / maxY;
+
+    function pathFor(key) {
+      return compare.map((d, i) => `${i === 0 ? 'M' : 'L'} ${x(i).toFixed(1)} ${y(d[key]).toFixed(1)}`).join(' ');
+    }
+    const igPath = pathFor('ig'), fbPath = pathFor('fb');
+
+    const gridYVals = [0, 0.25, 0.5, 0.75, 1].map(f => Math.round(maxY * f / 100) * 100);
+    const gridLines = gridYVals.map(gy => `
+      <line class="grid-line" x1="${padL}" x2="${W - padR}" y1="${y(gy).toFixed(1)}" y2="${y(gy).toFixed(1)}" />
+      <text class="axis-label num" x="${padL - 8}" y="${y(gy).toFixed(1) + 3}" text-anchor="end">${fmt(gy)}</text>
+    `).join('');
+
+    const igDots = compare.map((d, i) => `<circle class="dot" cx="${x(i).toFixed(1)}" cy="${y(d.ig).toFixed(1)}" r="${d.highlight ? 6.5 : 4.5}" fill="${v('--accent-line')}" stroke="${v('--surface')}" stroke-width="2" data-i="${i}" data-k="ig" />`).join('');
+    const fbDots = compare.map((d, i) => `<circle class="dot" cx="${x(i).toFixed(1)}" cy="${y(d.fb).toFixed(1)}" r="${d.highlight ? 6.5 : 4.5}" fill="${v('--fb-line')}" stroke="${v('--surface')}" stroke-width="2" data-i="${i}" data-k="fb" />`).join('');
+
+    const labels = compare.map((d, i) => `<text class="axis-label num" x="${x(i).toFixed(1)}" y="${H - 8}" text-anchor="middle">${d.date.slice(8,10)}/${d.date.slice(5,7)}</text>`).join('');
+
+    el.innerHTML = `
+      <svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+        ${gridLines}
+        <path d="${igPath}" fill="none" stroke="${v('--accent-line')}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" />
+        <path d="${fbPath}" fill="none" stroke="${v('--fb-line')}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" />
+        ${igDots}${fbDots}${labels}
+      </svg>
+      <div class="tooltip" id="compare-tip"></div>
+    `;
+    const tip = el.querySelector('#compare-tip');
+    el.querySelectorAll('.dot').forEach(dot => {
+      dot.addEventListener('mouseenter', () => {
+        const i = +dot.dataset.i, k = dot.dataset.k;
+        const d = compare[i];
+        const label = k === 'ig' ? `Instagram reach: ${fmt(d.ig)}` : `Facebook views: ${fmt(d.fb)}`;
+        tip.innerHTML = `<strong>${d.date.slice(8,10)}/${d.date.slice(5,7)}/2026</strong><br>${label}`;
+        const r = dot.getBoundingClientRect(), pr = el.getBoundingClientRect();
+        tip.style.left = (r.left - pr.left + r.width / 2) + 'px';
+        tip.style.top = (r.top - pr.top) + 'px';
+        tip.style.opacity = '1';
+      });
+      dot.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+    });
+  })();
+
+  (function barChart() {
+    const el = document.getElementById('daily-chart');
+    const W = 1000, H = 220, padL = 50, padR = 16, padT = 16, padB = 30;
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const maxY = Math.max(...daily.map(d => d.reach)) * 1.15;
+    const n = daily.length;
+    const bw = innerW / n * 0.55;
+    const x = i => padL + (innerW * (i + 0.5)) / n;
+    const y = val => padT + innerH - (innerH * val) / maxY;
+
+    const gridYVals = [0, 0.25, 0.5, 0.75, 1].map(f => Math.round(maxY * f / 50) * 50);
+    const gridLines = gridYVals.map(gy => `
+      <line class="grid-line" x1="${padL}" x2="${W - padR}" y1="${y(gy).toFixed(1)}" y2="${y(gy).toFixed(1)}" />
+      <text class="axis-label num" x="${padL - 8}" y="${y(gy).toFixed(1) + 3}" text-anchor="end">${fmt(gy)}</text>
+    `).join('');
+
+    const bars = daily.map((d, i) => {
+      const bx = x(i) - bw / 2;
+      const by = y(d.reach);
+      const bh = innerH + padT - by;
+      const fill = d.open ? v('--accent-soft') : v('--accent-line');
+      return `<rect class="bar" x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${bw.toFixed(1)}" height="${bh.toFixed(1)}" rx="3" fill="${fill}" data-i="${i}" />`;
+    }).join('');
+
+    const labels = daily.map((d, i) => `<text class="axis-label num" x="${x(i).toFixed(1)}" y="${H - 8}" text-anchor="middle">${d.date.slice(8,10)}/${d.date.slice(5,7)}</text>`).join('');
+
+    el.innerHTML = `
+      <svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+        ${gridLines}
+        ${bars}
+        ${labels}
+      </svg>
+      <div class="tooltip" id="daily-tip"></div>
+    `;
+    const tip = el.querySelector('#daily-tip');
+    el.querySelectorAll('.bar').forEach(bar => {
+      bar.addEventListener('mouseenter', () => {
+        const i = +bar.dataset.i;
+        const d = daily[i];
+        tip.innerHTML = `<strong>${d.date.slice(8,10)}/${d.date.slice(5,7)}/2026</strong><br>Reach: ${fmt(d.reach)}${d.open ? ' (giorno ancora in corso)' : ''}`;
+        const r = bar.getBoundingClientRect(), pr = el.getBoundingClientRect();
+        tip.style.left = (r.left - pr.left + r.width / 2) + 'px';
+        tip.style.top = (r.top - pr.top) + 'px';
+        tip.style.opacity = '1';
+      });
+      bar.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+    });
+  })();
+
+  (function table() {
+    const el = document.getElementById('compare-table');
+    const thead = `<thead><tr><th>Data</th><th style="text-align:right">Instagram reach</th><th style="text-align:right">Facebook views</th><th style="text-align:right">Rapporto FB/IG</th></tr></thead>`;
+    const rows = compare.map(d => {
+      const ratio = d.fb / d.ig;
+      const w = d.highlight ? 'font-weight:700' : '';
+      return `<tr style="${w}">
+        <td class="num">${d.date.slice(8,10)}/${d.date.slice(5,7)}/2026</td>
+        <td class="num" style="text-align:right">${fmt(d.ig)}</td>
+        <td class="num" style="text-align:right">${fmt(d.fb)}</td>
+        <td class="num" style="text-align:right;font-weight:${ratio > 1 ? '700' : '400'};color:${ratio > 1 ? 'var(--good)' : 'var(--ink-2)'}">${ratio.toFixed(2)}x</td>
+      </tr>`;
+    }).join('');
+    el.innerHTML = thead + '<tbody>' + rows + '</tbody>';
+  })();
+
+})();
+</script>
+</body>
+</html>

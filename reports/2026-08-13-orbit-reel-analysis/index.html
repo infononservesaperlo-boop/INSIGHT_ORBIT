@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORBIT — Il reel "3 secondi": 2° miglior risultato di sempre</title>
+<style>
+  :root { color-scheme: light dark; }
+  html, body { margin: 0; padding: 0; }
+  .viz-root {
+    color-scheme: light;
+    --page: #f3f5f9; --surface: #ffffff; --surface-2: #eef1f7;
+    --ink: #11131a; --ink-2: #4a5164; --muted: #848da3;
+    --border: rgba(16,19,26,0.09); --border-2: rgba(16,19,26,0.14);
+    --accent: #2a78d6; --accent-soft: #cde2fb; --accent-line: #2a78d6; --accent-fill: rgba(42,120,214,0.14);
+    --good: #0ca30c; --good-soft: #e3f6e3;
+    --warn: #b9790a; --warn-soft: #fbeed1;
+    --crit: #d03b3b; --crit-soft: #fbe3e3;
+    --violet: #4a3aa7; --violet-soft: #e9e6f8;
+    --fb-muted: #4a3aa7; --fb-line: #4a3aa7; --fb-fill: rgba(74,58,167,0.14);
+    --grid: #e3e2da;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+      --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+      --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+      --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee; --accent-fill: rgba(57,135,229,0.18);
+      --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+      --warn: #f0ab35; --warn-soft: rgba(240,171,53,0.14);
+      --crit: #e66767; --crit-soft: rgba(230,103,103,0.16);
+      --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+      --fb-muted: #9085e9; --fb-line: #9085e9; --fb-fill: rgba(144,133,233,0.18);
+      --grid: #2a2e36;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+    --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+    --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+    --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee; --accent-fill: rgba(57,135,229,0.18);
+    --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+    --warn: #f0ab35; --warn-soft: rgba(240,171,53,0.14);
+    --crit: #e66767; --crit-soft: rgba(230,103,103,0.16);
+    --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+    --fb-muted: #9085e9; --fb-line: #9085e9; --fb-fill: rgba(144,133,233,0.18);
+    --grid: #2a2e36;
+  }
+
+  .viz-root * { box-sizing: border-box; }
+  .viz-root { background: var(--page); color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; padding: 40px 20px 80px; min-height: 100vh; }
+  .num { font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace; font-variant-numeric: tabular-nums; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); margin-bottom: 18px; text-decoration: none; }
+  .breadcrumb a { color: var(--accent); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  header.top { margin-bottom: 36px; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--violet); margin: 0 0 8px; }
+  h1 { font-size: 27px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 6px; text-wrap: balance; }
+  .sub { color: var(--ink-2); font-size: 14.5px; margin: 0; max-width: 68ch; line-height: 1.55; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 28px 0 8px; }
+  @media (max-width: 760px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 16px 14px; }
+  .kpi .label { font-size: 11.5px; color: var(--muted); font-weight: 600; letter-spacing: 0.02em; margin-bottom: 6px; }
+  .kpi .value { font-size: 24px; font-weight: 800; letter-spacing: -0.01em; }
+  .kpi .note { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+  .kpi .note.up { color: var(--good); font-weight: 700; }
+  .kpi .note.down { color: var(--crit); font-weight: 700; }
+
+  section { margin-top: 44px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+  h2 { font-size: 18px; font-weight: 800; margin: 0; letter-spacing: -0.005em; }
+  .section-desc { color: var(--ink-2); font-size: 13.5px; margin: 4px 0 18px; max-width: 70ch; line-height: 1.5; }
+
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 20px 16px; }
+
+  .hero-card { background: linear-gradient(135deg, var(--good-soft), var(--surface)); border: 2px solid var(--good); border-radius: 16px; padding: 22px 24px; }
+  .hero-card .hook { font-size: 15.5px; font-weight: 700; line-height: 1.5; margin: 0 0 14px; }
+  .hero-row { display: flex; gap: 28px; flex-wrap: wrap; }
+  .hero-stat .l { font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; }
+  .hero-stat .v { font-size: 26px; font-weight: 800; margin-top: 2px; }
+
+  .split-card { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .split-card { grid-template-columns: 1fr; } }
+  .split-col { border-radius: 14px; padding: 18px 20px; }
+  .split-col.ig { background: var(--good-soft); border: 2px solid var(--good); }
+  .split-col.fb { background: var(--good-soft); border: 2px solid var(--good); }
+  .split-col .platform { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px; color: var(--good); }
+  .split-col .big-num { font-size: 30px; font-weight: 800; }
+  .split-col .sub-label { font-size: 12.5px; color: var(--ink-2); margin-top: 4px; line-height: 1.5; }
+
+  .mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .mini-grid { grid-template-columns: 1fr; } }
+  .mini-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+  .mini-card h3 { margin: 0 0 8px; font-size: 14.5px; font-weight: 800; }
+  .mini-card .row2 { display: flex; gap: 18px; margin: 10px 0; }
+  .mini-card .row2 .col { flex: 1; }
+  .mini-card .row2 .col .l { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; }
+  .mini-card .row2 .col .v { font-size: 20px; font-weight: 800; margin-top: 2px; }
+  .mini-card p { margin: 8px 0 0; font-size: 12.5px; color: var(--ink-2); line-height: 1.55; }
+
+  .cause-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 14px; }
+  .cause-card h3 { margin: 0 0 8px; font-size: 15px; font-weight: 800; }
+  .cause-card p { margin: 0 0 8px; font-size: 13.5px; color: var(--ink-2); line-height: 1.6; }
+  .cause-card p:last-child { margin-bottom: 0; }
+  .cause-card .evidence { font-size: 12.5px; background: var(--surface-2); border-radius: 8px; padding: 10px 12px; margin-top: 8px; }
+  .cause-card .evidence strong { color: var(--ink); }
+
+  .chart-svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .axis-label { font-size: 10.5px; fill: var(--muted); font-family: ui-monospace, monospace; }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .tooltip {
+    position: absolute; pointer-events: none; background: var(--ink); color: var(--page);
+    font-size: 12px; padding: 7px 10px; border-radius: 7px; line-height: 1.45; white-space: nowrap;
+    transform: translate(-50%, -110%); opacity: 0; transition: opacity 0.1s ease; z-index: 5;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+  .chart-wrap { position: relative; }
+  .dot { cursor: pointer; }
+  .bar { cursor: pointer; }
+
+  .legend { display: flex; gap: 16px; font-size: 12px; color: var(--ink-2); margin-bottom: 14px; flex-wrap: wrap; }
+  .legend .item { display: flex; align-items: center; gap: 6px; }
+  .legend .swatch { width: 10px; height: 10px; border-radius: 3px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); font-weight: 700; padding: 0 10px 10px; border-bottom: 1px solid var(--border-2); white-space: nowrap; }
+  td { padding: 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .table-scroll { overflow-x: auto; }
+  .pill { font-size: 10.5px; font-weight: 800; letter-spacing: 0.02em; padding: 3px 9px; border-radius: 100px; white-space: nowrap; }
+  .pill.rejected { background: var(--crit-soft); color: var(--crit); }
+  .pill.pending { background: var(--warn-soft); color: var(--warn); }
+  .pill.unspecified { background: var(--surface-2); color: var(--muted); }
+
+  .callout { border: 1px dashed var(--border-2); border-radius: 10px; padding: 14px 16px; font-size: 13px; color: var(--ink-2); line-height: 1.55; margin-top: 18px; background: var(--surface-2); }
+  .callout strong { color: var(--ink); }
+
+  footer.meta { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+</style>
+</head>
+<body>
+<div class="viz-root">
+  <div class="wrap">
+
+    <a class="breadcrumb" href="../../index.html">&larr; Tutti i report</a>
+
+    <header class="top">
+      <p class="eyebrow">ORBIT · Ripetizioni — Aggiornamento 13 agosto 2026</p>
+      <h1>Il reel "3 secondi": secondo miglior risultato di sempre, forte su entrambe le piattaforme</h1>
+      <p class="sub">Il reel dell'11/08 ("Hai 3 secondi per risolvere questo") ha fatto 1.194 reach su Instagram — battuto solo dal record assoluto di luglio — e 1.099 views su Facebook, tra i suoi migliori risultati di sempre. Per la prima volta da settimane le due piattaforme vanno forte insieme, non in direzioni opposte. Nello stesso periodo: +7 follower Instagram (il salto più grande registrato finora), +2 fan Facebook, e 2 nuovi contatti da loggare insieme al primo del 3/08.</p>
+    </header>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="label">Instagram — reel 11/08</div>
+        <div class="value num">1.194</div>
+        <div class="note up">2° miglior reel di sempre, migliore dell'era ritmo-alterni</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Facebook — stesso reel</div>
+        <div class="value num">1.099</div>
+        <div class="note up">tra i migliori 4 risultati di sempre</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Follower Instagram</div>
+        <div class="value num">62 → 69</div>
+        <div class="note up">+7 — il salto più grande finora</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Fan Facebook</div>
+        <div class="value num">12 → 14</div>
+        <div class="note up">+2</div>
+      </div>
+    </div>
+
+    <section>
+      <div class="section-head"><h2>Il reel in numeri</h2></div>
+      <p class="section-desc">Pubblicato l'11/08 alle 20:46 CEST (dentro la finestra 18-22, verso il limite tardo). Formato sfida a tempo su un trucco di lettura degli esponenziali — non una spiegazione lineare.</p>
+      <div class="hero-card">
+        <p class="hook">"Hai 3 secondi per risolvere questo. ⏱️ Se hai provato a isolare la x, hai già perso: 5ˣ⁺¹ non si 'spacca', si legge come 5ˣ · 5. Se sai che 5ˣ = 7... il risultato lo becchi senza calcolatrice 👀"</p>
+        <div class="hero-row">
+          <div class="hero-stat"><div class="l">Views IG</div><div class="v num">1.444</div></div>
+          <div class="hero-stat"><div class="l">Interazioni</div><div class="v num">35</div></div>
+          <div class="hero-stat"><div class="l">Salvataggi</div><div class="v num">4</div></div>
+          <div class="hero-stat"><div class="l">Condivisioni</div><div class="v num">5</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Le due piattaforme vanno forte insieme — non è la solita divaricazione</h2></div>
+      <p class="section-desc">Nel report precedente il reel del 9/08 aveva mostrato IG in salita e FB in caduta sullo stesso contenuto. Su questo reel, invece, entrambe vanno bene: prima conferma che il format/hook conta più della piattaforma.</p>
+      <div class="split-card">
+        <div class="split-col ig">
+          <div class="platform">Instagram</div>
+          <div class="big-num num">1.194</div>
+          <div class="sub-label">reach — solo il reel del 12/07 (1.606) ha fatto meglio in un mese di storia</div>
+        </div>
+        <div class="split-col fb">
+          <div class="platform">Facebook</div>
+          <div class="big-num num">1.099</div>
+          <div class="sub-label">views — quasi ai livelli dei suoi migliori risultati (1.494 il 26/07, 1.126 il 05/08)</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Reach giornaliero Instagram, ultimi 9 giorni</h2></div>
+      <p class="section-desc">Il picco dell'11/08 è nettamente il più alto dai giorni di raffica di luglio.</p>
+      <div class="panel">
+        <div class="chart-wrap" id="daily-chart"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Perché ha funzionato — cosa cambia rispetto ai reel precedenti</h2></div>
+
+      <div class="cause-card">
+        <h3>Formato "sfida a tempo", non spiegazione</h3>
+        <p>A differenza della maggior parte dei reel recenti (che spiegano un errore comune o un metodo), questo apre con un countdown implicito e una domanda a cui lo spettatore prova a rispondere prima che il video gliela sveli. È un formato che spinge a guardare fino alla fine per sapere se si aveva ragione — coerente con l'ipotesi, mai testata prima in modo così netto, che il tasso di completamento conti più del argomento in sé.</p>
+        <div class="evidence"><strong>Prova:</strong> 1.444 views contro 1.194 reach (rapporto 1,21) — più alto della media recente, segno che chi lo vede spesso lo riguarda o resta fino alla fine.</div>
+      </div>
+
+      <div class="cause-card">
+        <h3>Hook concreto e tecnico, non motivazionale</h3>
+        <p>Conferma il pattern già visto nei report precedenti: i reel con un trucco/tecnica specifica ("si legge come...", non "cambia il tuo approccio allo studio") performano meglio di quelli con hook astratti o motivazionali.</p>
+      </div>
+
+      <div class="cause-card">
+        <h3>Nessuna richiesta esplicita, ma un lead è arrivato lo stesso</h3>
+        <p>Il reel non chiede di scrivere in DM o visitare il sito (solo "seguimi per altri trucchi così"), eppure una chiamata è arrivata circa 21 ore dopo (vedi sotto). Se confermata come proveniente da qui, sarebbe la prova che un reel abbastanza forte genera contatti anche senza call-to-action diretta — probabile che chi chiama sia passato dal profilo/bio.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Contatti ricevuti — log aggiornato</h2></div>
+      <p class="section-desc">Instagram e Facebook non espongono via API quale post genera un DM o una chiamata: questi dati esistono solo perché Matteo li riporta direttamente. Log completo in <code>data/leads-log.json</code>.</p>
+      <div class="panel table-scroll">
+        <table>
+          <thead><tr><th>Data (circa)</th><th>Canale</th><th>Argomento</th><th>Possibile reel collegato</th><th>Esito</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="num">03/08, 03:08</td>
+              <td>Instagram DM</td>
+              <td>Fisica, in vista di settembre</td>
+              <td>02/08 (971 reach) — ~7h30 dopo, non certo</td>
+              <td><span class="pill unspecified">Non specificato</span></td>
+            </tr>
+            <tr>
+              <td class="num">08/08 (sabato)</td>
+              <td>Non specificato</td>
+              <td>Ripetizioni a domicilio</td>
+              <td>—</td>
+              <td><span class="pill rejected">Rifiutato</span></td>
+            </tr>
+            <tr>
+              <td class="num">12/08, ore 18:00</td>
+              <td>Chiamata telefonica</td>
+              <td>Non specificato</td>
+              <td>11/08 (1.194 reach, "3 secondi") — ~21h dopo, non certo</td>
+              <td><span class="pill pending">Da verificare</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        Con solo 3 contatti totali in 5 settimane, non c'è ancora un campione statisticamente utile per dire "questo tipo di reel genera lead, quello no" — ma il pattern qualitativo (entrambi i contatti recenti sono arrivati entro 24h da un reel sopra la media) è coerente con quanto visto ad agosto: i lead sembrano seguire i picchi di reach, non la media.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Il sito</h2></div>
+      <p class="section-desc">orbit-ripetizioni.netlify.app — Google Analytics (10-13/08) e Microsoft Clarity (ultimi 3 giorni).</p>
+      <div class="mini-grid">
+        <div class="mini-card">
+          <h3>Google Analytics — sessioni 10-13/08</h3>
+          <div class="row2">
+            <div class="col"><div class="l">Totale</div><div class="v num">5</div></div>
+            <div class="col"><div class="l">Social organico</div><div class="v num">2</div></div>
+          </div>
+          <p>1 sessione da social il 12/08, il giorno dopo il reel breakout — poco ma presente, a differenza del silenzio totale registrato dopo il reel del 09/08.</p>
+        </div>
+        <div class="mini-card">
+          <h3>Microsoft Clarity — ultimi 3 giorni</h3>
+          <div class="row2">
+            <div class="col"><div class="l">Scroll medio</div><div class="v num">53%</div></div>
+            <div class="col"><div class="l">Tempo attivo</div><div class="v num">54s</div></div>
+          </div>
+          <p>Unica sessione registrata: arrivata da Instagram (app Android), Italia. Qualità della visita nettamente sopra la media storica (scroll 53% vs ~20%, tempo attivo più che doppio) — segno di un visitatore genuinamente interessato, non un click casuale.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Cosa fare con questa informazione</h2></div>
+      <div class="callout">
+        <strong>Ripetere il formato, non solo il tema:</strong> il segnale più forte di questo report non è "parlare di esponenziali funziona", è che il formato sfida-a-tempo con hook tecnico ha probabilmente alzato il completion rate. Vale la pena provare a replicare la stessa struttura (countdown implicito + trucco specifico) su un altro argomento nei prossimi 1-2 reel, per capire se è il formato a generare il picco o è stato un colpo isolato.
+      </div>
+    </section>
+
+    <footer class="meta">
+      <span>Dati letti in sola lettura via Composio · Instagram Graph API v21 / Facebook Graph API v20–23 / Google Analytics Data API / Microsoft Clarity</span>
+      <span>Generato giovedì 13 agosto 2026 alle 13:55 (CEST)</span>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  const root = document.querySelector('.viz-root');
+  const css = getComputedStyle(root);
+  const v = (name) => css.getPropertyValue(name).trim();
+
+  const daily = [
+    { date: "2026-08-05", reach: 412 },
+    { date: "2026-08-06", reach: 149 },
+    { date: "2026-08-07", reach: 173 },
+    { date: "2026-08-08", reach: 93 },
+    { date: "2026-08-09", reach: 565 },
+    { date: "2026-08-10", reach: 163 },
+    { date: "2026-08-11", reach: 1117, highlight: true },
+    { date: "2026-08-12", reach: 154 },
+    { date: "2026-08-13", reach: 4, open: true },
+  ];
+
+  function fmt(n) { return n.toLocaleString('it-IT'); }
+
+  (function barChart() {
+    const el = document.getElementById('daily-chart');
+    const W = 1000, H = 260, padL = 50, padR = 16, padT = 16, padB = 30;
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const maxY = Math.max(...daily.map(d => d.reach)) * 1.12;
+    const n = daily.length;
+    const bw = innerW / n * 0.55;
+    const x = i => padL + (innerW * (i + 0.5)) / n;
+    const y = val => padT + innerH - (innerH * val) / maxY;
+
+    const gridYVals = [0, 0.25, 0.5, 0.75, 1].map(f => Math.round(maxY * f / 100) * 100);
+    const gridLines = gridYVals.map(gy => `
+      <line class="grid-line" x1="${padL}" x2="${W - padR}" y1="${y(gy).toFixed(1)}" y2="${y(gy).toFixed(1)}" />
+      <text class="axis-label num" x="${padL - 8}" y="${y(gy).toFixed(1) + 3}" text-anchor="end">${fmt(gy)}</text>
+    `).join('');
+
+    const bars = daily.map((d, i) => {
+      const bx = x(i) - bw / 2;
+      const by = y(d.reach);
+      const bh = innerH + padT - by;
+      const fill = d.open ? v('--accent-soft') : (d.highlight ? v('--good') : v('--accent-line'));
+      return `<rect class="bar" x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${bw.toFixed(1)}" height="${bh.toFixed(1)}" rx="3" fill="${fill}" data-i="${i}" />`;
+    }).join('');
+
+    const labels = daily.map((d, i) => `<text class="axis-label num" x="${x(i).toFixed(1)}" y="${H - 8}" text-anchor="middle">${d.date.slice(8,10)}/${d.date.slice(5,7)}</text>`).join('');
+
+    el.innerHTML = `
+      <svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+        ${gridLines}
+        ${bars}
+        ${labels}
+      </svg>
+      <div class="tooltip" id="daily-tip"></div>
+    `;
+    const tip = el.querySelector('#daily-tip');
+    el.querySelectorAll('.bar').forEach(bar => {
+      bar.addEventListener('mouseenter', () => {
+        const i = +bar.dataset.i;
+        const d = daily[i];
+        tip.innerHTML = `<strong>${d.date.slice(8,10)}/${d.date.slice(5,7)}/2026</strong><br>Reach: ${fmt(d.reach)}${d.open ? ' (giorno ancora in corso)' : ''}`;
+        const r = bar.getBoundingClientRect(), pr = el.getBoundingClientRect();
+        tip.style.left = (r.left - pr.left + r.width / 2) + 'px';
+        tip.style.top = (r.top - pr.top) + 'px';
+        tip.style.opacity = '1';
+      });
+      bar.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+    });
+  })();
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORBIT — Il formato "3 secondi" si conferma</title>
+<style>
+  :root { color-scheme: light dark; }
+  html, body { margin: 0; padding: 0; }
+  .viz-root {
+    color-scheme: light;
+    --page: #f3f5f9; --surface: #ffffff; --surface-2: #eef1f7;
+    --ink: #11131a; --ink-2: #4a5164; --muted: #848da3;
+    --border: rgba(16,19,26,0.09); --border-2: rgba(16,19,26,0.14);
+    --accent: #2a78d6; --accent-soft: #cde2fb; --accent-line: #2a78d6; --accent-fill: rgba(42,120,214,0.14);
+    --good: #0ca30c; --good-soft: #e3f6e3;
+    --warn: #b9790a; --warn-soft: #fbeed1;
+    --crit: #d03b3b; --crit-soft: #fbe3e3;
+    --violet: #4a3aa7; --violet-soft: #e9e6f8;
+    --fb-muted: #4a3aa7; --fb-line: #4a3aa7; --fb-fill: rgba(74,58,167,0.14);
+    --grid: #e3e2da;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+      --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+      --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+      --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee; --accent-fill: rgba(57,135,229,0.18);
+      --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+      --warn: #f0ab35; --warn-soft: rgba(240,171,53,0.14);
+      --crit: #e66767; --crit-soft: rgba(230,103,103,0.16);
+      --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+      --fb-muted: #9085e9; --fb-line: #9085e9; --fb-fill: rgba(144,133,233,0.18);
+      --grid: #2a2e36;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+    --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+    --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+    --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee; --accent-fill: rgba(57,135,229,0.18);
+    --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+    --warn: #f0ab35; --warn-soft: rgba(240,171,53,0.14);
+    --crit: #e66767; --crit-soft: rgba(230,103,103,0.16);
+    --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+    --fb-muted: #9085e9; --fb-line: #9085e9; --fb-fill: rgba(144,133,233,0.18);
+    --grid: #2a2e36;
+  }
+
+  .viz-root * { box-sizing: border-box; }
+  .viz-root { background: var(--page); color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; padding: 40px 20px 80px; min-height: 100vh; }
+  .num { font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace; font-variant-numeric: tabular-nums; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); margin-bottom: 18px; text-decoration: none; }
+  .breadcrumb a { color: var(--accent); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  header.top { margin-bottom: 36px; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--violet); margin: 0 0 8px; }
+  h1 { font-size: 27px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 6px; text-wrap: balance; }
+  .sub { color: var(--ink-2); font-size: 14.5px; margin: 0; max-width: 68ch; line-height: 1.55; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 28px 0 8px; }
+  @media (max-width: 760px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 16px 14px; }
+  .kpi .label { font-size: 11.5px; color: var(--muted); font-weight: 600; letter-spacing: 0.02em; margin-bottom: 6px; }
+  .kpi .value { font-size: 24px; font-weight: 800; letter-spacing: -0.01em; }
+  .kpi .note { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+  .kpi .note.up { color: var(--good); font-weight: 700; }
+  .kpi .note.down { color: var(--crit); font-weight: 700; }
+  .kpi .note.flat { color: var(--muted); font-weight: 700; }
+
+  section { margin-top: 44px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+  h2 { font-size: 18px; font-weight: 800; margin: 0; letter-spacing: -0.005em; }
+  .section-desc { color: var(--ink-2); font-size: 13.5px; margin: 4px 0 18px; max-width: 70ch; line-height: 1.5; }
+
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 20px 16px; }
+
+  .reel-cards { display: flex; flex-direction: column; gap: 12px; }
+  .reel-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; }
+  .reel-card.mature { border-left: 4px solid var(--good); }
+  .reel-card.fresh { border-left: 4px solid var(--muted); opacity: 0.85; }
+  .reel-card .rc-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+  .reel-card h3 { margin: 0; font-size: 15px; font-weight: 800; }
+  .reel-card .rc-date { font-size: 11.5px; color: var(--muted); font-weight: 700; }
+  .reel-card .rc-topic { font-size: 12.5px; color: var(--ink-2); margin: 2px 0 12px; }
+  .reel-card .rc-stats { display: flex; gap: 24px; flex-wrap: wrap; }
+  .reel-card .rc-stat .l { font-size: 10.5px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; }
+  .reel-card .rc-stat .v { font-size: 19px; font-weight: 800; margin-top: 2px; }
+  .reel-card .rc-note { font-size: 12.5px; color: var(--ink-2); margin-top: 10px; line-height: 1.55; background: var(--surface-2); border-radius: 8px; padding: 9px 12px; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.03em; text-transform: uppercase; padding: 3px 9px; border-radius: 100px; }
+  .badge.mature { background: var(--good-soft); color: var(--good); }
+  .badge.fresh { background: var(--surface-2); color: var(--muted); }
+
+  .chart-svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .axis-label { font-size: 10.5px; fill: var(--muted); font-family: ui-monospace, monospace; }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .tooltip {
+    position: absolute; pointer-events: none; background: var(--ink); color: var(--page);
+    font-size: 12px; padding: 7px 10px; border-radius: 7px; line-height: 1.45; white-space: nowrap;
+    transform: translate(-50%, -110%); opacity: 0; transition: opacity 0.1s ease; z-index: 5;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+  .chart-wrap { position: relative; }
+  .bar { cursor: pointer; }
+
+  .cause-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 14px; }
+  .cause-card h3 { margin: 0 0 8px; font-size: 15px; font-weight: 800; }
+  .cause-card p { margin: 0 0 8px; font-size: 13.5px; color: var(--ink-2); line-height: 1.6; }
+  .cause-card p:last-child { margin-bottom: 0; }
+  .cause-card .evidence { font-size: 12.5px; background: var(--surface-2); border-radius: 8px; padding: 10px 12px; margin-top: 8px; }
+  .cause-card .evidence strong { color: var(--ink); }
+
+  .mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .mini-grid { grid-template-columns: 1fr; } }
+  .mini-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+  .mini-card h3 { margin: 0 0 8px; font-size: 14.5px; font-weight: 800; }
+  .mini-card p { margin: 8px 0 0; font-size: 12.5px; color: var(--ink-2); line-height: 1.55; }
+  .mini-card .big { font-size: 24px; font-weight: 800; }
+
+  .callout { border: 1px dashed var(--border-2); border-radius: 10px; padding: 14px 16px; font-size: 13px; color: var(--ink-2); line-height: 1.55; margin-top: 18px; background: var(--surface-2); }
+  .callout strong { color: var(--ink); }
+
+  footer.meta { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+</style>
+</head>
+<body>
+<div class="viz-root">
+  <div class="wrap">
+
+    <a class="breadcrumb" href="../../index.html">&larr; Tutti i report</a>
+
+    <header class="top">
+      <p class="eyebrow">ORBIT · Ripetizioni — Aggiornamento 15 agosto 2026</p>
+      <h1>Il formato "3 secondi" si conferma: due reel maturi, due risultati sopra la media</h1>
+      <p class="sub">Il reel di fisica del 13/08 ("chi cade prima?", eseguito dal vivo senza la simulazione Manim pianificata) ha fatto 903 reach — terzo miglior risultato dell'era ritmo-alterni. Con quello dell'11/08 (1.194), i due reel maturi nel formato "sfida a tempo" fanno una media di 1.048 reach, più del doppio della media pre-formato. Un quarto reel (differenza di quadrati) è appena uscito, ancora troppo fresco per contare. Nota stonata: Facebook ha fatto solo 331 views sullo stesso contenuto del 13/08, e il sito è rimasto a zero visite per 3 giorni di fila.</p>
+    </header>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="label">Formato "3 secondi" — media (2 reel maturi)</div>
+        <div class="value num">1.048</div>
+        <div class="note up">vs 498 di media prima del formato — +110%</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Facebook — reel del 13/08</div>
+        <div class="value num">331</div>
+        <div class="note down">ben sotto la media recente (~700-1.100)</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Follower Instagram</div>
+        <div class="value num">69 → 71</div>
+        <div class="note up">+2 in 2 giorni</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Fan Facebook</div>
+        <div class="value num">14</div>
+        <div class="note flat">invariato</div>
+      </div>
+    </div>
+
+    <section>
+      <div class="section-head"><h2>I tre reel nel formato "hai 3 secondi"</h2></div>
+      <p class="section-desc">Stesso schema (sfida a tempo + "se hai fatto X hai già perso" + rivelazione), tre argomenti diversi. Il terzo è troppo recente per essere giudicato.</p>
+      <div class="reel-cards">
+        <div class="reel-card mature">
+          <div class="rc-head">
+            <h3>11/08 — Esponenziali (5ˣ⁺¹ = 5ˣ · 5)</h3>
+            <span class="badge mature">Maturo</span>
+          </div>
+          <p class="rc-topic">Camera + testo, nessuna simulazione</p>
+          <div class="rc-stats">
+            <div class="rc-stat"><div class="l">IG reach</div><div class="v num">1.194</div></div>
+            <div class="rc-stat"><div class="l">IG views</div><div class="v num">1.444</div></div>
+            <div class="rc-stat"><div class="l">FB views</div><div class="v num">1.099</div></div>
+            <div class="rc-stat"><div class="l">Commenti</div><div class="v num">0</div></div>
+          </div>
+          <div class="rc-note">2° miglior reel IG di sempre. Entrambe le piattaforme fortissime insieme.</div>
+        </div>
+
+        <div class="reel-card mature">
+          <div class="rc-head">
+            <h3>13/08 — Fisica (chi cade prima?)</h3>
+            <span class="badge mature">Maturo</span>
+          </div>
+          <p class="rc-topic">Esecuzione dal vivo dello "script A" discusso, senza la simulazione Manim pianificata</p>
+          <div class="rc-stats">
+            <div class="rc-stat"><div class="l">IG reach</div><div class="v num">903</div></div>
+            <div class="rc-stat"><div class="l">IG views</div><div class="v num">1.209</div></div>
+            <div class="rc-stat"><div class="l">FB views</div><div class="v num">331</div></div>
+            <div class="rc-stat"><div class="l">Commenti</div><div class="v num">0</div></div>
+          </div>
+          <div class="rc-note">3° miglior risultato IG dell'era ritmo-alterni. Ma su Facebook va sotto la sua media recente — la volatilità IG/FB non si è ancora stabilizzata. CTA esplicita "dimmelo nei commenti", zero commenti arrivati.</div>
+        </div>
+
+        <div class="reel-card fresh">
+          <div class="rc-head">
+            <h3>15/08 — Differenza di quadrati (53² − 47²)</h3>
+            <span class="badge fresh">Troppo fresco</span>
+          </div>
+          <p class="rc-topic">Camera + testo, nessuna simulazione — pubblicato ~45 minuti prima di questa estrazione</p>
+          <div class="rc-stats">
+            <div class="rc-stat"><div class="l">IG reach</div><div class="v num">70</div></div>
+            <div class="rc-stat"><div class="l">IG views</div><div class="v num">132</div></div>
+            <div class="rc-stat"><div class="l">FB views</div><div class="v num">0</div></div>
+          </div>
+          <div class="rc-note">Numeri ancora acerbi, non ancora confrontabili con gli altri due — verrà chiuso nel prossimo report.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Reach giornaliero Instagram, ultimi 7 giorni</h2></div>
+      <div class="panel">
+        <div class="chart-wrap" id="daily-chart"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Cosa dicono questi due dati insieme</h2></div>
+
+      <div class="cause-card">
+        <h3>Il formato regge anche fuori dal Manim</h3>
+        <p>Lo "script A" era pensato con una simulazione animata per il momento clou, ma nella pratica è stato girato in modo più semplice (dal vivo, senza montaggio speciale) e ha comunque fatto 903 reach — quasi il doppio della media recente. Segnale utile: il meccanismo "sfida a tempo + rivelazione" funziona anche nella versione più economica da produrre, non serve necessariamente l'animazione per ottenere il beneficio principale.</p>
+        <div class="evidence"><strong>Nota per il prossimo test:</strong> vale comunque la pena provare la versione con simulazione Manim su un futuro reel simile, per capire se aggiunge ulteriore spinta oltre al formato base — ma non è più un prerequisito.</div>
+      </div>
+
+      <div class="cause-card">
+        <h3>Chiedere commenti non basta a ottenerli</h3>
+        <p>Il reel del 13/08 chiudeva con "Avevi indovinato? Dimmelo nei commenti" — un invito esplicito, pensato apposta per sbloccare la sezione commenti (finora quasi sempre a zero). Risultato: ancora zero commenti, nonostante reach forte. La leva "vale la pena provare a generare dibattito" resta un'ipotesi non confermata; il formato aiuta il reach, ma non sta ancora smuovendo l'interazione in commenti.</p>
+      </div>
+
+      <div class="cause-card">
+        <h3>Facebook resta imprevedibile sullo stesso contenuto</h3>
+        <p>Terzo caso in due settimane in cui IG e FB si comportano in modo scollegato sullo stesso reel: l'11/08 sono andati bene insieme, il 13/08 IG ha tenuto e FB è crollato (331, sotto quasi tutti i risultati delle ultime due settimane). Conferma quanto già scritto nel report del 10/08: non c'è ancora un pattern IG/FB affidabile, resta rumore su un campione piccolo.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Il sito — tre giorni di silenzio</h2></div>
+      <div class="mini-grid">
+        <div class="mini-card">
+          <h3>Google Analytics — 13-15/08</h3>
+          <div class="big num">0</div>
+          <p>Zero sessioni in 3 giorni, nonostante il reel del 13/08 (903 reach). Coerente con una CTA orientata ai commenti, non al sito o al DM — i visitatori non hanno motivo di cliccare se il messaggio non glielo chiede.</p>
+        </div>
+        <div class="mini-card">
+          <h3>Microsoft Clarity — ultimi 3 giorni</h3>
+          <div class="big num">0</div>
+          <p>Nessuna sessione registrata. Stesso quadro di Google Analytics: il traffico verso il sito resta l'anello più debole della catena, indipendentemente da quanto vanno bene i reel.</p>
+        </div>
+      </div>
+      <div class="callout">
+        Se l'obiettivo resta anche portare traffico al sito (non solo reach o commenti), vale la pena testare almeno un reel del formato "3 secondi" con una CTA esplicita verso il sito o il DM, per vedere se il formato converte anche lì o se serve chiederlo esplicitamente come per i commenti.
+      </div>
+    </section>
+
+    <footer class="meta">
+      <span>Dati letti in sola lettura via Composio · Instagram Graph API v21 / Facebook Graph API v20–23 / Google Analytics Data API / Microsoft Clarity</span>
+      <span>Generato sabato 15 agosto 2026 alle 20:55 (CEST)</span>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  const root = document.querySelector('.viz-root');
+  const css = getComputedStyle(root);
+  const v = (name) => css.getPropertyValue(name).trim();
+
+  const daily = [
+    { date: "2026-08-09", reach: 565 },
+    { date: "2026-08-10", reach: 163 },
+    { date: "2026-08-11", reach: 1117, highlight: true },
+    { date: "2026-08-12", reach: 154 },
+    { date: "2026-08-13", reach: 630, highlight: true },
+    { date: "2026-08-14", reach: 288 },
+    { date: "2026-08-15", reach: 86, open: true },
+  ];
+
+  function fmt(n) { return n.toLocaleString('it-IT'); }
+
+  (function barChart() {
+    const el = document.getElementById('daily-chart');
+    const W = 1000, H = 260, padL = 50, padR = 16, padT = 16, padB = 30;
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const maxY = Math.max(...daily.map(d => d.reach)) * 1.12;
+    const n = daily.length;
+    const bw = innerW / n * 0.55;
+    const x = i => padL + (innerW * (i + 0.5)) / n;
+    const y = val => padT + innerH - (innerH * val) / maxY;
+
+    const gridYVals = [0, 0.25, 0.5, 0.75, 1].map(f => Math.round(maxY * f / 100) * 100);
+    const gridLines = gridYVals.map(gy => `
+      <line class="grid-line" x1="${padL}" x2="${W - padR}" y1="${y(gy).toFixed(1)}" y2="${y(gy).toFixed(1)}" />
+      <text class="axis-label num" x="${padL - 8}" y="${y(gy).toFixed(1) + 3}" text-anchor="end">${fmt(gy)}</text>
+    `).join('');
+
+    const bars = daily.map((d, i) => {
+      const bx = x(i) - bw / 2;
+      const by = y(d.reach);
+      const bh = innerH + padT - by;
+      const fill = d.open ? v('--accent-soft') : (d.highlight ? v('--good') : v('--accent-line'));
+      return `<rect class="bar" x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${bw.toFixed(1)}" height="${bh.toFixed(1)}" rx="3" fill="${fill}" data-i="${i}" />`;
+    }).join('');
+
+    const labels = daily.map((d, i) => `<text class="axis-label num" x="${x(i).toFixed(1)}" y="${H - 8}" text-anchor="middle">${d.date.slice(8,10)}/${d.date.slice(5,7)}</text>`).join('');
+
+    el.innerHTML = `
+      <svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+        ${gridLines}
+        ${bars}
+        ${labels}
+      </svg>
+      <div class="tooltip" id="daily-tip"></div>
+    `;
+    const tip = el.querySelector('#daily-tip');
+    el.querySelectorAll('.bar').forEach(bar => {
+      bar.addEventListener('mouseenter', () => {
+        const i = +bar.dataset.i;
+        const d = daily[i];
+        tip.innerHTML = `<strong>${d.date.slice(8,10)}/${d.date.slice(5,7)}/2026</strong><br>Reach: ${fmt(d.reach)}${d.open ? ' (giorno ancora in corso)' : ''}`;
+        const r = bar.getBoundingClientRect(), pr = el.getBoundingClientRect();
+        tip.style.left = (r.left - pr.left + r.width / 2) + 'px';
+        tip.style.top = (r.top - pr.top) + 'px';
+        tip.style.opacity = '1';
+      });
+      bar.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+    });
+  })();
+
+})();
+</script>
+</body>
+</html>

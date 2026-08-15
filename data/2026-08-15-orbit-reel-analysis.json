@@ -1,0 +1,72 @@
+{
+  "generated_at": "2026-08-15T20:55:00+02:00",
+  "purpose": "terzo reel in formato 'sfida a tempo' (fisica, 13/08) conferma il pattern: 903 reach, 3 miglior risultato dell'era ritmo-alterni; quarto reel appena pubblicato (53^2-47^2, ancora troppo acerbo); FB sottoperforma sullo stesso contenuto; sito a zero visite nel periodo",
+  "account": {
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 71, "followers_count_previous": 69, "media_count": 22 },
+    "facebook": { "page_name": "ORBIT Ripetizioni", "fan_count": 14, "fan_count_previous": 14 }
+  },
+  "timed_challenge_format_reels": [
+    {
+      "id": "18112680481992211",
+      "date": "2026-08-11",
+      "time": "20:46",
+      "topic": "esponenziali (5^(x+1) = 5^x * 5)",
+      "production": "camera + testo, nessuna simulazione",
+      "instagram": { "reach": 1194, "views": 1444, "total_interactions": 35, "comments": 0 },
+      "facebook": { "views": 1099 },
+      "note": "2 miglior reel IG di sempre; entrambe le piattaforme fortissime insieme"
+    },
+    {
+      "id": "18172673584435783",
+      "date": "2026-08-13",
+      "time": "20:49",
+      "topic": "fisica - caduta libera vs lancio orizzontale (esecuzione live dello 'script A' discusso, senza la simulazione Manim pianificata)",
+      "production": "camera, dal vivo, nessuna simulazione Manim",
+      "instagram": { "reach": 903, "views": 1209, "total_interactions": 25, "comments": 0 },
+      "facebook": { "views": 331 },
+      "note": "3 miglior risultato IG dell'era ritmo-alterni; ma FB ben sotto la sua media recente (331 contro una media recente di ~700-1100) sullo stesso contenuto - la volatilita' IG/FB continua; CTA esplicita 'dimmelo nei commenti' ma 0 commenti ricevuti"
+    },
+    {
+      "id": "17869619415650864",
+      "date": "2026-08-15",
+      "time": "20:10",
+      "topic": "differenza di quadrati (53^2 - 47^2 = (a+b)(a-b))",
+      "production": "camera + testo, nessuna simulazione",
+      "instagram": { "reach": 70, "views": 132, "total_interactions": 8, "comments": 0 },
+      "facebook": { "views": 0 },
+      "note": "pubblicato ~45 minuti prima dell'estrazione dati - troppo acerbo per essere giudicato, valore ancora in crescita"
+    }
+  ],
+  "format_hypothesis_check": {
+    "mature_reels_avg_reach": 1048.5,
+    "mature_reels": [1194, 903],
+    "baseline_recent_avg_before_format_started": 498,
+    "verdict": "confermato su 2 reel maturi su 2 (il terzo e' troppo giovane per contare): il formato 'hai 3 secondi' supera nettamente la media recente pre-formato, indipendentemente dal argomento (esponenziali, fisica). Non e' piu' un colpo isolato."
+  },
+  "instagram_daily_reach_recent": [
+    { "date": "2026-08-09", "reach": 565 },
+    { "date": "2026-08-10", "reach": 163 },
+    { "date": "2026-08-11", "reach": 1117 },
+    { "date": "2026-08-12", "reach": 154 },
+    { "date": "2026-08-13", "reach": 630 },
+    { "date": "2026-08-14", "reach": 288 },
+    { "date": "2026-08-15", "reach": 86, "day_still_open_at_extraction": true }
+  ],
+  "website": {
+    "domain": "orbit-ripetizioni.netlify.app",
+    "google_analytics": {
+      "period": "2026-08-13 to 2026-08-15",
+      "sessions_total": 0,
+      "note": "zero sessioni in 3 giorni, nonostante il reel del 13/08 (903 reach) - coerente con una CTA orientata ai commenti ('dimmelo nei commenti'), non al sito o al DM"
+    },
+    "microsoft_clarity_last_3_days": {
+      "total_sessions": 0,
+      "note": "nessuna sessione registrata"
+    }
+  },
+  "leads_update": {
+    "new_since_last_report": 0,
+    "note": "nessun nuovo contatto riportato in questa sessione; log invariato, vedi data/leads-log.json"
+  },
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23 / Google Analytics Data API / Microsoft Clarity Data Export API"
+}

@@ -1,0 +1,74 @@
+{
+  "generated_at": "2026-08-16T15:30:00+02:00",
+  "purpose": "prima analisi di retention/watch-time su tutti i 22 reel: correlazioni tra skip rate, tempo medio di visione e reach/views, per capire cosa guida davvero la distribuzione algoritmica e costruire un prototipo di script ottimizzato",
+  "sample_size": 22,
+  "period": "2026-07-11 to 2026-08-15",
+  "metrics_available_via_api": {
+    "ig_reels_avg_watch_time": "tempo medio di visione per visualizzazione (ms) - disponibile per ogni reel",
+    "ig_reels_video_view_total_time": "tempo di visione cumulativo su tutte le visualizzazioni (ms)",
+    "reels_skip_rate": "percentuale di visualizzazioni che hanno abbandonato nei primi 3 secondi",
+    "NOT_available": "il grafico di retention frame-per-frame (curva di abbandono lungo tutta la durata, visibile solo nell'app Instagram nativa) non e' esposto dalla Graph API pubblica - questa analisi usa le 3 metriche aggregate sopra come proxy, non la curva completa"
+  },
+  "correlations": {
+    "avg_watch_time_vs_reach": 0.823,
+    "avg_watch_time_vs_views": 0.856,
+    "skip_rate_vs_reach": -0.773,
+    "skip_rate_vs_views": -0.756,
+    "avg_watch_time_vs_total_interactions": 0.515,
+    "skip_rate_vs_total_interactions": -0.5,
+    "avg_watch_time_vs_engagement_rate_pct": -0.445,
+    "skip_rate_vs_engagement_rate_pct": 0.628,
+    "skip_rate_vs_avg_watch_time": -0.518,
+    "note_engagement_rate_paradox": "la correlazione negativa tra tempo di visione ed engagement rate (%) sembra contraddire tutto il resto, ma e' un artefatto del denominatore: l'engagement rate e' interazioni/reach, e i reel con reach molto alto (trainato da buona retention) diluiscono naturalmente la percentuale anche quando le interazioni assolute sono alte. Non significa che la retention danneggi l'engagement."
+  },
+  "regression_skip_rate_to_reach": {
+    "formula": "reach_atteso = 3007 - 40.1 * skip_rate_percentuale",
+    "r_squared_note": "regressione lineare semplice su 22 punti, non un modello causale - ma la pendenza e' un buon riferimento pratico",
+    "reference_points": [
+      { "skip_rate": 40, "reach_atteso": 1402 },
+      { "skip_rate": 50, "reach_atteso": 1001 },
+      { "skip_rate": 60, "reach_atteso": 600 },
+      { "skip_rate": 70, "reach_atteso": 199 }
+    ],
+    "plain_language": "ogni punto percentuale di skip rate in meno nei primi 3 secondi vale in media circa 40 reach in piu'"
+  },
+  "overall_averages": {
+    "avg_skip_rate_pct": 53.4,
+    "avg_watch_time_seconds": 12.08,
+    "avg_reach": 864.8
+  },
+  "format_breakdown": [
+    { "format": "timed_challenge (hai 3 secondi)", "n": 3, "avg_reach": 1207.7, "avg_views": 1521.3, "avg_watch_time_s": 17.68, "avg_skip_rate_pct": 51.9, "avg_engagement_rate_pct": 3.26 },
+    { "format": "listicle (3 cose/errori/trucchi)", "n": 8, "avg_reach": 903.6, "avg_views": 1113.0, "avg_watch_time_s": 10.56, "avg_skip_rate_pct": 53.0, "avg_engagement_rate_pct": 5.52 },
+    { "format": "tip (spiegazione singola)", "n": 9, "avg_reach": 675.4, "avg_views": 861.4, "avg_watch_time_s": 11.1, "avg_skip_rate_pct": 55.3, "avg_engagement_rate_pct": 6.37 },
+    { "format": "puzzle/provocazione (n=1, es. '1=2')", "n": 1, "avg_reach": 1404.0, "avg_views": 1840.0, "avg_watch_time_s": 18.73, "avg_skip_rate_pct": 44.2, "avg_engagement_rate_pct": 4.34 },
+    { "format": "motivational (n=1)", "n": 1, "avg_reach": 690.0, "avg_views": 885.0, "avg_watch_time_s": 9.59, "avg_skip_rate_pct": 53.6, "avg_engagement_rate_pct": 4.78 }
+  ],
+  "top5_best_retention_skip_rate": [
+    { "date": "2026-07-13", "hook_opening": "Se nella verifica di fisica scrivi solo il numero senza l'unita' di misura, stai regalando punti gratis", "skip_rate_pct": 40.0, "awt_s": 14.38, "reach": 1184, "hook_type": "avvertimento + perdita concreta immediata" },
+    { "date": "2026-08-11", "hook_opening": "Hai 3 secondi per risolvere questo", "skip_rate_pct": 42.2, "awt_s": 15.03, "reach": 1214, "hook_type": "sfida a tempo esplicita" },
+    { "date": "2026-07-15", "hook_opening": "Ecco i 3 errori che vedo fare piu' spesso agli studenti", "skip_rate_pct": 42.5, "awt_s": 12.53, "reach": 1093, "hook_type": "promessa numerata concreta" },
+    { "date": "2026-07-24", "hook_opening": "La matematica e' un'opinione. Vero?", "skip_rate_pct": 44.2, "awt_s": 18.73, "reach": 1404, "hook_type": "affermazione provocatoria + domanda" },
+    { "date": "2026-07-12", "hook_opening": "Chi va bene in matematica, fisica e chimica non e' piu' intelligente", "skip_rate_pct": 44.3, "awt_s": 15.58, "reach": 1617, "hook_type": "smentita di un'assunzione comune" }
+  ],
+  "bottom5_worst_retention_skip_rate": [
+    { "date": "2026-08-03", "hook_opening": "Leggere e basta non ti fa capire niente. Il tuo cervello sta solo riconoscendo le informazioni", "skip_rate_pct": 70.6, "awt_s": 5.21, "reach": 168, "hook_type": "affermazione astratta, nessuna posta in gioco immediata" },
+    { "date": "2026-07-11", "hook_opening": "Disegnare una parabola NON deve richiederti 5 minuti", "skip_rate_pct": 64.7, "awt_s": 13.70, "reach": 415, "hook_type": "primo reel mai pubblicato - nessun pubblico/segnale algoritmico ancora costruito" },
+    { "date": "2026-07-22", "hook_opening": "Studi per ore ma il giorno dopo e' come se non avessi aperto un libro?", "skip_rate_pct": 62.8, "awt_s": 9.12, "reach": 628, "hook_type": "domanda pain-point, ma pubblicato durante rottura di ritmo" },
+    { "date": "2026-07-27", "hook_opening": "Debito a settembre? Ecco 3 cose da fare SUBITO", "skip_rate_pct": 61.6, "awt_s": 6.65, "reach": 275, "hook_type": "gia' segnalato in report precedenti come reel debole per rottura di cadenza" },
+    { "date": "2026-08-07", "hook_opening": "Tuo figlio dice di aver capito... ma poi va male in verifica?", "skip_rate_pct": 61.5, "awt_s": 7.55, "reach": 204, "hook_type": "reel notturno, fuori dalla finestra 18-22 gia' identificata come dannosa" }
+  ],
+  "follower_trajectory_caveat": "l'API espone il numero di follower solo come istantanea del profilo, non attribuita a un singolo post - non e' possibile calcolare quanti follower ha portato un reel specifico con certezza statistica. Il grafico che segue mostra la traiettoria complessiva insieme ai reel pubblicati, utile per un'osservazione qualitativa (i salti piu' grandi coincidono spesso con i reel a bassa skip rate) ma non e' una correlazione formale come quelle sopra.",
+  "followers_snapshots": [
+    { "date": "2026-07-25", "followers": 44 },
+    { "date": "2026-08-01", "followers": 53 },
+    { "date": "2026-08-04", "followers": 57 },
+    { "date": "2026-08-08", "followers": 62 },
+    { "date": "2026-08-10", "followers": 62 },
+    { "date": "2026-08-11", "followers": 69 },
+    { "date": "2026-08-13", "followers": 69 },
+    { "date": "2026-08-15", "followers": 71 },
+    { "date": "2026-08-16", "followers": 77 }
+  ],
+  "source": "Composio (sola lettura) - Instagram Graph API v21"
+}

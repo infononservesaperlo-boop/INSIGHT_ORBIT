@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORBIT — Retention: cosa guida davvero il reach</title>
+<style>
+  :root { color-scheme: light dark; }
+  html, body { margin: 0; padding: 0; }
+  .viz-root {
+    color-scheme: light;
+    --page: #f3f5f9; --surface: #ffffff; --surface-2: #eef1f7;
+    --ink: #11131a; --ink-2: #4a5164; --muted: #848da3;
+    --border: rgba(16,19,26,0.09); --border-2: rgba(16,19,26,0.14);
+    --accent: #2a78d6; --accent-soft: #cde2fb; --accent-line: #2a78d6; --accent-fill: rgba(42,120,214,0.14);
+    --good: #0ca30c; --good-soft: #e3f6e3;
+    --warn: #b9790a; --warn-soft: #fbeed1;
+    --crit: #d03b3b; --crit-soft: #fbe3e3;
+    --violet: #4a3aa7; --violet-soft: #e9e6f8;
+    --grid: #e3e2da;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+      --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+      --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+      --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee; --accent-fill: rgba(57,135,229,0.18);
+      --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+      --warn: #f0ab35; --warn-soft: rgba(240,171,53,0.14);
+      --crit: #e66767; --crit-soft: rgba(230,103,103,0.16);
+      --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+      --grid: #2a2e36;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+    --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+    --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+    --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee; --accent-fill: rgba(57,135,229,0.18);
+    --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+    --warn: #f0ab35; --warn-soft: rgba(240,171,53,0.14);
+    --crit: #e66767; --crit-soft: rgba(230,103,103,0.16);
+    --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+    --grid: #2a2e36;
+  }
+
+  .viz-root * { box-sizing: border-box; }
+  .viz-root { background: var(--page); color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; padding: 40px 20px 80px; min-height: 100vh; }
+  .num { font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace; font-variant-numeric: tabular-nums; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); margin-bottom: 18px; text-decoration: none; }
+  .breadcrumb a { color: var(--accent); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  header.top { margin-bottom: 36px; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--violet); margin: 0 0 8px; }
+  h1 { font-size: 27px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 6px; text-wrap: balance; }
+  .sub { color: var(--ink-2); font-size: 14.5px; margin: 0; max-width: 70ch; line-height: 1.55; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 28px 0 8px; }
+  @media (max-width: 760px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 16px 14px; }
+  .kpi .label { font-size: 11.5px; color: var(--muted); font-weight: 600; letter-spacing: 0.02em; margin-bottom: 6px; }
+  .kpi .value { font-size: 24px; font-weight: 800; letter-spacing: -0.01em; }
+  .kpi .note { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+  .kpi .note.up { color: var(--good); font-weight: 700; }
+  .kpi .note.down { color: var(--crit); font-weight: 700; }
+
+  section { margin-top: 44px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+  h2 { font-size: 18px; font-weight: 800; margin: 0; letter-spacing: -0.005em; }
+  .section-desc { color: var(--ink-2); font-size: 13.5px; margin: 4px 0 18px; max-width: 72ch; line-height: 1.5; }
+
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 20px 16px; }
+  .chart-svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .axis-label { font-size: 10.5px; fill: var(--muted); font-family: ui-monospace, monospace; }
+  .axis-title { font-size: 11px; fill: var(--ink-2); font-weight: 700; }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .tooltip {
+    position: absolute; pointer-events: none; background: var(--ink); color: var(--page);
+    font-size: 12px; padding: 8px 11px; border-radius: 7px; line-height: 1.5; max-width: 220px;
+    transform: translate(-50%, -110%); opacity: 0; transition: opacity 0.1s ease; z-index: 5;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+  .chart-wrap { position: relative; }
+  .dot { cursor: pointer; }
+  .bar { cursor: pointer; }
+  .legend { display: flex; gap: 16px; font-size: 12px; color: var(--ink-2); margin-bottom: 14px; flex-wrap: wrap; }
+  .legend .item { display: flex; align-items: center; gap: 6px; }
+  .legend .swatch { width: 10px; height: 10px; border-radius: 50%; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); font-weight: 700; padding: 0 10px 10px; border-bottom: 1px solid var(--border-2); white-space: nowrap; }
+  td { padding: 9px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .table-scroll { overflow-x: auto; }
+
+  .split2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 780px) { .split2 { grid-template-columns: 1fr; } }
+  .rank-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; }
+  .rank-panel.best { border-top: 3px solid var(--good); }
+  .rank-panel.worst { border-top: 3px solid var(--crit); }
+  .rank-panel h3 { margin: 0 0 12px; font-size: 14px; font-weight: 800; }
+  .rank-item { padding: 9px 0; border-bottom: 1px solid var(--border-soft, var(--border)); }
+  .rank-item:last-child { border-bottom: none; }
+  .rank-item .ri-top { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; color: var(--muted); margin-bottom: 3px; }
+  .rank-item .ri-hook { font-size: 13px; font-weight: 600; line-height: 1.4; }
+  .rank-item .ri-type { font-size: 11.5px; color: var(--ink-2); margin-top: 3px; font-style: italic; }
+
+  .cause-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 14px; }
+  .cause-card h3 { margin: 0 0 8px; font-size: 15px; font-weight: 800; }
+  .cause-card p { margin: 0 0 8px; font-size: 13.5px; color: var(--ink-2); line-height: 1.6; }
+  .cause-card p:last-child { margin-bottom: 0; }
+  .cause-card .evidence { font-size: 12.5px; background: var(--surface-2); border-radius: 8px; padding: 10px 12px; margin-top: 8px; }
+  .cause-card .evidence strong { color: var(--ink); }
+
+  .proto-card { background: linear-gradient(135deg, var(--violet-soft), var(--surface)); border: 2px solid var(--violet); border-radius: 16px; padding: 22px 24px; }
+  .proto-card h3 { margin: 0 0 4px; font-size: 16px; font-weight: 800; color: var(--violet); }
+  .proto-card .proto-sub { font-size: 12.5px; color: var(--ink-2); margin: 0 0 16px; }
+  .proto-step { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px dashed var(--border-2); }
+  .proto-step:last-child { border-bottom: none; }
+  .proto-step .ps-num { font-size: 11px; font-weight: 800; color: var(--violet); background: var(--surface); border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .proto-step .ps-body { font-size: 13.5px; line-height: 1.55; }
+  .proto-step .ps-body strong { color: var(--ink); }
+  .proto-example { margin-top: 16px; background: var(--surface); border-radius: 10px; padding: 14px 16px; font-size: 13px; line-height: 1.6; color: var(--ink-2); }
+  .proto-example strong { color: var(--ink); }
+
+  .callout { border: 1px dashed var(--border-2); border-radius: 10px; padding: 14px 16px; font-size: 13px; color: var(--ink-2); line-height: 1.55; margin-top: 18px; background: var(--surface-2); }
+  .callout strong { color: var(--ink); }
+
+  footer.meta { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+</style>
+</head>
+<body>
+<div class="viz-root">
+  <div class="wrap">
+
+    <a class="breadcrumb" href="../../index.html">&larr; Tutti i report</a>
+
+    <header class="top">
+      <p class="eyebrow">ORBIT · Ripetizioni — Analisi retention &amp; watch-time</p>
+      <h1>Cosa guida davvero il reach: 22 reel, e la risposta è la retention</h1>
+      <p class="sub">Prima analisi su tempo medio di visione e skip rate (abbandono nei primi 3 secondi) su tutti i 22 reel pubblicati finora. Il risultato è netto: quanto le persone guardano conta più del formato, dell'orario o dell'argomento — spiega da solo il 68% della varianza nel reach (r=0,82). Alla fine, un template di script "prototipo" costruito sui pattern che funzionano meglio.</p>
+    </header>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="label">Correlazione tempo di visione ↔ reach</div>
+        <div class="value num">r = 0,82</div>
+        <div class="note up">forte e positiva, su 22 reel</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Correlazione skip rate ↔ reach</div>
+        <div class="value num">r = -0,77</div>
+        <div class="note down">forte e negativa</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Skip rate medio (primi 3s)</div>
+        <div class="value num">53,4%</div>
+        <div class="note">più di 1 su 2 abbandona subito</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Tempo medio di visione</div>
+        <div class="value num">12,1s</div>
+        <div class="note">media sui 22 reel</div>
+      </div>
+    </div>
+
+    <section>
+      <div class="section-head"><h2>Skip rate vs reach — ogni punto è un reel</h2></div>
+      <p class="section-desc">Relazione quasi lineare: <strong>ogni punto percentuale di skip rate in meno vale in media ~40 reach in più</strong> (reach atteso ≈ 3.007 − 40,1 × skip rate). Non è un caso isolato — è la variabile con la correlazione più forte di tutte quelle misurate finora in questi report, più forte di orario, ritmo di pubblicazione o piattaforma.</p>
+      <div class="panel">
+        <div class="legend">
+          <span class="item"><span class="swatch" style="background:var(--violet)"></span>Formato "hai 3 secondi"</span>
+          <span class="item"><span class="swatch" style="background:var(--accent)"></span>Altri formati</span>
+        </div>
+        <div class="chart-wrap" id="scatter-chart"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>I 5 migliori e i 5 peggiori per retention</h2></div>
+      <p class="section-desc">Classificati per skip rate (più basso = meglio). L'apertura (le prime parole) è quasi sempre la differenza.</p>
+      <div class="split2">
+        <div class="rank-panel best">
+          <h3>✓ Miglior retention</h3>
+          <div id="best-list"></div>
+        </div>
+        <div class="rank-panel worst">
+          <h3>✗ Peggior retention</h3>
+          <div id="worst-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Cosa hanno in comune gli hook che trattengono</h2></div>
+
+      <div class="cause-card">
+        <h3>I migliori 5 aprono tutti con una tensione immediata</h3>
+        <p>Nessuno dei 5 reel a skip rate più basso comincia spiegando qualcosa. Aprono con un avvertimento ("stai regalando punti gratis"), una sfida a tempo ("hai 3 secondi"), una promessa numerata concreta ("i 3 errori"), o una smentita di un'assunzione comune ("non è più intelligente", "è un'opinione"). In tutti i casi lo spettatore ha un motivo per restare nei primi 3 secondi, prima ancora di sapere di cosa parla davvero il video.</p>
+        <div class="evidence"><strong>Contrasto diretto:</strong> il reel peggiore di sempre (03/08, skip 70,6%) apre con "Leggere e basta non ti fa capire niente" — un'affermazione vera ma senza posta in gioco immediata: nessuna domanda aperta, nessuna sfida, nessun motivo per continuare a guardare invece di scorrere oltre.</div>
+      </div>
+
+      <div class="cause-card">
+        <h3>Il formato "hai 3 secondi" non è magico di per sé — è affidabile</h3>
+        <p>I 3 reel in questo formato hanno il tempo di visione medio più alto tra tutte le categorie (17,7s) e il reach medio più alto (1.208), ma non il miglior skip rate in assoluto (51,9% — peggio della media dei "tip" ben scritti). La sua forza non è essere sempre perfetto, è essere <em>costantemente sopra la media</em>: bassa varianza, alta affidabilità. Un buon hook non-formattato (come quello del 24/07, "la matematica è un'opinione") può battere il formato su una singola metrica, ma è più rischioso da ripetere con costanza.</p>
+      </div>
+
+      <div class="cause-card">
+        <h3>Alcuni reel deboli non sono un problema di hook</h3>
+        <p>Il primissimo reel (11/07) ha uno degli skip rate peggiori (64,7%) nonostante un hook discretamente forte ("disegnare una parabola NON deve richiederti 5 minuti") — probabile effetto "profilo nuovo, nessun segnale algoritmico ancora costruito". Anche il reel del 22/07 e quello del 27/07 erano già stati segnalati nei report precedenti come indeboliti da rotture del ritmo di pubblicazione, non dal testo del video. La retention conferma quei casi da un angolo diverso, ma non tutto si riconduce all'hook.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Retention per formato</h2></div>
+      <div class="panel table-scroll">
+        <table id="format-table"></table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Follower nel tempo, con i reel a bassa skip rate evidenziati</h2></div>
+      <p class="section-desc">L'API non collega i nuovi follower a un singolo post — questo è un confronto visivo, non una correlazione formale come quelle sopra. Ma i salti più grandi coincidono spesso con reel a skip rate basso.</p>
+      <div class="panel">
+        <div class="chart-wrap" id="followers-chart"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Il prototipo: come scrivere il prossimo script</h2></div>
+      <p class="section-desc">Non un singolo script, ma la struttura che i dati indicano come più affidabile — da riusare su argomenti diversi, come già successo 3 volte con "hai 3 secondi".</p>
+
+      <div class="proto-card">
+        <h3>Template ad alta retention</h3>
+        <p class="proto-sub">Costruito sui pattern comuni ai 5 reel a skip rate più basso + il formato "hai 3 secondi" già validato 3 volte</p>
+
+        <div class="proto-step">
+          <span class="ps-num">1</span>
+          <div class="ps-body"><strong>Primi 3 secondi: crea una posta in gioco, non una premessa.</strong> Sfida a tempo, avvertimento su un errore costoso, o smentita di un'assunzione comune — mai una spiegazione che inizia con "il problema è che...".</div>
+        </div>
+        <div class="proto-step">
+          <span class="ps-num">2</span>
+          <div class="ps-body"><strong>Argomento concreto e tecnico</strong>, non motivazionale/astratto. I due reel con skip rate peggiore dopo il primo (03/08, 07/08) sono entrambi affermazioni generiche sul "come funziona la mente" — zero reel tecnici sono finiti tra i 5 peggiori.</div>
+        </div>
+        <div class="proto-step">
+          <span class="ps-num">3</span>
+          <div class="ps-body"><strong>Target: skip rate sotto 45%.</strong> A quel livello il reach atteso supera 1.200 (vs media di 865). I 5 migliori sono tutti sotto 44,3%.</div>
+        </div>
+        <div class="proto-step">
+          <span class="ps-num">4</span>
+          <div class="ps-body"><strong>CTA per il reach: nessuna, o "seguimi".</strong> CTA per i lead: DM esplicito. Finora nessun reel ha fatto bene su entrambi contemporaneamente — separare l'obiettivo per video invece di chiedere tutto insieme (commenti + DM + sito) può aiutare a capire cosa converte davvero.</div>
+        </div>
+        <div class="proto-step">
+          <span class="ps-num">5</span>
+          <div class="ps-body"><strong>Finestra 18-22 CEST</strong>, ritmo +2 giorni — le due variabili già validate nei report precedenti, non contraddette da nessun dato qui.</div>
+        </div>
+
+        <div class="proto-example">
+          <strong>Esempio applicato (chimica, non ancora coperta dal formato):</strong> "Hai 3 secondi. Se mescoli acido e base in parti uguali, il pH finale è 7? Se hai detto sì... hai già perso: dipende dalle moli, non dai millilitri." — sfida a tempo, smentita di un'assunzione comune, argomento tecnico, stessa struttura vincente su una materia mai testata nel formato.
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Limiti di questa analisi</h2></div>
+      <div class="callout">
+        <strong>Cosa manca:</strong> il grafico di retention frame-per-frame (dove esattamente le persone abbandonano lungo la durata) non è esposto dall'API pubblica di Instagram — solo l'app nativa lo mostra. Questa analisi usa 3 metriche aggregate (skip rate nei primi 3s, tempo medio di visione, tempo di visione totale) come proxy, non la curva completa. Inoltre i follower non sono attribuibili a un singolo reel, quindi quella parte resta osservazione qualitativa. Infine, n=22 con un solo reel per alcune categorie (puzzle, motivational) rende quelle medie poco affidabili — trattarle come indizi, non conferme.
+      </div>
+    </section>
+
+    <footer class="meta">
+      <span>Dati letti in sola lettura via Composio · Instagram Graph API v21 (metriche reels-specifiche)</span>
+      <span>Generato domenica 16 agosto 2026 alle 15:30 (CEST)</span>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  const root = document.querySelector('.viz-root');
+  const css = getComputedStyle(root);
+  const v = (name) => css.getPropertyValue(name).trim();
+
+  const reels = [
+    { date: "2026-07-11", hook: "Disegnare una parabola NON deve richiederti 5 minuti", skip: 64.7, awt: 13.70, reach: 415, fmt: "tip" },
+    { date: "2026-07-12", hook: "Chi va bene in matematica, fisica e chimica non è più intelligente", skip: 44.3, awt: 15.58, reach: 1617, fmt: "listicle" },
+    { date: "2026-07-13", hook: "Se scrivi solo il numero senza l'unità di misura, stai regalando punti gratis", skip: 40.0, awt: 14.38, reach: 1184, fmt: "tip" },
+    { date: "2026-07-14", hook: "La tangenza fa paura solo finché non la vedi risolta così", skip: 46.7, awt: 20.54, reach: 1528, fmt: "tip" },
+    { date: "2026-07-15", hook: "Ecco i 3 errori che vedo fare più spesso agli studenti", skip: 42.5, awt: 12.53, reach: 1093, fmt: "listicle" },
+    { date: "2026-07-20", hook: "Se potessi tornare indietro, ci sono 3 cose che farei diversamente", skip: 53.6, awt: 9.59, reach: 690, fmt: "motivational" },
+    { date: "2026-07-21", hook: "3 caratteristiche fondamentali del mio metodo", skip: 55.8, awt: 7.50, reach: 563, fmt: "listicle" },
+    { date: "2026-07-22", hook: "Studi per ore ma il giorno dopo è come se non avessi aperto un libro?", skip: 62.8, awt: 9.12, reach: 628, fmt: "listicle" },
+    { date: "2026-07-24", hook: "La matematica è un'opinione. Vero?", skip: 44.2, awt: 18.73, reach: 1404, fmt: "puzzle" },
+    { date: "2026-07-25", hook: "Fisica ti sembra arabo? Prova questi 3 trucchi", skip: 51.0, awt: 11.24, reach: 1223, fmt: "listicle" },
+    { date: "2026-07-26", hook: "Se fai anche solo UNO di questi 3 errori...", skip: 44.7, awt: 12.17, reach: 1093, fmt: "listicle" },
+    { date: "2026-07-27", hook: "Debito a settembre? Ecco 3 cose da fare SUBITO", skip: 61.6, awt: 6.65, reach: 275, fmt: "listicle" },
+    { date: "2026-07-29", hook: "Perché il cervello si annoia? Perché non ha un obiettivo", skip: 54.9, awt: 10.91, reach: 743, fmt: "tip" },
+    { date: "2026-07-31", hook: "Segui la lezione, capisci tutto... ma quando arrivi agli esercizi?", skip: 61.5, awt: 8.81, reach: 323, fmt: "tip" },
+    { date: "2026-08-02", hook: "Conosci tutte le formule a memoria ma non sai risolvere gli esercizi?", skip: 45.6, awt: 10.13, reach: 996, fmt: "tip" },
+    { date: "2026-08-03", hook: "Leggere e basta non ti fa capire niente", skip: 70.6, awt: 5.21, reach: 168, fmt: "tip" },
+    { date: "2026-08-05", hook: "Perché ti blocchi sempre durante una verifica?", skip: 51.9, awt: 8.71, reach: 518, fmt: "tip" },
+    { date: "2026-08-07", hook: "Tuo figlio dice di aver capito... ma poi va male in verifica?", skip: 61.5, awt: 7.55, reach: 204, fmt: "tip" },
+    { date: "2026-08-09", hook: "Ecco 3 AI che puoi usare per studiare materie scientifiche", skip: 61.1, awt: 9.72, reach: 737, fmt: "listicle" },
+    { date: "2026-08-11", hook: "Hai 3 secondi per risolvere questo (esponenziali)", skip: 42.2, awt: 15.03, reach: 1214, fmt: "timed" },
+    { date: "2026-08-13", hook: "Hai 3 secondi: chi cade prima? (fisica)", skip: 56.3, awt: 18.47, reach: 914, fmt: "timed" },
+    { date: "2026-08-15", hook: "Hai 3 secondi: 53² − 47²", skip: 57.3, awt: 19.55, reach: 1495, fmt: "timed" },
+  ];
+
+  const followers = [
+    { date: "2026-07-25", val: 44 },
+    { date: "2026-08-01", val: 53 },
+    { date: "2026-08-04", val: 57 },
+    { date: "2026-08-08", val: 62 },
+    { date: "2026-08-10", val: 62 },
+    { date: "2026-08-11", val: 69, mark: "08/11 skip 42,2%" },
+    { date: "2026-08-13", val: 69 },
+    { date: "2026-08-15", val: 71, mark: "08/15 skip 57,3%" },
+    { date: "2026-08-16", val: 77 },
+  ];
+
+  function fmt1(n) { return n.toLocaleString('it-IT'); }
+
+  (function scatter() {
+    const el = document.getElementById('scatter-chart');
+    const W = 1000, H = 420, padL = 55, padR = 20, padT = 20, padB = 40;
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const xMin = 35, xMax = 75;
+    const yMax = Math.max(...reels.map(r => r.reach)) * 1.08;
+    const x = sk => padL + innerW * (sk - xMin) / (xMax - xMin);
+    const y = re => padT + innerH - innerH * re / yMax;
+
+    const gridX = [40,45,50,55,60,65,70,75];
+    const gridY = [0,400,800,1200,1600];
+    const gridLines = [
+      ...gridY.map(gy => `<line class="grid-line" x1="${padL}" x2="${W-padR}" y1="${y(gy).toFixed(1)}" y2="${y(gy).toFixed(1)}" /><text class="axis-label num" x="${padL-8}" y="${(y(gy)+3).toFixed(1)}" text-anchor="end">${fmt1(gy)}</text>`),
+      ...gridX.map(gx => `<text class="axis-label num" x="${x(gx).toFixed(1)}" y="${H-padB+18}" text-anchor="middle">${gx}%</text>`),
+    ].join('');
+
+    // regression line: reach = 3007.2 - 40.12 * skip
+    const rx1 = xMin, ry1 = 3007.2 - 40.12*xMin;
+    const rx2 = xMax, ry2 = Math.max(3007.2 - 40.12*xMax, 0);
+    const trend = `<line x1="${x(rx1).toFixed(1)}" y1="${y(Math.min(ry1,yMax)).toFixed(1)}" x2="${x(rx2).toFixed(1)}" y2="${y(Math.max(ry2,0)).toFixed(1)}" stroke="${v('--muted')}" stroke-width="1.5" stroke-dasharray="5,4" />`;
+
+    const dots = reels.map((r,i) => {
+      const isTimed = r.fmt === 'timed';
+      const color = isTimed ? v('--violet') : v('--accent-line');
+      const radius = isTimed ? 6.5 : 5;
+      return `<circle class="dot" cx="${x(r.skip).toFixed(1)}" cy="${y(r.reach).toFixed(1)}" r="${radius}" fill="${color}" fill-opacity="0.85" stroke="${v('--surface')}" stroke-width="1.5" data-i="${i}" />`;
+    }).join('');
+
+    el.innerHTML = `
+      <svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+        ${gridLines}
+        ${trend}
+        ${dots}
+        <text class="axis-title" x="${padL + innerW/2}" y="${H-4}" text-anchor="middle">Skip rate (primi 3 secondi)</text>
+        <text class="axis-title" transform="translate(14 ${padT+innerH/2}) rotate(-90)" text-anchor="middle">Reach</text>
+      </svg>
+      <div class="tooltip" id="scatter-tip"></div>
+    `;
+    const tip = el.querySelector('#scatter-tip');
+    el.querySelectorAll('.dot').forEach(dot => {
+      dot.addEventListener('mouseenter', () => {
+        const r = reels[+dot.dataset.i];
+        tip.innerHTML = `<strong>${r.date.slice(8,10)}/${r.date.slice(5,7)}</strong><br>${r.hook}<br>skip ${r.skip}% · reach ${fmt1(r.reach)} · awt ${r.awt}s`;
+        const rc = dot.getBoundingClientRect(), pr = el.getBoundingClientRect();
+        tip.style.left = (rc.left - pr.left + rc.width/2) + 'px';
+        tip.style.top = (rc.top - pr.top) + 'px';
+        tip.style.opacity = '1';
+      });
+      dot.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+    });
+  })();
+
+  (function followersChart() {
+    const el = document.getElementById('followers-chart');
+    const W = 1000, H = 260, padL = 45, padR = 20, padT = 20, padB = 32;
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const maxY = Math.max(...followers.map(f => f.val)) * 1.15;
+    const n = followers.length;
+    const x = i => padL + innerW * i / (n-1);
+    const y = val => padT + innerH - innerH * val / maxY;
+
+    const gridY = [0,20,40,60,80];
+    const gridLines = gridY.map(gy => `
+      <line class="grid-line" x1="${padL}" x2="${W-padR}" y1="${y(gy).toFixed(1)}" y2="${y(gy).toFixed(1)}" />
+      <text class="axis-label num" x="${padL-8}" y="${(y(gy)+3).toFixed(1)}" text-anchor="end">${gy}</text>
+    `).join('');
+
+    const path = followers.map((f,i) => `${i===0?'M':'L'} ${x(i).toFixed(1)} ${y(f.val).toFixed(1)}`).join(' ');
+    const dots = followers.map((f,i) => `<circle class="dot" cx="${x(i).toFixed(1)}" cy="${y(f.val).toFixed(1)}" r="${f.mark ? 6.5 : 4}" fill="${f.mark ? v('--violet') : v('--accent-line')}" stroke="${v('--surface')}" stroke-width="2" data-i="${i}" />`).join('');
+    const labels = followers.map((f,i) => `<text class="axis-label num" x="${x(i).toFixed(1)}" y="${H-8}" text-anchor="middle">${f.date.slice(8,10)}/${f.date.slice(5,7)}</text>`).join('');
+
+    el.innerHTML = `
+      <svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+        ${gridLines}
+        <path d="${path}" fill="none" stroke="${v('--accent-line')}" stroke-width="2.5" stroke-linejoin="round" />
+        ${dots}${labels}
+      </svg>
+      <div class="tooltip" id="fol-tip"></div>
+    `;
+    const tip = el.querySelector('#fol-tip');
+    el.querySelectorAll('.dot').forEach(dot => {
+      dot.addEventListener('mouseenter', () => {
+        const f = followers[+dot.dataset.i];
+        tip.innerHTML = `<strong>${f.date.slice(8,10)}/${f.date.slice(5,7)}</strong><br>${f.val} follower${f.mark ? '<br>'+f.mark : ''}`;
+        const rc = dot.getBoundingClientRect(), pr = el.getBoundingClientRect();
+        tip.style.left = (rc.left - pr.left + rc.width/2) + 'px';
+        tip.style.top = (rc.top - pr.top) + 'px';
+        tip.style.opacity = '1';
+      });
+      dot.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+    });
+  })();
+
+  (function rankLists() {
+    const sorted = [...reels].sort((a,b) => a.skip - b.skip);
+    const best = sorted.slice(0,5);
+    const worst = sorted.slice(-5).reverse();
+
+    function render(list) {
+      return list.map(r => `
+        <div class="rank-item">
+          <div class="ri-top"><span class="num">${r.date.slice(8,10)}/${r.date.slice(5,7)}</span><span class="num">skip ${r.skip}% · reach ${fmt1(r.reach)}</span></div>
+          <div class="ri-hook">${r.hook}</div>
+        </div>
+      `).join('');
+    }
+    document.getElementById('best-list').innerHTML = render(best);
+    document.getElementById('worst-list').innerHTML = render(worst);
+  })();
+
+  (function formatTable() {
+    const data = [
+      { fmt: "Hai 3 secondi", n: 3, reach: 1207.7, views: 1521.3, awt: 17.68, skip: 51.9, eng: 3.26 },
+      { fmt: "Listicle (3 cose/errori)", n: 8, reach: 903.6, views: 1113.0, awt: 10.56, skip: 53.0, eng: 5.52 },
+      { fmt: "Tip (spiegazione singola)", n: 9, reach: 675.4, views: 861.4, awt: 11.1, skip: 55.3, eng: 6.37 },
+      { fmt: "Puzzle/provocazione", n: 1, reach: 1404.0, views: 1840.0, awt: 18.73, skip: 44.2, eng: 4.34 },
+      { fmt: "Motivational", n: 1, reach: 690.0, views: 885.0, awt: 9.59, skip: 53.6, eng: 4.78 },
+    ];
+    const thead = `<thead><tr><th>Formato</th><th style="text-align:right">n</th><th style="text-align:right">Reach medio</th><th style="text-align:right">Views medie</th><th style="text-align:right">Watch time</th><th style="text-align:right">Skip rate</th><th style="text-align:right">Engagement</th></tr></thead>`;
+    const rows = data.map(d => `
+      <tr>
+        <td>${d.fmt}</td>
+        <td class="num" style="text-align:right">${d.n}</td>
+        <td class="num" style="text-align:right">${fmt1(Math.round(d.reach))}</td>
+        <td class="num" style="text-align:right">${fmt1(Math.round(d.views))}</td>
+        <td class="num" style="text-align:right">${d.awt}s</td>
+        <td class="num" style="text-align:right">${d.skip}%</td>
+        <td class="num" style="text-align:right">${d.eng}%</td>
+      </tr>
+    `).join('');
+    document.getElementById('format-table').innerHTML = thead + '<tbody>' + rows + '</tbody>';
+  })();
+
+})();
+</script>
+</body>
+</html>

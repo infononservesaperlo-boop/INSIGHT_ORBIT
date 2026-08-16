@@ -1,0 +1,38 @@
+{
+  "generated_at": "2026-08-16T15:35:00+02:00",
+  "purpose": "aggiornamento standard: il reel del 15/08 matura a 3 miglior risultato di sempre, entrambe le piattaforme forti insieme, +6 follower in un giorno; rimanda alla analisi di retention (data/2026-08-16-retention-analysis.json) per l'approfondimento",
+  "account": {
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 77, "followers_count_previous": 71, "media_count": 22 },
+    "facebook": { "page_name": "ORBIT Ripetizioni", "fan_count": 14, "fan_count_previous": 14 }
+  },
+  "featured_reel": {
+    "id": "17869619415650864",
+    "date": "2026-08-15",
+    "time": "20:10",
+    "topic": "differenza di quadrati (53^2 - 47^2)",
+    "instagram": { "reach": 1495, "views": 1853, "likes": 43, "comments": 5, "shares": 2, "saved": 8, "total_interactions": 58, "avg_watch_time_s": 19.55, "skip_rate_pct": 57.3 },
+    "facebook": { "views": 1187 },
+    "rank": "3 miglior reach di sempre (dopo 1617 del 12/07 e 1528 del 14/07), miglior risultato dell'era ritmo-alterni",
+    "note": "maturato molto da ieri (era 70 reach a 45 minuti dalla pubblicazione); entrambe le piattaforme fortissime insieme, come l'11/08"
+  },
+  "instagram_daily_reach_recent": [
+    { "date": "2026-08-13", "reach": 630 },
+    { "date": "2026-08-14", "reach": 288 },
+    { "date": "2026-08-15", "reach": 1384 },
+    { "date": "2026-08-16", "reach": 148, "day_still_open_at_extraction": true }
+  ],
+  "followers_growth": {
+    "instagram": { "current": 77, "previous_08_15": 71, "delta": 6, "note": "secondo salto piu' grande registrato dopo quello dell'11/08 (+7); coincide con il reel del 15/08" },
+    "facebook": { "current": 14, "previous_08_15": 14, "delta": 0 }
+  },
+  "website": {
+    "google_analytics": {
+      "period": "2026-08-13 to 2026-08-16",
+      "sessions_total": 2,
+      "by_channel": { "Organic Social": 2 },
+      "note": "leggero miglioramento rispetto al report precedente (0 sessioni in 3 giorni) ma resta molto debole rispetto al reach del reel"
+    }
+  },
+  "see_also": "data/2026-08-16-retention-analysis.json e reports/2026-08-16-retention-analysis/ per l'analisi approfondita su retention/watch-time sui 22 reel",
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23 / Google Analytics Data API"
+}

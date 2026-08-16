@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORBIT — Il reel del 15/08 è il 3° miglior risultato di sempre</title>
+<style>
+  :root { color-scheme: light dark; }
+  html, body { margin: 0; padding: 0; }
+  .viz-root {
+    color-scheme: light;
+    --page: #f3f5f9; --surface: #ffffff; --surface-2: #eef1f7;
+    --ink: #11131a; --ink-2: #4a5164; --muted: #848da3;
+    --border: rgba(16,19,26,0.09); --border-2: rgba(16,19,26,0.14);
+    --accent: #2a78d6; --accent-soft: #cde2fb; --accent-line: #2a78d6;
+    --good: #0ca30c; --good-soft: #e3f6e3;
+    --violet: #4a3aa7; --violet-soft: #e9e6f8;
+    --grid: #e3e2da;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+      --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+      --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+      --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee;
+      --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+      --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+      --grid: #2a2e36;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+    --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+    --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+    --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee;
+    --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+    --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+    --grid: #2a2e36;
+  }
+
+  .viz-root * { box-sizing: border-box; }
+  .viz-root { background: var(--page); color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; padding: 40px 20px 80px; min-height: 100vh; }
+  .num { font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace; font-variant-numeric: tabular-nums; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); margin-bottom: 18px; text-decoration: none; }
+  .breadcrumb a { color: var(--accent); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  header.top { margin-bottom: 36px; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--violet); margin: 0 0 8px; }
+  h1 { font-size: 27px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 6px; text-wrap: balance; }
+  .sub { color: var(--ink-2); font-size: 14.5px; margin: 0; max-width: 68ch; line-height: 1.55; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 28px 0 8px; }
+  @media (max-width: 760px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 16px 14px; }
+  .kpi .label { font-size: 11.5px; color: var(--muted); font-weight: 600; letter-spacing: 0.02em; margin-bottom: 6px; }
+  .kpi .value { font-size: 24px; font-weight: 800; letter-spacing: -0.01em; }
+  .kpi .note { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+  .kpi .note.up { color: var(--good); font-weight: 700; }
+  .kpi .note.flat { color: var(--muted); font-weight: 700; }
+
+  section { margin-top: 44px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+  h2 { font-size: 18px; font-weight: 800; margin: 0; letter-spacing: -0.005em; }
+  .section-desc { color: var(--ink-2); font-size: 13.5px; margin: 4px 0 18px; max-width: 70ch; line-height: 1.5; }
+
+  .split-card { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .split-card { grid-template-columns: 1fr; } }
+  .split-col { border-radius: 14px; padding: 18px 20px; background: var(--good-soft); border: 2px solid var(--good); }
+  .split-col .platform { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px; color: var(--good); }
+  .split-col .big-num { font-size: 30px; font-weight: 800; }
+  .split-col .sub-label { font-size: 12.5px; color: var(--ink-2); margin-top: 4px; line-height: 1.5; }
+
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 20px 16px; }
+  .chart-svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .axis-label { font-size: 10.5px; fill: var(--muted); font-family: ui-monospace, monospace; }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .tooltip {
+    position: absolute; pointer-events: none; background: var(--ink); color: var(--page);
+    font-size: 12px; padding: 7px 10px; border-radius: 7px; line-height: 1.45; white-space: nowrap;
+    transform: translate(-50%, -110%); opacity: 0; transition: opacity 0.1s ease; z-index: 5;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+  .chart-wrap { position: relative; }
+  .bar { cursor: pointer; }
+
+  .link-card {
+    display: block; text-decoration: none; color: inherit;
+    background: linear-gradient(135deg, var(--violet-soft), var(--surface));
+    border: 2px solid var(--violet); border-radius: 14px; padding: 18px 20px;
+  }
+  .link-card .lc-eyebrow { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: var(--violet); margin: 0 0 6px; }
+  .link-card h3 { margin: 0 0 6px; font-size: 16px; font-weight: 800; }
+  .link-card p { margin: 0; font-size: 13px; color: var(--ink-2); line-height: 1.5; }
+  .link-card .arrow { color: var(--violet); font-weight: 800; }
+
+  .mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .mini-grid { grid-template-columns: 1fr; } }
+  .mini-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+  .mini-card h3 { margin: 0 0 8px; font-size: 14.5px; font-weight: 800; }
+  .mini-card p { margin: 8px 0 0; font-size: 12.5px; color: var(--ink-2); line-height: 1.55; }
+  .mini-card .big { font-size: 24px; font-weight: 800; }
+
+  footer.meta { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+</style>
+</head>
+<body>
+<div class="viz-root">
+  <div class="wrap">
+
+    <a class="breadcrumb" href="../../index.html">&larr; Tutti i report</a>
+
+    <header class="top">
+      <p class="eyebrow">ORBIT · Ripetizioni — Aggiornamento 16 agosto 2026</p>
+      <h1>Il reel del 15/08 è il 3° miglior risultato di sempre</h1>
+      <p class="sub">Il reel "53² − 47²" ha continuato a maturare da ieri: 1.495 reach su Instagram (terzo miglior risultato in un mese di storia, dopo i due record di luglio) e 1.187 views su Facebook — di nuovo entrambe le piattaforme forti insieme, come l'11/08. Follower Instagram +6 in un giorno, secondo salto più grande mai registrato.</p>
+    </header>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="label">Reel 15/08 — reach IG</div>
+        <div class="value num">1.495</div>
+        <div class="note up">3° di sempre su 22 reel</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Reel 15/08 — views FB</div>
+        <div class="value num">1.187</div>
+        <div class="note up">entrambe le piattaforme forti</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Follower Instagram</div>
+        <div class="value num">71 → 77</div>
+        <div class="note up">+6 in un giorno</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Fan Facebook</div>
+        <div class="value num">14</div>
+        <div class="note flat">invariato</div>
+      </div>
+    </div>
+
+    <section>
+      <div class="section-head"><h2>Terzo miglior reel di sempre</h2></div>
+      <p class="section-desc">Su 22 reel pubblicati dall'11/07, solo due hanno fatto meglio: 1.617 (12/07) e 1.528 (14/07), entrambi dalla "raffica" iniziale di luglio. Il 15/08 è il migliore mai raggiunto nell'era del ritmo a giorni alterni.</p>
+      <div class="split-card">
+        <div class="split-col">
+          <div class="platform">Instagram</div>
+          <div class="big-num num">1.495</div>
+          <div class="sub-label">reach — 43 like, 5 commenti, 8 salvataggi</div>
+        </div>
+        <div class="split-col">
+          <div class="platform">Facebook</div>
+          <div class="big-num num">1.187</div>
+          <div class="sub-label">views — tra i migliori risultati della pagina</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Reach giornaliero, ultimi 4 giorni</h2></div>
+      <div class="panel">
+        <div class="chart-wrap" id="daily-chart"></div>
+      </div>
+    </section>
+
+    <section>
+      <a class="link-card" href="../2026-08-16-retention-analysis/index.html">
+        <p class="lc-eyebrow">Report collegato</p>
+        <h3>Analisi retention &amp; watch-time su tutti i 22 reel <span class="arrow">→</span></h3>
+        <p>Perché questo reel (e gli altri migliori) funzionano davvero: correlazione tra skip rate, tempo di visione e reach (r = 0,82), classifica dei 5 migliori/peggiori per retention, e un template di script "prototipo" costruito sui pattern che si ripetono.</p>
+      </a>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Il sito</h2></div>
+      <div class="mini-grid">
+        <div class="mini-card">
+          <h3>Google Analytics — 13-16/08</h3>
+          <div class="big num">2</div>
+          <p>2 sessioni da social in 4 giorni — leggero miglioramento rispetto al report precedente (0 sessioni), ma resta molto sotto il reach generato dal reel.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="meta">
+      <span>Dati letti in sola lettura via Composio · Instagram Graph API v21 / Facebook Graph API v20–23 / Google Analytics Data API</span>
+      <span>Generato domenica 16 agosto 2026 alle 15:35 (CEST)</span>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  const root = document.querySelector('.viz-root');
+  const css = getComputedStyle(root);
+  const v = (name) => css.getPropertyValue(name).trim();
+
+  const daily = [
+    { date: "2026-08-13", reach: 630 },
+    { date: "2026-08-14", reach: 288 },
+    { date: "2026-08-15", reach: 1384, highlight: true },
+    { date: "2026-08-16", reach: 148, open: true },
+  ];
+
+  function fmt(n) { return n.toLocaleString('it-IT'); }
+
+  (function barChart() {
+    const el = document.getElementById('daily-chart');
+    const W = 1000, H = 240, padL = 50, padR = 16, padT = 16, padB = 30;
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const maxY = Math.max(...daily.map(d => d.reach)) * 1.12;
+    const n = daily.length;
+    const bw = innerW / n * 0.5;
+    const x = i => padL + (innerW * (i + 0.5)) / n;
+    const y = val => padT + innerH - (innerH * val) / maxY;
+
+    const gridYVals = [0, 0.25, 0.5, 0.75, 1].map(f => Math.round(maxY * f / 100) * 100);
+    const gridLines = gridYVals.map(gy => `
+      <line class="grid-line" x1="${padL}" x2="${W - padR}" y1="${y(gy).toFixed(1)}" y2="${y(gy).toFixed(1)}" />
+      <text class="axis-label num" x="${padL - 8}" y="${y(gy).toFixed(1) + 3}" text-anchor="end">${fmt(gy)}</text>
+    `).join('');
+
+    const bars = daily.map((d, i) => {
+      const bx = x(i) - bw / 2;
+      const by = y(d.reach);
+      const bh = innerH + padT - by;
+      const fill = d.open ? v('--accent-soft') : (d.highlight ? v('--good') : v('--accent-line'));
+      return `<rect class="bar" x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${bw.toFixed(1)}" height="${bh.toFixed(1)}" rx="3" fill="${fill}" data-i="${i}" />`;
+    }).join('');
+
+    const labels = daily.map((d, i) => `<text class="axis-label num" x="${x(i).toFixed(1)}" y="${H - 8}" text-anchor="middle">${d.date.slice(8,10)}/${d.date.slice(5,7)}</text>`).join('');
+
+    el.innerHTML = `
+      <svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+        ${gridLines}
+        ${bars}
+        ${labels}
+      </svg>
+      <div class="tooltip" id="daily-tip"></div>
+    `;
+    const tip = el.querySelector('#daily-tip');
+    el.querySelectorAll('.bar').forEach(bar => {
+      bar.addEventListener('mouseenter', () => {
+        const i = +bar.dataset.i;
+        const d = daily[i];
+        tip.innerHTML = `<strong>${d.date.slice(8,10)}/${d.date.slice(5,7)}/2026</strong><br>Reach: ${fmt(d.reach)}${d.open ? ' (giorno ancora in corso)' : ''}`;
+        const r = bar.getBoundingClientRect(), pr = el.getBoundingClientRect();
+        tip.style.left = (r.left - pr.left + r.width / 2) + 'px';
+        tip.style.top = (r.top - pr.top) + 'px';
+        tip.style.opacity = '1';
+      });
+      bar.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+    });
+  })();
+
+})();
+</script>
+</body>
+</html>

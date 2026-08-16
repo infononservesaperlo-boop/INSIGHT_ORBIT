@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-16T15:35:00+02:00",
-  "purpose": "aggiornamento standard: il reel del 15/08 matura a 3 miglior risultato di sempre, entrambe le piattaforme forti insieme, +6 follower in un giorno; rimanda alla analisi di retention (data/2026-08-16-retention-analysis.json) per l'approfondimento",
+  "generated_at": "2026-08-16T16:48:00+02:00",
+  "purpose": "aggiornamento infragiornaliero: follower continuano ad arrivare (77->78 in poco piu' di un'ora), il reel del 15/08 matura ulteriormente a 1.528 reach - pari merito 2 miglior risultato di sempre; rimanda alla analisi di retention (data/2026-08-16-retention-analysis.json) per l'approfondimento",
   "account": {
-    "instagram": { "username": "orbit_ripetizioni", "followers_count": 77, "followers_count_previous": 71, "media_count": 22 },
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 78, "followers_count_previous": 71, "media_count": 22 },
     "facebook": { "page_name": "ORBIT Ripetizioni", "fan_count": 14, "fan_count_previous": 14 }
   },
   "featured_reel": {
@@ -10,19 +10,19 @@
     "date": "2026-08-15",
     "time": "20:10",
     "topic": "differenza di quadrati (53^2 - 47^2)",
-    "instagram": { "reach": 1495, "views": 1853, "likes": 43, "comments": 5, "shares": 2, "saved": 8, "total_interactions": 58, "avg_watch_time_s": 19.55, "skip_rate_pct": 57.3 },
-    "facebook": { "views": 1187 },
-    "rank": "3 miglior reach di sempre (dopo 1617 del 12/07 e 1528 del 14/07), miglior risultato dell'era ritmo-alterni",
-    "note": "maturato molto da ieri (era 70 reach a 45 minuti dalla pubblicazione); entrambe le piattaforme fortissime insieme, come l'11/08"
+    "instagram": { "reach": 1528, "views": 1891, "likes": 44, "comments": 5, "shares": 2, "saved": 8, "total_interactions": 59, "avg_watch_time_s": 19.32, "skip_rate_pct": 57.7 },
+    "facebook": { "views": 1195 },
+    "rank": "pari merito 2 miglior reach di sempre (1.528, come il 14/07), secondo solo al record del 12/07 (1.617)",
+    "note": "ha continuato a crescere: era 1.495 alle 15:35, ora 1.528 - ha raggiunto il livello del 14/07. Entrambe le piattaforme restano forti insieme, come l'11/08"
   },
   "instagram_daily_reach_recent": [
     { "date": "2026-08-13", "reach": 630 },
     { "date": "2026-08-14", "reach": 288 },
     { "date": "2026-08-15", "reach": 1384 },
-    { "date": "2026-08-16", "reach": 148, "day_still_open_at_extraction": true }
+    { "date": "2026-08-16", "reach": 184, "day_still_open_at_extraction": true }
   ],
   "followers_growth": {
-    "instagram": { "current": 77, "previous_08_15": 71, "delta": 6, "note": "secondo salto piu' grande registrato dopo quello dell'11/08 (+7); coincide con il reel del 15/08" },
+    "instagram": { "current": 78, "previous_08_15": 71, "delta": 7, "note": "pareggia il salto dell'11/08 (+7); e continua a crescere nell'arco della stessa giornata (77->78 tra le 15:35 e le 16:48)" },
     "facebook": { "current": 14, "previous_08_15": 14, "delta": 0 }
   },
   "website": {

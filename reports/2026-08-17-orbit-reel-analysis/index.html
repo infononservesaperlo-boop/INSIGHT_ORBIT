@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORBIT — Nuovo record assoluto di reach</title>
+<style>
+  :root { color-scheme: light dark; }
+  html, body { margin: 0; padding: 0; }
+  .viz-root {
+    color-scheme: light;
+    --page: #f3f5f9; --surface: #ffffff; --surface-2: #eef1f7;
+    --ink: #11131a; --ink-2: #4a5164; --muted: #848da3;
+    --border: rgba(16,19,26,0.09); --border-2: rgba(16,19,26,0.14);
+    --accent: #2a78d6; --accent-soft: #cde2fb; --accent-line: #2a78d6;
+    --good: #0ca30c; --good-soft: #e3f6e3;
+    --warn: #b9790a; --warn-soft: #fbeed1;
+    --violet: #4a3aa7; --violet-soft: #e9e6f8;
+    --grid: #e3e2da;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+      --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+      --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+      --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee;
+      --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+      --warn: #f0ab35; --warn-soft: rgba(240,171,53,0.14);
+      --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+      --grid: #2a2e36;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+    --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+    --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+    --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee;
+    --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+    --warn: #f0ab35; --warn-soft: rgba(240,171,53,0.14);
+    --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+    --grid: #2a2e36;
+  }
+
+  .viz-root * { box-sizing: border-box; }
+  .viz-root { background: var(--page); color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; padding: 40px 20px 80px; min-height: 100vh; }
+  .num { font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace; font-variant-numeric: tabular-nums; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); margin-bottom: 18px; text-decoration: none; }
+  .breadcrumb a { color: var(--accent); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  header.top { margin-bottom: 36px; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--violet); margin: 0 0 8px; }
+  h1 { font-size: 27px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 6px; text-wrap: balance; }
+  .sub { color: var(--ink-2); font-size: 14.5px; margin: 0; max-width: 68ch; line-height: 1.55; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 28px 0 8px; }
+  @media (max-width: 760px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 16px 14px; }
+  .kpi .label { font-size: 11.5px; color: var(--muted); font-weight: 600; letter-spacing: 0.02em; margin-bottom: 6px; }
+  .kpi .value { font-size: 24px; font-weight: 800; letter-spacing: -0.01em; }
+  .kpi .note { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+  .kpi .note.up { color: var(--good); font-weight: 700; }
+  .kpi .note.flat { color: var(--muted); font-weight: 700; }
+
+  section { margin-top: 44px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+  h2 { font-size: 18px; font-weight: 800; margin: 0; letter-spacing: -0.005em; }
+  .section-desc { color: var(--ink-2); font-size: 13.5px; margin: 4px 0 18px; max-width: 72ch; line-height: 1.5; }
+
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 20px 16px; }
+  .chart-svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .axis-label { font-size: 10.5px; fill: var(--muted); font-family: ui-monospace, monospace; }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .tooltip {
+    position: absolute; pointer-events: none; background: var(--ink); color: var(--page);
+    font-size: 12px; padding: 8px 11px; border-radius: 7px; line-height: 1.5; max-width: 220px;
+    transform: translate(-50%, -110%); opacity: 0; transition: opacity 0.1s ease; z-index: 5;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+  .chart-wrap { position: relative; }
+  .dot { cursor: pointer; }
+  .bar { cursor: pointer; }
+
+  .record-card {
+    background: linear-gradient(135deg, var(--good-soft), var(--surface));
+    border: 2px solid var(--good); border-radius: 16px; padding: 22px 24px;
+  }
+  .record-card .rc-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: var(--good); margin: 0 0 6px; }
+  .record-card .rc-num { font-size: 42px; font-weight: 800; letter-spacing: -0.01em; }
+  .record-card .rc-sub { font-size: 13px; color: var(--ink-2); margin-top: 6px; line-height: 1.55; }
+
+  .mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .mini-grid { grid-template-columns: 1fr; } }
+  .mini-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+  .mini-card h3 { margin: 0 0 8px; font-size: 14.5px; font-weight: 800; }
+  .mini-card .row2 { display: flex; gap: 18px; margin: 10px 0; }
+  .mini-card .row2 .col { flex: 1; }
+  .mini-card .row2 .col .l { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; }
+  .mini-card .row2 .col .v { font-size: 20px; font-weight: 800; margin-top: 2px; }
+  .mini-card p { margin: 8px 0 0; font-size: 12.5px; color: var(--ink-2); line-height: 1.55; }
+  .mini-card .big { font-size: 24px; font-weight: 800; }
+
+  .callout { border: 1px dashed var(--border-2); border-radius: 10px; padding: 14px 16px; font-size: 13px; color: var(--ink-2); line-height: 1.55; margin-top: 18px; background: var(--surface-2); }
+  .callout strong { color: var(--ink); }
+  .callout.warn { border-color: var(--warn); background: var(--warn-soft); }
+
+  footer.meta { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+</style>
+</head>
+<body>
+<div class="viz-root">
+  <div class="wrap">
+
+    <a class="breadcrumb" href="../../index.html">&larr; Tutti i report</a>
+
+    <header class="top">
+      <p class="eyebrow">ORBIT · Ripetizioni — Aggiornamento 17 agosto 2026</p>
+      <h1>Il reel del 15/08 diventa il nuovo record assoluto di reach</h1>
+      <p class="sub">"53² − 47²" ha continuato a crescere per due giorni interi: da 1.528 reach (ieri sera) a <strong>1.751</strong> oggi — supera il record di luglio (1.617) e diventa il miglior reel di sempre su 23 pubblicati. Nel frattempo i follower non si sono fermati: 71 → 84 in circa due giorni, +13 (+18%). Un nuovo reel è uscito stasera, ancora troppo fresco per il reach ma con lo skip rate migliore mai registrato.</p>
+    </header>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="label">Record reach — reel 15/08</div>
+        <div class="value num">1.751</div>
+        <div class="note up">nuovo record, +134 vs il precedente (1.617)</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Follower Instagram</div>
+        <div class="value num">71 → 84</div>
+        <div class="note up">+13 in 2 giorni (+18%)</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Nuovo reel 17/08 — skip rate</div>
+        <div class="value num">40,1%</div>
+        <div class="note up">il migliore mai registrato (pari col 13/07)</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Fan Facebook</div>
+        <div class="value num">14</div>
+        <div class="note flat">invariato</div>
+      </div>
+    </div>
+
+    <section>
+      <div class="section-head"><h2>Nuovo record assoluto</h2></div>
+      <p class="section-desc">Il reel dell'11/07-15/08 è cresciuto per giorni, non ore: ecco la progressione completa dei controlli.</p>
+      <div class="record-card">
+        <p class="rc-label">Reach finale — "53² − 47²" (15/08)</p>
+        <div class="rc-num num">1.751</div>
+        <p class="rc-sub">2.167 views, 52 like, 5 commenti, 11 salvataggi su Instagram · 1.220 views su Facebook. Il precedente record (1.617, dal 12/07, in piena "raffica" iniziale) resisteva da oltre un mese — battuto per la prima volta dall'era del ritmo a giorni alterni.</p>
+      </div>
+      <div class="panel" style="margin-top:16px;">
+        <div class="chart-wrap" id="progression-chart"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Follower: la crescita più sostenuta da inizio agosto</h2></div>
+      <p class="section-desc">Quattro controlli in circa 48 ore, sempre in salita.</p>
+      <div class="panel">
+        <div class="chart-wrap" id="followers-chart"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Gli altri reel di questi giorni</h2></div>
+      <div class="mini-grid">
+        <div class="mini-card">
+          <h3>13/08 — Fisica (chi cade prima?)</h3>
+          <div class="row2">
+            <div class="col"><div class="l">Reach IG</div><div class="v num">918</div></div>
+            <div class="col"><div class="l">Views FB</div><div class="v num">331</div></div>
+          </div>
+          <p>Stabile rispetto all'ultimo controllo (914). Il divario con Facebook resta: stesso schema del report del 15/08, IG tiene e FB no.</p>
+        </div>
+        <div class="mini-card">
+          <h3>17/08 — Fisica (gittata, angoli complementari)</h3>
+          <div class="row2">
+            <div class="col"><div class="l">Reach IG</div><div class="v num">147</div></div>
+            <div class="col"><div class="l">Skip rate</div><div class="v num">40,1%</div></div>
+          </div>
+          <p>Pubblicato ~3h15m fa, troppo presto per giudicare il reach. Ma lo skip rate è il migliore mai visto su 23 reel (pari col 13/07) — segnale di apertura fortissimo, CTA questa volta verso il DM ("scrivimi 'fisica'") invece che follow/commenti.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>"Land sul profilo": cosa dice davvero l'API</h2></div>
+      <p class="section-desc">Hai chiesto di guardare gli atterraggi sul profilo — ecco cosa ho trovato provando a estrarlo.</p>
+      <div class="callout warn">
+        <strong>Dato non disponibile.</strong> Ho provato a interrogare <code>profile_views</code>, <code>accounts_engaged</code> e <code>website_clicks</code> per il periodo 10-17/08: l'API di Instagram ha restituito risultati vuoti per tutti e tre, nonostante reach e follower siano ben popolati per lo stesso periodo. La causa più probabile è una soglia legata alla dimensione dell'account (84 follower, sotto i 100 — Meta documenta questa soglia esplicitamente per i contatori follower, e sembra estendersi anche a queste metriche su questo account). Non posso quindi darti un numero preciso di "visite al profilo" — solo l'evidenza indiretta che i follower crescono, quindi qualcuno il profilo lo sta visitando e decidendo di seguire. Riproverò nei prossimi report: superata quota 100 follower questi dati potrebbero sbloccarsi.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Il sito</h2></div>
+      <div class="mini-grid">
+        <div class="mini-card">
+          <h3>Google Analytics — 16-17/08</h3>
+          <div class="big num">0</div>
+          <p>Zero sessioni in 2 giorni, nonostante il nuovo record di reach. Il traffico verso il sito resta l'anello debole della catena, come segnalato nei report precedenti.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="meta">
+      <span>Dati letti in sola lettura via Composio · Instagram Graph API v21 / Facebook Graph API v20–23 / Google Analytics Data API</span>
+      <span>Generato lunedì 17 agosto 2026 alle 22:20 (CEST)</span>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  const root = document.querySelector('.viz-root');
+  const css = getComputedStyle(root);
+  const v = (name) => css.getPropertyValue(name).trim();
+  function fmt(n) { return n.toLocaleString('it-IT'); }
+
+  const progression = [
+    { t: "15/08 20:55", val: 70, note: "45 min dalla pubblicazione" },
+    { t: "16/08 15:35", val: 1495 },
+    { t: "16/08 16:48", val: 1528 },
+    { t: "17/08 22:20", val: 1751, note: "nuovo record assoluto" },
+  ];
+
+  const followers = [
+    { t: "15/08", val: 71 },
+    { t: "16/08 15:35", val: 77 },
+    { t: "16/08 16:48", val: 78 },
+    { t: "17/08 22:20", val: 84, mark: true },
+  ];
+
+  function lineChart(elId, data, color, refLine) {
+    const el = document.getElementById(elId);
+    const W = 1000, H = 260, padL = 55, padR = 20, padT = 24, padB = 34;
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const minY = Math.min(0, ...data.map(d => d.val));
+    const maxY = Math.max(...data.map(d => d.val), refLine || 0) * 1.1;
+    const n = data.length;
+    const x = i => padL + innerW * i / (n - 1);
+    const y = val => padT + innerH - innerH * (val - minY) / (maxY - minY);
+
+    const gridVals = [0, 0.25, 0.5, 0.75, 1].map(f => Math.round((minY + (maxY - minY) * f) / 100) * 100);
+    const gridLines = gridVals.map(gy => `
+      <line class="grid-line" x1="${padL}" x2="${W-padR}" y1="${y(gy).toFixed(1)}" y2="${y(gy).toFixed(1)}" />
+      <text class="axis-label num" x="${padL-8}" y="${(y(gy)+3).toFixed(1)}" text-anchor="end">${fmt(gy)}</text>
+    `).join('');
+
+    const refLineSvg = refLine ? `<line x1="${padL}" x2="${W-padR}" y1="${y(refLine).toFixed(1)}" y2="${y(refLine).toFixed(1)}" stroke="${v('--muted')}" stroke-width="1.5" stroke-dasharray="5,4" /><text class="axis-label num" x="${W-padR}" y="${(y(refLine)-6).toFixed(1)}" text-anchor="end">record precedente: ${fmt(refLine)}</text>` : '';
+
+    const path = data.map((d,i) => `${i===0?'M':'L'} ${x(i).toFixed(1)} ${y(d.val).toFixed(1)}`).join(' ');
+    const dots = data.map((d,i) => `<circle class="dot" cx="${x(i).toFixed(1)}" cy="${y(d.val).toFixed(1)}" r="${d.mark || d.note ? 7 : 4.5}" fill="${color}" stroke="${v('--surface')}" stroke-width="2" data-i="${i}" />`).join('');
+    const labels = data.map((d,i) => `<text class="axis-label num" x="${x(i).toFixed(1)}" y="${H-8}" text-anchor="middle">${d.t}</text>`).join('');
+
+    el.innerHTML = `
+      <svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+        ${gridLines}
+        ${refLineSvg}
+        <path d="${path}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round" />
+        ${dots}${labels}
+      </svg>
+      <div class="tooltip" id="${elId}-tip"></div>
+    `;
+    const tip = el.querySelector(`#${elId}-tip`);
+    el.querySelectorAll('.dot').forEach(dot => {
+      dot.addEventListener('mouseenter', () => {
+        const d = data[+dot.dataset.i];
+        tip.innerHTML = `<strong>${d.t}</strong><br>${fmt(d.val)}${d.note ? '<br>'+d.note : ''}`;
+        const r = dot.getBoundingClientRect(), pr = el.getBoundingClientRect();
+        tip.style.left = (r.left - pr.left + r.width/2) + 'px';
+        tip.style.top = (r.top - pr.top) + 'px';
+        tip.style.opacity = '1';
+      });
+      dot.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+    });
+  }
+
+  lineChart('progression-chart', progression, v('--good'), 1617);
+  lineChart('followers-chart', followers, v('--accent-line'), null);
+
+})();
+</script>
+</body>
+</html>

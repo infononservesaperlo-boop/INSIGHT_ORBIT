@@ -1,0 +1,69 @@
+{
+  "generated_at": "2026-08-17T22:20:00+02:00",
+  "purpose": "il reel del 15/08 diventa il nuovo record assoluto di reach (1.751, supera il record di luglio di 1.617); follower continuano a crescere (+13 in 2 giorni); nuovo reel pubblicato oggi con lo skip rate migliore mai registrato, ma ancora troppo acerbo per essere giudicato sul reach",
+  "account": {
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 84, "followers_count_previous": 78, "media_count": 23 },
+    "facebook": { "page_name": "ORBIT Ripetizioni", "fan_count": 14, "fan_count_previous": 14 }
+  },
+  "new_all_time_record": {
+    "id": "17869619415650864",
+    "date": "2026-08-15",
+    "topic": "differenza di quadrati (53^2 - 47^2)",
+    "reach_progression": [
+      { "checked_at": "2026-08-15T20:55", "reach": 70, "note": "45 minuti dalla pubblicazione" },
+      { "checked_at": "2026-08-16T15:35", "reach": 1495 },
+      { "checked_at": "2026-08-16T16:48", "reach": 1528 },
+      { "checked_at": "2026-08-17T22:20", "reach": 1751, "note": "nuovo record assoluto" }
+    ],
+    "previous_record": { "date": "2026-07-12", "reach": 1617 },
+    "instagram_final": { "reach": 1751, "views": 2167, "likes": 52, "comments": 5, "shares": 2, "saved": 11, "total_interactions": 70, "avg_watch_time_s": 18.43, "skip_rate_pct": 59.3 },
+    "facebook_final": { "views": 1220 }
+  },
+  "reel_13_08_update": {
+    "id": "18172673584435783",
+    "date": "2026-08-13",
+    "topic": "fisica - caduta libera vs lancio orizzontale",
+    "instagram": { "reach": 918, "views": 1239, "total_interactions": 26, "avg_watch_time_s": 18.38, "skip_rate_pct": 56.4 },
+    "facebook": { "views": 331 },
+    "note": "stabile rispetto all'ultimo controllo (914 -> 918), FB invariato a 331 - il divario con IG resta"
+  },
+  "new_reel_17_08": {
+    "id": "18371494966240238",
+    "date": "2026-08-17",
+    "time": "20:58",
+    "topic": "fisica - gittata di due lanci con angoli complementari (30/60, 20/70 gradi)",
+    "cta": "scrivimi 'fisica' in DM (variante: CTA esplicita verso il DM invece di commenti/follow)",
+    "instagram": { "reach": 147, "views": 224, "likes": 9, "comments": 2, "shares": 1, "saved": 1, "total_interactions": 13, "avg_watch_time_s": 20.08, "skip_rate_pct": 40.1 },
+    "note": "troppo fresco (~3h15m dalla pubblicazione) per giudicare il reach, ma lo skip rate (40,1%) e' il migliore mai registrato su tutti i 23 reel finora, pari con quello del 13/07 (40,0%) - segnale di apertura molto forte, da confermare quando il reach maturera'"
+  },
+  "instagram_daily_reach_recent": [
+    { "date": "2026-08-13", "reach": 630 },
+    { "date": "2026-08-14", "reach": 288 },
+    { "date": "2026-08-15", "reach": 1384 },
+    { "date": "2026-08-16", "reach": 346 },
+    { "date": "2026-08-17", "reach": 246, "day_still_open_at_extraction": true }
+  ],
+  "followers_growth": {
+    "instagram": { "current": 84, "trajectory": [
+      { "date": "2026-08-15", "followers": 71 },
+      { "date": "2026-08-16T15:35", "followers": 77 },
+      { "date": "2026-08-16T16:48", "followers": 78 },
+      { "date": "2026-08-17T22:20", "followers": 84 }
+    ], "delta_since_08_15": 13, "note": "+13 in circa 2 giorni (+18%), il periodo di crescita piu' sostenuto da inizio agosto" },
+    "facebook": { "current": 14, "delta_since_08_15": 0 }
+  },
+  "profile_landing_metric_attempt": {
+    "requested_metrics": ["profile_views", "accounts_engaged", "website_clicks"],
+    "result": "nessun dato disponibile - l'API di Instagram ha restituito risultati vuoti per tutti e 3 su tutto il periodo 10-17/08, nonostante reach e follower siano ben popolati per lo stesso periodo",
+    "likely_cause": "questi 3 indicatori sembrano soppressi sotto una certa soglia di follower (l'account e' a 84, sotto i 100 - Meta documenta esplicitamente questa soglia per follower_count/online_followers, e sembra applicarsi anche a profile_views/accounts_engaged/website_clicks su questo account, anche se non documentato esplicitamente per questi campi)",
+    "conclusion": "non e' possibile, al momento, misurare via API quante persone atterrano sul profilo dopo aver visto un reel - resta un'osservazione qualitativa (i follower crescono, quindi qualcuno visita il profilo e decide di seguire) senza un numero preciso di 'visite al profilo' dietro"
+  },
+  "website": {
+    "google_analytics": {
+      "period": "2026-08-16 to 2026-08-17",
+      "sessions_total": 0,
+      "note": "zero sessioni in 2 giorni nonostante il nuovo record di reach - il traffico verso il sito resta l'anello debole, come nei report precedenti"
+    }
+  },
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23 / Google Analytics Data API"
+}

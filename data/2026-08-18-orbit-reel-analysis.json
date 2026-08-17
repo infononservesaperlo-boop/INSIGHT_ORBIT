@@ -1,0 +1,45 @@
+{
+  "generated_at": "2026-08-18T01:55:00+02:00",
+  "purpose": "il reel del 17/08 esplode: 2.700 reach, quasi il doppio del record stabilito appena il giorno prima (1.751) - secondo record assoluto in 48 ore, record anche su Facebook e sullo skip rate; follower e fan in forte crescita",
+  "account": {
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 93, "followers_count_previous": 84, "media_count": 23 },
+    "facebook": { "page_name": "ORBIT Ripetizioni", "fan_count": 21, "fan_count_previous": 14 }
+  },
+  "new_all_time_record": {
+    "id": "18371494966240238",
+    "date": "2026-08-17",
+    "time": "20:58",
+    "topic": "fisica - gittata di due lanci con angoli complementari (30/60, 20/70 gradi)",
+    "cta": "scrivimi 'fisica' in DM",
+    "reach_progression": [
+      { "checked_at": "2026-08-17T22:20", "reach": 147, "note": "~3h15m dalla pubblicazione" },
+      { "checked_at": "2026-08-18T01:55", "reach": 2700, "note": "nuovo record assoluto, quasi il doppio del precedente" }
+    ],
+    "previous_record": { "date": "2026-08-15", "reach": 1751, "note": "record durato meno di 48 ore" },
+    "instagram_final_so_far": { "reach": 2700, "views": 3412, "likes": 80, "comments": 8, "shares": 1, "saved": 6, "total_interactions": 95, "avg_watch_time_s": 21.34, "skip_rate_pct": 36.2 },
+    "facebook_final_so_far": { "views": 1876, "note": "record anche su Facebook, batte il precedente (1.494 del 26/07)" },
+    "single_day_reach": { "date": "2026-08-17", "reach": 2800, "note": "reach giornaliero record, quasi tutto da questo reel" }
+  },
+  "records_broken_summary": [
+    { "metric": "Reach singolo reel (IG)", "old": 1751, "old_date": "2026-08-15", "new": 2700, "new_date": "2026-08-17" },
+    { "metric": "Views singolo post (FB)", "old": 1494, "old_date": "2026-07-26", "new": 1876, "new_date": "2026-08-17" },
+    { "metric": "Skip rate (migliore)", "old": 40.1, "old_date": "2026-08-17 (stesso reel, primo check)", "new": 36.2, "new_date": "2026-08-18 (stesso reel, maturato)" },
+    { "metric": "Reach giornaliero account", "old": 1384, "old_date": "2026-08-15", "new": 2800, "new_date": "2026-08-17" }
+  ],
+  "followers_growth": {
+    "instagram": { "current": 93, "previous_08_17": 84, "delta": 9, "note": "vicino a quota 100 - alcune metriche API (profile_views, accounts_engaged, website_clicks) restano soppresse fino a quella soglia" },
+    "facebook": { "current": 21, "previous_08_17": 14, "delta": 7, "note": "salto piu' grande mai registrato su Facebook in un giorno" }
+  },
+  "profile_landing_metric_retry": {
+    "result": "ancora nessun dato disponibile (profile_views, accounts_engaged, website_clicks) - l'account e' a 93 follower, sotto la soglia di 100",
+    "note": "da riprovare al prossimo report, la soglia potrebbe sbloccarsi a breve vista la crescita in corso"
+  },
+  "website": {
+    "google_analytics": {
+      "period": "2026-08-17 to 2026-08-18",
+      "sessions_total": 0,
+      "note": "zero sessioni nonostante un reel da 2.700 reach - conferma ancora piu' netta che il traffico al sito e' completamente scollegato dalla viralita' dei reel, probabilmente perche' nessuna CTA recente punta al sito"
+    }
+  },
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23 / Google Analytics Data API"
+}

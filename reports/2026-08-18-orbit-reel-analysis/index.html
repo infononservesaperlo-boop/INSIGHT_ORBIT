@@ -121,9 +121,9 @@
     <a class="breadcrumb" href="../../index.html">&larr; Tutti i report</a>
 
     <header class="top">
-      <p class="eyebrow">ORBIT · Ripetizioni — Aggiornamento 18 agosto 2026, ore 12:19</p>
-      <h1>Il reel continua a esplodere: quasi 5.000 reach, il record si aggiorna due volte in un giorno</h1>
-      <p class="sub">Il reel sulla gittata dei proiettili non si è fermato: dalle 2.700 di stanotte è arrivato a <strong>4.957 reach</strong> — quasi il triplo del record di 48 ore fa (1.751). Su Facebook ancora più clamoroso: 4.395 views, quasi triplicato anche lì. Follower Instagram 84 → 96, fan Facebook 14 → 25 (quasi raddoppiati in 24 ore).</p>
+      <p class="eyebrow">ORBIT · Ripetizioni — Aggiornamento 18 agosto 2026, ore 13:28</p>
+      <h1>Il reel continua a esplodere: quasi 5.000 reach, quota 100 follower raggiunta</h1>
+      <p class="sub">Il reel sulla gittata dei proiettili non si è fermato: dalle 2.700 di stanotte è arrivato a <strong>4.957 reach</strong> — quasi il triplo del record di 48 ore fa (1.751). Su Facebook ancora più clamoroso: 4.395 views, quasi triplicato anche lì. Follower Instagram arrivati esattamente a <strong>100</strong>, fan Facebook 14 → 26. E a quota 100 si sono sbloccate metriche finora invisibili — vedi sotto.</p>
     </header>
 
     <div class="kpi-row">
@@ -139,13 +139,13 @@
       </div>
       <div class="kpi">
         <div class="label">Follower Instagram</div>
-        <div class="value num">84 → 96</div>
-        <div class="note up">+12, ancora sotto quota 100</div>
+        <div class="value num">84 → 100</div>
+        <div class="note up">+16, quota tonda raggiunta</div>
       </div>
       <div class="kpi">
         <div class="label">Fan Facebook</div>
-        <div class="value num">14 → 25</div>
-        <div class="note up">+11, quasi raddoppiati in 24h</div>
+        <div class="value num">14 → 26</div>
+        <div class="note up">+12, quasi raddoppiati in 24h</div>
       </div>
     </div>
 
@@ -182,26 +182,34 @@
     </section>
 
     <section>
-      <div class="section-head"><h2>"Land sul profilo" — riprovato, ancora bloccato</h2></div>
-      <div class="callout warn">
-        Riprovato di nuovo a 96 follower: ancora dati vuoti su <code>profile_views</code>, <code>accounts_engaged</code> e <code>website_clicks</code>. La soglia dei 100 non è ancora stata superata — con questo ritmo di crescita, il prossimo controllo potrebbe finalmente sbloccarli.
-      </div>
-    </section>
-
-    <section>
-      <div class="section-head"><h2>Il sito: quasi zero anche stavolta</h2></div>
+      <div class="section-head"><h2>"Land sul profilo": finalmente sbloccato</h2></div>
+      <p class="section-desc">A quota 100 follower esatti i dati si sono sbloccati — ma non bastava aspettare: serviva anche chiedere l'aggregato totale (<code>metric_type=total_value</code>) invece della serie giornaliera, che restituiva vuoto lo stesso. Ecco cosa dicono i numeri sul periodo virale.</p>
       <div class="mini-grid">
         <div class="mini-card">
-          <h3>Google Analytics — 17-18/08</h3>
-          <div class="big num">1</div>
-          <p>Una sola sessione, a fronte di quasi 5.000 reach e 6.369 views — conferma ancora più netta che il traffico al sito non segue affatto la viralità del reel. Nessuna delle ultime CTA punta al sito, quindi il risultato non sorprende, ma il divario continua ad allargarsi.</p>
+          <h3>16-18/08 — i 3 giorni virali</h3>
+          <div class="row2">
+            <div class="col"><div class="l">Visite al profilo</div><div class="v num">44</div></div>
+            <div class="col"><div class="l">Account coinvolti</div><div class="v num">205</div></div>
+          </div>
+          <p><strong>Click al sito in questi 3 giorni: 0.</strong> Su un reach cumulato di svariate migliaia, solo 44 persone hanno visitato il profilo — meno dell'1% — e nessuna ha cliccato il link al sito.</p>
         </div>
+        <div class="mini-card">
+          <h3>11-15/08 — prima della viralità</h3>
+          <div class="row2">
+            <div class="col"><div class="l">Visite al profilo</div><div class="v num">66</div></div>
+            <div class="col"><div class="l">Account coinvolti</div><div class="v num">71</div></div>
+          </div>
+          <p>Con un reach molto più basso, le visite al profilo erano comunque più numerose (66 contro 44) — e tutti e 3 i click al sito registrati nell'intero periodo (11-19/08) sono arrivati proprio in questi giorni, non durante l'esplosione.</p>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>Il quadro completo, finalmente con numeri veri:</strong> più reach non significa più interesse per il profilo o per il sito — anzi, in questo caso il rapporto è inverso. Il reel virale porta visualizzazioni ma non necessariamente persone motivate a saperne di più: chi guarda un video "sfida a tempo" è lì per il trucco, non per cercare un tutor. I 3 click al sito di prima della viralità, quando il pubblico raggiunto era più piccolo ma forse più in target, restano l'unico segnale di intenzione reale registrato finora.
       </div>
     </section>
 
     <footer class="meta">
       <span>Dati letti in sola lettura via Composio · Instagram Graph API v21 / Facebook Graph API v20–23 / Google Analytics Data API</span>
-      <span>Aggiornato martedì 18 agosto 2026 alle 12:19 (CEST)</span>
+      <span>Aggiornato martedì 18 agosto 2026 alle 13:28 (CEST)</span>
     </footer>
 
   </div>
@@ -219,14 +227,14 @@
     { t: "16/08", val: 78 },
     { t: "17/08", val: 84 },
     { t: "18/08 01:55", val: 93 },
-    { t: "18/08 12:19", val: 96, mark: true },
+    { t: "18/08 13:28", val: 100, mark: true },
   ];
   const fb = [
     { t: "15/08", val: 14 },
     { t: "16/08", val: 14 },
     { t: "17/08", val: 14 },
     { t: "18/08 01:55", val: 21 },
-    { t: "18/08 12:19", val: 25, mark: true },
+    { t: "18/08 13:28", val: 26, mark: true },
   ];
 
   (function chart() {

@@ -1,0 +1,81 @@
+{
+  "generated_at": "2026-08-23T22:45:00+02:00",
+  "purpose": "chiusura del reel virale del 17/08 (20.555 reach finale, record assoluto), tre nuovi reel pubblicati nel frattempo inclusa una nuova struttura a due parti (indovina via DM poi rivelazione), primo vero traffico sul sito ma con una discrepanza da segnalare tra GA e i dati Instagram",
+  "period_covered": "2026-08-18 to 2026-08-23",
+  "account": {
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 174, "followers_count_previous": 100, "media_count": 26 },
+    "facebook": { "page_name": "ORBIT Ripetizioni", "fan_count": 34, "fan_count_previous": 26 }
+  },
+  "viral_reel_final": {
+    "id": "18371494966240238",
+    "date": "2026-08-17",
+    "topic": "fisica - gittata di due lanci con angoli complementari",
+    "reach_progression": [
+      { "checked_at": "2026-08-17T22:20", "reach": 147 },
+      { "checked_at": "2026-08-18T01:55", "reach": 2700 },
+      { "checked_at": "2026-08-18T13:28", "reach": 4957 },
+      { "checked_at": "2026-08-23T22:45", "reach": 20555, "note": "numero finale, il reel ha continuato a crescere per giorni dopo l'ultimo controllo" }
+    ],
+    "final": { "reach": 20555, "views": 26302, "total_interactions": 795 },
+    "note": "di gran lunga il miglior risultato di sempre - piu' del quadruplo del precedente record (4.957, che a sua volta aveva gia' triplicato il record di luglio)"
+  },
+  "new_reels": [
+    {
+      "id": "18145575790498655",
+      "date": "2026-08-19",
+      "time": "20:32",
+      "topic": "fisica - pallina pesante vs leggera, chi cade prima",
+      "instagram": { "reach": 1668, "views": 1995, "total_interactions": 62, "avg_watch_time_s": 20.02, "skip_rate_pct": 43.2 },
+      "facebook": { "views": 1809 },
+      "note": "buon risultato, in linea con la media alta del formato 'hai 3 secondi'; probabile anche un effetto di traino dal reel virale del giorno prima"
+    },
+    {
+      "id": "18110650115471128",
+      "date": "2026-08-21",
+      "time": "20:07",
+      "topic": "matematica - individua l'errore nella soluzione, nuova struttura a 2 parti",
+      "cta": "rispondi via DM, non nei commenti (per non fare spoiler) - prima volta con questa struttura",
+      "instagram": { "reach": 1446, "views": 1897, "total_interactions": 35, "avg_watch_time_s": 6.67, "skip_rate_pct": 59.5 },
+      "facebook": { "views": 734 },
+      "note": "reach ancora buono ma retention debole (tempo di visione molto basso, skip rate sopra media) - ipotesi: senza una spiegazione nello stesso video, chi capisce subito l'errore o chi non lo capisce abbandona velocemente"
+    },
+    {
+      "id": "17915263938242570",
+      "date": "2026-08-23",
+      "time": "21:39",
+      "topic": "matematica - rivelazione della soluzione del 21/08 (condizioni di esistenza)",
+      "cta": "scrivi ORBIT nei commenti per altre sfide",
+      "instagram": { "reach": 171, "views": 220, "total_interactions": 9, "avg_watch_time_s": 5.18, "skip_rate_pct": 66.8 },
+      "facebook": { "views": 339 },
+      "note": "troppo fresco per giudicare (pubblicato da ~3 ore), ma primi segnali deboli su retention - tipico dei video di 'rivelazione' che presuppongono aver visto la parte 1, quindi parlano a un pubblico piu' ristretto"
+    }
+  ],
+  "instagram_daily_reach": [
+    { "date": "2026-08-18", "reach": 10929, "note": "giorno dell'esplosione del reel virale" },
+    { "date": "2026-08-19", "reach": 2577 },
+    { "date": "2026-08-20", "reach": 1418 },
+    { "date": "2026-08-21", "reach": 2580 },
+    { "date": "2026-08-22", "reach": 1442 },
+    { "date": "2026-08-23", "reach": 1243, "day_still_open_at_extraction": true }
+  ],
+  "profile_funnel_18_23_08": {
+    "profile_views": 177,
+    "accounts_engaged": 731,
+    "website_clicks_instagram_metric": 3,
+    "note": "il pulsante 'sito web' sul profilo Instagram registra solo 3 click in 6 giorni, nonostante 177 visite al profilo - il funnel visita-profilo -> click-sito resta molto stretto (~1,7%)"
+  },
+  "website_traffic_discrepancy": {
+    "google_analytics_sessions_18_23_08": 50,
+    "by_channel": { "Direct": 43, "Organic Social": 4, "Unassigned": 1 },
+    "instagram_website_clicks_same_period": 3,
+    "discrepancy_note": "Google Analytics mostra un salto vero (50 sessioni contro quasi zero nei periodi precedenti), ma la stragrande maggioranza arriva come 'Direct', non 'Organic Social' - mentre Instagram riporta solo 3 click sul pulsante sito. Le due fonti non tornano. Spiegazione piu' probabile: i click da dentro l'app Instagram spesso perdono il referrer e finiscono classificati come 'Direct' da Google Analytics, quindi il traffico reale da Instagram e' probabilmente piu' alto di quanto il tag 'Organic Social' suggerisca - ma non e' verificabile con certezza con i dati disponibili",
+    "caveat": "non presentare questo come una conclusione definitiva - e' un'ipotesi plausibile per spiegare la discrepanza, non una misura diretta"
+  },
+  "new_format_experiment": {
+    "name": "indovina via DM + rivelazione",
+    "reels": ["18110650115471128", "17915263938242570"],
+    "hypothesis": "prima volta che ORBIT usa una struttura a due parti (sfida senza spiegazione immediata, poi un secondo reel di rivelazione) invece della spiegazione tutto-in-uno del formato 'hai 3 secondi' classico",
+    "early_signal": "retention piu' debole su entrambe le parti rispetto alla media del formato classico - da confermare con altri tentativi prima di trarre conclusioni, campione di 1 coppia"
+  },
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23 / Google Analytics Data API"
+}

@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORBIT — Il reel virale chiude a 20.555 reach</title>
+<style>
+  :root { color-scheme: light dark; }
+  html, body { margin: 0; padding: 0; }
+  .viz-root {
+    color-scheme: light;
+    --page: #f3f5f9; --surface: #ffffff; --surface-2: #eef1f7;
+    --ink: #11131a; --ink-2: #4a5164; --muted: #848da3;
+    --border: rgba(16,19,26,0.09); --border-2: rgba(16,19,26,0.14);
+    --accent: #2a78d6; --accent-soft: #cde2fb; --accent-line: #2a78d6;
+    --good: #0ca30c; --good-soft: #e3f6e3;
+    --warn: #b9790a; --warn-soft: #fbeed1;
+    --violet: #4a3aa7; --violet-soft: #e9e6f8;
+    --grid: #e3e2da;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+      --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+      --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+      --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee;
+      --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+      --warn: #f0ab35; --warn-soft: rgba(240,171,53,0.14);
+      --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+      --grid: #2a2e36;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+    --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+    --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+    --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee;
+    --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+    --warn: #f0ab35; --warn-soft: rgba(240,171,53,0.14);
+    --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+    --grid: #2a2e36;
+  }
+
+  .viz-root * { box-sizing: border-box; }
+  .viz-root { background: var(--page); color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; padding: 40px 20px 80px; min-height: 100vh; }
+  .num { font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace; font-variant-numeric: tabular-nums; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); margin-bottom: 18px; text-decoration: none; }
+  .breadcrumb a { color: var(--accent); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  header.top { margin-bottom: 36px; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--violet); margin: 0 0 8px; }
+  h1 { font-size: 27px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 6px; text-wrap: balance; }
+  .sub { color: var(--ink-2); font-size: 14.5px; margin: 0; max-width: 70ch; line-height: 1.55; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 28px 0 8px; }
+  @media (max-width: 760px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 16px 14px; }
+  .kpi .label { font-size: 11.5px; color: var(--muted); font-weight: 600; letter-spacing: 0.02em; margin-bottom: 6px; }
+  .kpi .value { font-size: 24px; font-weight: 800; letter-spacing: -0.01em; }
+  .kpi .note { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+  .kpi .note.up { color: var(--good); font-weight: 700; }
+
+  section { margin-top: 44px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+  h2 { font-size: 18px; font-weight: 800; margin: 0; letter-spacing: -0.005em; }
+  .section-desc { color: var(--ink-2); font-size: 13.5px; margin: 4px 0 18px; max-width: 72ch; line-height: 1.5; }
+
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 20px 16px; }
+  .chart-svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .axis-label { font-size: 10.5px; fill: var(--muted); font-family: ui-monospace, monospace; }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .tooltip {
+    position: absolute; pointer-events: none; background: var(--ink); color: var(--page);
+    font-size: 12px; padding: 8px 11px; border-radius: 7px; line-height: 1.5; max-width: 220px;
+    transform: translate(-50%, -110%); opacity: 0; transition: opacity 0.1s ease; z-index: 5;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+  .chart-wrap { position: relative; }
+  .dot { cursor: pointer; }
+  .bar { cursor: pointer; }
+
+  .hero-record {
+    background: linear-gradient(135deg, var(--good-soft), var(--surface));
+    border: 2px solid var(--good); border-radius: 18px; padding: 28px 28px 24px;
+    text-align: center;
+  }
+  .hero-record .hr-label { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--good); margin: 0 0 8px; }
+  .hero-record .hr-num { font-size: 56px; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+  .hero-record .hr-sub { font-size: 13.5px; color: var(--ink-2); margin-top: 10px; max-width: 58ch; margin-left: auto; margin-right: auto; line-height: 1.55; }
+
+  .reel-cards { display: flex; flex-direction: column; gap: 12px; }
+  .reel-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; border-left: 4px solid var(--accent); }
+  .reel-card.fresh { border-left-color: var(--muted); opacity: 0.9; }
+  .reel-card .rc-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+  .reel-card h3 { margin: 0; font-size: 15px; font-weight: 800; }
+  .reel-card .rc-date { font-size: 11.5px; color: var(--muted); font-weight: 700; }
+  .reel-card .rc-topic { font-size: 12.5px; color: var(--ink-2); margin: 2px 0 12px; }
+  .reel-card .rc-stats { display: flex; gap: 22px; flex-wrap: wrap; }
+  .reel-card .rc-stat .l { font-size: 10.5px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; }
+  .reel-card .rc-stat .v { font-size: 18px; font-weight: 800; margin-top: 2px; }
+  .reel-card .rc-note { font-size: 12.5px; color: var(--ink-2); margin-top: 10px; line-height: 1.55; background: var(--surface-2); border-radius: 8px; padding: 9px 12px; }
+
+  .mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .mini-grid { grid-template-columns: 1fr; } }
+  .mini-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+  .mini-card h3 { margin: 0 0 8px; font-size: 14.5px; font-weight: 800; }
+  .mini-card .big { font-size: 24px; font-weight: 800; }
+  .mini-card p { margin: 8px 0 0; font-size: 12.5px; color: var(--ink-2); line-height: 1.55; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); font-weight: 700; padding: 0 10px 10px; border-bottom: 1px solid var(--border-2); white-space: nowrap; }
+  td { padding: 9px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .table-scroll { overflow-x: auto; }
+
+  .callout { border: 1px dashed var(--border-2); border-radius: 10px; padding: 14px 16px; font-size: 13px; color: var(--ink-2); line-height: 1.55; margin-top: 18px; background: var(--surface-2); }
+  .callout strong { color: var(--ink); }
+  .callout.warn { border-color: var(--warn); background: var(--warn-soft); }
+
+  footer.meta { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+</style>
+</head>
+<body>
+<div class="viz-root">
+  <div class="wrap">
+
+    <a class="breadcrumb" href="../../index.html">&larr; Tutti i report</a>
+
+    <header class="top">
+      <p class="eyebrow">ORBIT · Ripetizioni — Aggiornamento 23 agosto 2026 · copre 18-23/08</p>
+      <h1>Il reel virale chiude a 20.555 reach — e sono usciti altri 3 reel nel frattempo</h1>
+      <p class="sub">Il reel del 17/08 ha continuato a crescere per giorni: dal 4.957 dell'ultimo controllo (18/08) è arrivato a un finale di <strong>20.555 reach</strong> e 26.302 views — più del quadruplo di quanto sembrava già straordinario 5 giorni fa. Nel frattempo: 3 nuovi reel, un nuovo esperimento di formato (indovina via DM + rivelazione), follower Instagram 100 → 174, fan Facebook 26 → 34, e il primo vero salto di traffico sul sito — anche se i numeri di Google Analytics e Instagram non tornano perfettamente tra loro.</p>
+    </header>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="label">Reach finale reel virale</div>
+        <div class="value num">20.555</div>
+        <div class="note up">4× il valore dell'ultimo controllo (4.957)</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Follower Instagram</div>
+        <div class="value num">100 → 174</div>
+        <div class="note up">+74 in 5 giorni</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Fan Facebook</div>
+        <div class="value num">26 → 34</div>
+        <div class="note up">+8</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Sessioni sito (18-23/08)</div>
+        <div class="value num">50</div>
+        <div class="note up">salto vero, ma attribuzione incerta</div>
+      </div>
+    </div>
+
+    <section>
+      <div class="section-head"><h2>Il reel virale, chiuso</h2></div>
+      <div class="hero-record">
+        <p class="hr-label">Reach finale — "gittata e angoli complementari" (17/08)</p>
+        <div class="hr-num num">20.555</div>
+        <p class="hr-sub">26.302 views, 795 interazioni totali su Instagram. Ha continuato a crescere per giorni dopo l'ultimo controllo (era a 4.957 il 18/08 a mezzogiorno) — di gran lunga il miglior risultato di sempre, più del quadruplo del suo stesso record di 5 giorni fa.</p>
+      </div>
+      <div class="panel" style="margin-top:16px;">
+        <div class="chart-wrap" id="progression-chart"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Reach giornaliero, 18-23 agosto</h2></div>
+      <div class="panel">
+        <div class="chart-wrap" id="daily-chart"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>I tre reel pubblicati nel frattempo</h2></div>
+      <p class="section-desc">Compreso un primo esperimento con una struttura nuova: sfida senza spiegazione immediata, risposta richiesta in DM, rivelazione in un secondo reel due giorni dopo.</p>
+      <div class="reel-cards">
+        <div class="reel-card">
+          <div class="rc-head">
+            <h3>19/08 — Fisica: pallina pesante vs leggera</h3>
+            <span class="rc-date num">reach 1.668</span>
+          </div>
+          <p class="rc-topic">Formato classico "hai 3 secondi"</p>
+          <div class="rc-stats">
+            <div class="rc-stat"><div class="l">Views IG</div><div class="v num">1.995</div></div>
+            <div class="rc-stat"><div class="l">Views FB</div><div class="v num">1.809</div></div>
+            <div class="rc-stat"><div class="l">Skip rate</div><div class="v num">43,2%</div></div>
+          </div>
+          <div class="rc-note">Buon risultato, in linea con la media alta del formato — probabile anche un effetto di traino dal reel virale del giorno prima.</div>
+        </div>
+
+        <div class="reel-card">
+          <div class="rc-head">
+            <h3>21/08 — Matematica: trova l'errore (parte 1 di 2)</h3>
+            <span class="rc-date num">reach 1.446</span>
+          </div>
+          <p class="rc-topic">Nuova struttura: risposta via DM, "niente spoiler nei commenti"</p>
+          <div class="rc-stats">
+            <div class="rc-stat"><div class="l">Views IG</div><div class="v num">1.897</div></div>
+            <div class="rc-stat"><div class="l">Views FB</div><div class="v num">734</div></div>
+            <div class="rc-stat"><div class="l">Skip rate</div><div class="v num">59,5%</div></div>
+          </div>
+          <div class="rc-note">Reach ancora buono ma retention debole: tempo di visione medio di soli 6,7s, ben sotto la media del formato classico. Ipotesi: senza una spiegazione nello stesso video, chi capisce (o non capisce) l'errore abbandona in fretta.</div>
+        </div>
+
+        <div class="reel-card fresh">
+          <div class="rc-head">
+            <h3>23/08 — Matematica: la rivelazione (parte 2 di 2)</h3>
+            <span class="rc-date num">reach 171</span>
+          </div>
+          <p class="rc-topic">Pubblicato ~3 ore fa, troppo presto per giudicarlo</p>
+          <div class="rc-stats">
+            <div class="rc-stat"><div class="l">Views IG</div><div class="v num">220</div></div>
+            <div class="rc-stat"><div class="l">Views FB</div><div class="v num">339</div></div>
+            <div class="rc-stat"><div class="l">Skip rate</div><div class="v num">66,8%</div></div>
+          </div>
+          <div class="rc-note">Primi segnali deboli, ma è normale per un video di "rivelazione": parla a chi ha visto la parte 1, quindi un pubblico più ristretto per natura. Da confermare quando matura.</div>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>Sulla struttura a due parti:</strong> primo tentativo, campione di una sola coppia — troppo presto per dire se funziona meglio o peggio del formato classico "tutto in un video". La retention più debole su entrambe le parti è un segnale da tenere d'occhio, non ancora una conclusione.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Il sito: primo salto vero, ma i numeri non tornano</h2></div>
+      <p class="section-desc">Google Analytics e Instagram raccontano due storie diverse per lo stesso periodo (18-23/08).</p>
+      <div class="mini-grid">
+        <div class="mini-card">
+          <h3>Google Analytics — sessioni</h3>
+          <div class="big num">50</div>
+          <p>Salto vero rispetto ai periodi precedenti (quasi zero). Ma per lo più classificate come "Direct" (43) e non "Organic Social" (solo 4) — Google Analytics non le collega esplicitamente a Instagram/Facebook.</p>
+        </div>
+        <div class="mini-card">
+          <h3>Instagram — click sul pulsante sito</h3>
+          <div class="big num">3</div>
+          <p>Il conteggio ufficiale di Instagram per i click sul link del profilo resta bassissimo, invariato rispetto al periodo precedente — non spiega da solo il salto visto su Google Analytics.</p>
+        </div>
+      </div>
+      <div class="callout warn">
+        <strong>Le due fonti non tornano, e non ho un modo per risolverlo con certezza.</strong> L'ipotesi più plausibile è che i click da dentro l'app Instagram perdano spesso il referrer e finiscano classificati come "Direct" da Google Analytics — quindi il traffico reale da Instagram potrebbe essere più alto di quanto il tag "Organic Social" suggerisca. Ma è un'ipotesi, non una misura diretta: non presentarla come conclusione definitiva.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Il funnel del profilo, 18-23/08</h2></div>
+      <div class="panel table-scroll">
+        <table>
+          <thead><tr><th>Passaggio</th><th style="text-align:right">Numero</th><th style="text-align:right">% sul passaggio precedente</th></tr></thead>
+          <tbody>
+            <tr><td>Account coinvolti (interazioni)</td><td class="num" style="text-align:right">731</td><td class="num" style="text-align:right">—</td></tr>
+            <tr><td>Visite al profilo</td><td class="num" style="text-align:right">177</td><td class="num" style="text-align:right">24,2%</td></tr>
+            <tr><td>Click sul pulsante sito</td><td class="num" style="text-align:right">3</td><td class="num" style="text-align:right">1,7%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="meta">
+      <span>Dati letti in sola lettura via Composio · Instagram Graph API v21 / Facebook Graph API v20–23 / Google Analytics Data API</span>
+      <span>Generato domenica 23 agosto 2026 alle 22:45 (CEST)</span>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  const root = document.querySelector('.viz-root');
+  const css = getComputedStyle(root);
+  const v = (name) => css.getPropertyValue(name).trim();
+  function fmt(n) { return n.toLocaleString('it-IT'); }
+
+  const progression = [
+    { t: "17/08 22:20", val: 147 },
+    { t: "18/08 01:55", val: 2700 },
+    { t: "18/08 13:28", val: 4957 },
+    { t: "23/08 22:45", val: 20555, note: "finale" },
+  ];
+
+  const daily = [
+    { date: "2026-08-18", reach: 10929, highlight: true },
+    { date: "2026-08-19", reach: 2577 },
+    { date: "2026-08-20", reach: 1418 },
+    { date: "2026-08-21", reach: 2580 },
+    { date: "2026-08-22", reach: 1442 },
+    { date: "2026-08-23", reach: 1243, open: true },
+  ];
+
+  (function progressionChart() {
+    const el = document.getElementById('progression-chart');
+    const W = 1000, H = 260, padL = 60, padR = 20, padT = 24, padB = 34;
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const maxY = Math.max(...progression.map(d => d.val)) * 1.1;
+    const n = progression.length;
+    const x = i => padL + innerW * i / (n - 1);
+    const y = val => padT + innerH - innerH * val / maxY;
+
+    const gridVals = [0, 5000, 10000, 15000, 20000];
+    const gridLines = gridVals.map(gy => `
+      <line class="grid-line" x1="${padL}" x2="${W-padR}" y1="${y(gy).toFixed(1)}" y2="${y(gy).toFixed(1)}" />
+      <text class="axis-label num" x="${padL-8}" y="${(y(gy)+3).toFixed(1)}" text-anchor="end">${fmt(gy)}</text>
+    `).join('');
+
+    const path = progression.map((d,i) => `${i===0?'M':'L'} ${x(i).toFixed(1)} ${y(d.val).toFixed(1)}`).join(' ');
+    const dots = progression.map((d,i) => `<circle class="dot" cx="${x(i).toFixed(1)}" cy="${y(d.val).toFixed(1)}" r="${d.note?7:4.5}" fill="${v('--good')}" stroke="${v('--surface')}" stroke-width="2" data-i="${i}" />`).join('');
+    const labels = progression.map((d,i) => `<text class="axis-label num" x="${x(i).toFixed(1)}" y="${H-8}" text-anchor="middle">${d.t}</text>`).join('');
+
+    el.innerHTML = `
+      <svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+        ${gridLines}
+        <path d="${path}" fill="none" stroke="${v('--good')}" stroke-width="2.5" stroke-linejoin="round" />
+        ${dots}${labels}
+      </svg>
+      <div class="tooltip" id="prog-tip"></div>
+    `;
+    const tip = el.querySelector('#prog-tip');
+    el.querySelectorAll('.dot').forEach(dot => {
+      dot.addEventListener('mouseenter', () => {
+        const d = progression[+dot.dataset.i];
+        tip.innerHTML = `<strong>${d.t}</strong><br>${fmt(d.val)} reach${d.note ? ' ('+d.note+')' : ''}`;
+        const r = dot.getBoundingClientRect(), pr = el.getBoundingClientRect();
+        tip.style.left = (r.left - pr.left + r.width/2) + 'px';
+        tip.style.top = (r.top - pr.top) + 'px';
+        tip.style.opacity = '1';
+      });
+      dot.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+    });
+  })();
+
+  (function dailyChart() {
+    const el = document.getElementById('daily-chart');
+    const W = 1000, H = 260, padL = 55, padR = 20, padT = 20, padB = 32;
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const maxY = Math.max(...daily.map(d => d.reach)) * 1.1;
+    const n = daily.length;
+    const bw = innerW / n * 0.5;
+    const x = i => padL + innerW * (i + 0.5) / n;
+    const y = val => padT + innerH - innerH * val / maxY;
+
+    const gridVals = [0, 2500, 5000, 7500, 10000];
+    const gridLines = gridVals.map(gy => `
+      <line class="grid-line" x1="${padL}" x2="${W-padR}" y1="${y(gy).toFixed(1)}" y2="${y(gy).toFixed(1)}" />
+      <text class="axis-label num" x="${padL-8}" y="${(y(gy)+3).toFixed(1)}" text-anchor="end">${fmt(gy)}</text>
+    `).join('');
+
+    const bars = daily.map((d,i) => {
+      const bx = x(i) - bw/2, by = y(d.reach), bh = innerH + padT - by;
+      const fill = d.open ? v('--accent-soft') : (d.highlight ? v('--good') : v('--accent-line'));
+      return `<rect class="bar" x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${bw.toFixed(1)}" height="${bh.toFixed(1)}" rx="3" fill="${fill}" data-i="${i}" />`;
+    }).join('');
+    const labels = daily.map((d,i) => `<text class="axis-label num" x="${x(i).toFixed(1)}" y="${H-8}" text-anchor="middle">${d.date.slice(8,10)}/${d.date.slice(5,7)}</text>`).join('');
+
+    el.innerHTML = `
+      <svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+        ${gridLines}${bars}${labels}
+      </svg>
+      <div class="tooltip" id="daily-tip"></div>
+    `;
+    const tip = el.querySelector('#daily-tip');
+    el.querySelectorAll('.bar').forEach(bar => {
+      bar.addEventListener('mouseenter', () => {
+        const d = daily[+bar.dataset.i];
+        tip.innerHTML = `<strong>${d.date.slice(8,10)}/${d.date.slice(5,7)}</strong><br>Reach: ${fmt(d.reach)}${d.open ? ' (in corso)' : ''}`;
+        const r = bar.getBoundingClientRect(), pr = el.getBoundingClientRect();
+        tip.style.left = (r.left - pr.left + r.width/2) + 'px';
+        tip.style.top = (r.top - pr.top) + 'px';
+        tip.style.opacity = '1';
+      });
+      bar.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+    });
+  })();
+
+})();
+</script>
+</body>
+</html>

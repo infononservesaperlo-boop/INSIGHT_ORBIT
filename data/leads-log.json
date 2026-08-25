@@ -30,6 +30,16 @@
       "topic": "non specificato",
       "likely_trigger_reel": { "date": "2026-08-11", "reach": 1194, "fb_views": 1099, "note": "arrivato ~21h dopo il reel 'Hai 3 secondi per risolverlo' (2° miglior reel di sempre); nessuna prova diretta di attribuzione, solo prossimita' temporale" },
       "outcome": "da verificare"
+    },
+    {
+      "id": "lead-004",
+      "reported_date": "2026-08-26",
+      "approx_contact_time": "non specificato - da confermare",
+      "channel": "non specificato - da confermare",
+      "topic": "consigli su come non distrarsi durante lo studio; DSA (discalculia, dislessia, disgrafia)",
+      "likely_trigger_reel": null,
+      "outcome": "non specificato",
+      "note": "primo lead riportato dopo il periodo di crescita virale (69->178 follower) - colma parte del buco segnalato nel report del 26/08. Canale e timing da aggiornare appena Matteo li conferma."
     }
   ]
 }

@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORBIT — Analisi completa: dove sta andando il profilo</title>
+<style>
+  :root { color-scheme: light dark; }
+  html, body { margin: 0; padding: 0; }
+  .viz-root {
+    color-scheme: light;
+    --page: #f3f5f9; --surface: #ffffff; --surface-2: #eef1f7;
+    --ink: #11131a; --ink-2: #4a5164; --muted: #848da3;
+    --border: rgba(16,19,26,0.09); --border-2: rgba(16,19,26,0.14);
+    --accent: #2a78d6; --accent-soft: #cde2fb; --accent-line: #2a78d6;
+    --good: #0ca30c; --good-soft: #e3f6e3;
+    --warn: #b9790a; --warn-soft: #fbeed1;
+    --crit: #d03b3b; --crit-soft: #fbe3e3;
+    --violet: #4a3aa7; --violet-soft: #e9e6f8;
+    --grid: #e3e2da;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+      --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+      --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+      --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee;
+      --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+      --warn: #f0ab35; --warn-soft: rgba(240,171,53,0.14);
+      --crit: #e66767; --crit-soft: rgba(230,103,103,0.16);
+      --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+      --grid: #2a2e36;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+    --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+    --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+    --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee;
+    --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+    --warn: #f0ab35; --warn-soft: rgba(240,171,53,0.14);
+    --crit: #e66767; --crit-soft: rgba(230,103,103,0.16);
+    --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+    --grid: #2a2e36;
+  }
+
+  .viz-root * { box-sizing: border-box; }
+  .viz-root { background: var(--page); color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; padding: 40px 20px 80px; min-height: 100vh; }
+  .num { font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace; font-variant-numeric: tabular-nums; }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+
+  .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); margin-bottom: 18px; text-decoration: none; }
+  .breadcrumb a { color: var(--accent); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  header.top { margin-bottom: 30px; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--violet); margin: 0 0 8px; }
+  h1 { font-size: 28px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 8px; text-wrap: balance; }
+  .sub { color: var(--ink-2); font-size: 14.5px; margin: 0; max-width: 74ch; line-height: 1.6; }
+
+  nav.toc { display: flex; gap: 8px; flex-wrap: wrap; margin: 22px 0 6px; }
+  nav.toc a { font-size: 12px; font-weight: 700; color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 7px 13px; text-decoration: none; }
+
+  .verdict-banner {
+    background: linear-gradient(135deg, var(--good-soft), var(--surface));
+    border: 2px solid var(--good); border-radius: 16px; padding: 22px 26px; margin-top: 24px;
+  }
+  .verdict-banner .vb-label { font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--good); margin: 0 0 8px; }
+  .verdict-banner .vb-text { font-size: 16px; font-weight: 700; line-height: 1.5; margin: 0; }
+  .verdict-banner .vb-sub { font-size: 13px; color: var(--ink-2); margin-top: 8px; line-height: 1.55; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 24px 0 8px; }
+  @media (max-width: 760px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 16px 14px; }
+  .kpi .label { font-size: 11.5px; color: var(--muted); font-weight: 600; letter-spacing: 0.02em; margin-bottom: 6px; }
+  .kpi .value { font-size: 23px; font-weight: 800; letter-spacing: -0.01em; }
+  .kpi .note { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+  .kpi .note.up { color: var(--good); font-weight: 700; }
+  .kpi .note.down { color: var(--crit); font-weight: 700; }
+
+  section { margin-top: 46px; scroll-margin-top: 16px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+  h2 { font-size: 19px; font-weight: 800; margin: 0; letter-spacing: -0.005em; }
+  .section-desc { color: var(--ink-2); font-size: 13.5px; margin: 4px 0 18px; max-width: 74ch; line-height: 1.55; }
+
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 20px 16px; }
+  .chart-svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .axis-label { font-size: 10.5px; fill: var(--muted); font-family: ui-monospace, monospace; }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .tooltip {
+    position: absolute; pointer-events: none; background: var(--ink); color: var(--page);
+    font-size: 12px; padding: 8px 11px; border-radius: 7px; line-height: 1.5; max-width: 240px;
+    transform: translate(-50%, -110%); opacity: 0; transition: opacity 0.1s ease; z-index: 5;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+  .chart-wrap { position: relative; }
+  .dot { cursor: pointer; }
+  .legend { display: flex; gap: 16px; font-size: 12px; color: var(--ink-2); margin-bottom: 14px; flex-wrap: wrap; }
+  .legend .item { display: flex; align-items: center; gap: 6px; }
+  .legend .swatch { width: 10px; height: 10px; border-radius: 50%; }
+
+  .phase-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 16px; }
+  @media (max-width: 860px) { .phase-cards { grid-template-columns: repeat(2, 1fr); } }
+  .phase-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+  .phase-card .pc-label { font-size: 10.5px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 6px; }
+  .phase-card .pc-rate { font-size: 22px; font-weight: 800; }
+  .phase-card .pc-note { font-size: 12px; color: var(--ink-2); margin-top: 6px; line-height: 1.5; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); font-weight: 700; padding: 0 10px 10px; border-bottom: 1px solid var(--border-2); white-space: nowrap; }
+  td { padding: 9px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .table-scroll { overflow-x: auto; }
+
+  .cause-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 14px; }
+  .cause-card h3 { margin: 0 0 8px; font-size: 15px; font-weight: 800; }
+  .cause-card p { margin: 0 0 8px; font-size: 13.5px; color: var(--ink-2); line-height: 1.6; }
+  .cause-card p:last-child { margin-bottom: 0; }
+  .cause-card .evidence { font-size: 12.5px; background: var(--surface-2); border-radius: 8px; padding: 10px 12px; margin-top: 8px; }
+  .cause-card .evidence strong { color: var(--ink); }
+
+  .mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .mini-grid { grid-template-columns: 1fr; } }
+  .mini-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+  .mini-card h3 { margin: 0 0 8px; font-size: 14.5px; font-weight: 800; }
+  .mini-card .big { font-size: 24px; font-weight: 800; }
+  .mini-card p { margin: 8px 0 0; font-size: 12.5px; color: var(--ink-2); line-height: 1.55; }
+
+  .callout { border: 1px dashed var(--border-2); border-radius: 10px; padding: 14px 16px; font-size: 13px; color: var(--ink-2); line-height: 1.55; margin-top: 18px; background: var(--surface-2); }
+  .callout strong { color: var(--ink); }
+  .callout.warn { border-color: var(--warn); background: var(--warn-soft); }
+  .callout.good { border-color: var(--good); background: var(--good-soft); }
+
+  .reco-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+  @media (max-width: 780px) { .reco-grid { grid-template-columns: 1fr; } }
+  .reco-card { border-radius: 14px; padding: 18px 20px; border: 2px solid; }
+  .reco-card.reinforce { border-color: var(--good); background: var(--good-soft); }
+  .reco-card.enhance { border-color: var(--accent); background: var(--accent-soft); }
+  .reco-card.change { border-color: var(--crit); background: var(--crit-soft); }
+  .reco-card.keep { border-color: var(--muted); background: var(--surface-2); }
+  .reco-card h3 { margin: 0 0 10px; font-size: 13.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; }
+  .reco-card.reinforce h3 { color: var(--good); }
+  .reco-card.enhance h3 { color: var(--accent); }
+  .reco-card.change h3 { color: var(--crit); }
+  .reco-card.keep h3 { color: var(--ink-2); }
+  .reco-card ul { margin: 0; padding-left: 18px; }
+  .reco-card li { font-size: 13px; color: var(--ink); line-height: 1.6; margin-bottom: 8px; }
+  .reco-card li:last-child { margin-bottom: 0; }
+
+  footer.meta { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+</style>
+</head>
+<body>
+<div class="viz-root">
+  <div class="wrap">
+
+    <a class="breadcrumb" href="../../index.html">&larr; Tutti i report</a>
+
+    <header class="top">
+      <p class="eyebrow">ORBIT · Ripetizioni — Analisi completa · 27 reel, 11/07-25/08</p>
+      <h1>Dove sta andando il profilo: retention, hook, formati e traiettoria di crescita</h1>
+      <p class="sub">Prima analisi a tutto tondo da quando è iniziato il tracciamento: storia completa dei 27 reel pubblicati, cosa guida davvero il reach, quali formati funzionano e quali no, se la crescita è reale o un fuoco di paglia, e cosa fare da qui in avanti.</p>
+    </header>
+
+    <nav class="toc" aria-label="Sezioni">
+      <a href="#verdetto">Verdetto</a>
+      <a href="#crescita">Crescita</a>
+      <a href="#reel">Storia dei reel</a>
+      <a href="#retention">Retention</a>
+      <a href="#formati">Formati</a>
+      <a href="#esperimento">2 parti</a>
+      <a href="#funnel">Funnel &amp; sito</a>
+      <a href="#raccomandazioni">Raccomandazioni</a>
+    </nav>
+
+    <div id="verdetto" class="verdict-banner">
+      <p class="vb-label">Verdetto in una frase</p>
+      <p class="vb-text">Il profilo sta crescendo davvero, non solo per il colpo virale: il formato "hai 3 secondi" ha alzato la velocità di crescita di base di circa il 40% ancora prima del picco, e dopo il picco la crescita non è ricaduta sotto quel nuovo livello.</p>
+      <p class="vb-sub">Questo è il segnale più importante di tutto il report: un evento virale isolato che si sgonfia del tutto sarebbe un campanello di stagnazione mascherata da un bel numero. Non è quello che sta succedendo qui.</p>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="label">Follower Instagram</div>
+        <div class="value num">44 → 178</div>
+        <div class="note up">+304% da fine luglio</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Correlazione retention↔reach</div>
+        <div class="value num">r = 0,75</div>
+        <div class="note up">confermata su 26 reel (esclude l'outlier virale)</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Miglior formato</div>
+        <div class="value">"Hai 3 secondi"</div>
+        <div class="note up">2,1× il reach medio degli altri formati</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Click al sito (11-26/08)</div>
+        <div class="value num">6 / 298</div>
+        <div class="note down">2% delle visite al profilo</div>
+      </div>
+    </div>
+
+    <section id="crescita">
+      <div class="section-head"><h2>La crescita è reale, in 4 fasi</h2></div>
+      <p class="section-desc">La velocità di crescita dei follower cambia nettamente in 4 momenti distinti — e quello che succede dopo il picco virale è la parte più importante da guardare.</p>
+      <div class="panel">
+        <div class="chart-wrap" id="followers-chart"></div>
+      </div>
+      <div class="phase-cards">
+        <div class="phase-card">
+          <div class="pc-label">Pre-formato (25/07-08/08)</div>
+          <div class="pc-rate num">+1,3/giorno</div>
+          <div class="pc-note">Crescita lenta e lineare, il ritmo "di base" prima di qualsiasi ottimizzazione.</div>
+        </div>
+        <div class="phase-card">
+          <div class="pc-label">Formato "3 secondi" (11-16/08)</div>
+          <div class="pc-rate num">+1,8/giorno</div>
+          <div class="pc-note">+38% di velocità rispetto a prima, ancora senza nessun colpo virale.</div>
+        </div>
+        <div class="phase-card">
+          <div class="pc-label">Picco virale (17-23/08)</div>
+          <div class="pc-rate num">+12,9/giorno</div>
+          <div class="pc-note">Quasi 10× la velocità di base, quasi tutto da un solo reel.</div>
+        </div>
+        <div class="phase-card">
+          <div class="pc-label">Post-virale (23-26/08)</div>
+          <div class="pc-rate num">+1,3/giorno</div>
+          <div class="pc-note">Torna al ritmo pre-formato — non è collassata sotto, ma nemmeno è rimasta "agganciata" al picco.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reel">
+      <div class="section-head"><h2>Tutti i 27 reel, nel tempo</h2></div>
+      <p class="section-desc">Scala logaritmica sull'asse verticale — altrimenti il reel virale del 17/08 (quasi 22.000 reach) schiaccerebbe tutto il resto in una linea piatta.</p>
+      <div class="panel">
+        <div class="legend">
+          <span class="item"><span class="swatch" style="background:var(--violet)"></span>Hai 3 secondi</span>
+          <span class="item"><span class="swatch" style="background:var(--accent-line)"></span>Listicle / Tip</span>
+          <span class="item"><span class="swatch" style="background:var(--warn)"></span>Esperimento 2 parti</span>
+          <span class="item"><span class="swatch" style="background:var(--muted)"></span>Altro</span>
+        </div>
+        <div class="chart-wrap" id="reels-chart"></div>
+      </div>
+    </section>
+
+    <section id="retention">
+      <div class="section-head"><h2>La retention resta il predittore più forte</h2></div>
+      <p class="section-desc">Confermato su un campione più ampio (27 reel, di cui 26 senza contare l'evento virale): il tempo di visione medio e lo skip rate nei primi 3 secondi spiegano il reach meglio di qualunque altra variabile misurata finora.</p>
+      <div class="panel table-scroll">
+        <table>
+          <thead><tr><th>Correlazione</th><th style="text-align:right">Con l'outlier virale</th><th style="text-align:right">Senza l'outlier (n=26)</th></tr></thead>
+          <tbody>
+            <tr><td>Tempo di visione ↔ reach</td><td class="num" style="text-align:right">r = 0,57</td><td class="num" style="text-align:right">r = 0,75</td></tr>
+            <tr><td>Skip rate ↔ reach</td><td class="num" style="text-align:right">r = -0,51</td><td class="num" style="text-align:right">r = -0,65</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        L'evento virale del 17/08, se incluso, indebolisce statisticamente la correlazione — è un reel con retention comunque ottima (skip rate 30,4%, tra i migliori mai registrati) ma con un reach così fuori scala che confonde il calcolo. Togliendolo, il numero torna quasi identico a quello del report del 16/08 (allora r=0,82 su 22 reel): la relazione è stabile, non un caso isolato.
+      </div>
+    </section>
+
+    <section id="formati">
+      <div class="section-head"><h2>Efficacia per formato</h2></div>
+      <div class="panel table-scroll">
+        <table id="format-table"></table>
+      </div>
+    </section>
+
+    <section id="esperimento">
+      <div class="section-head"><h2>L'esperimento a due parti: verdetto</h2></div>
+      <p class="section-desc">Prima volta con una struttura "indovina e rispondi in DM" seguita da un video di rivelazione due giorni dopo (21/08 e 23/08).</p>
+      <div class="cause-card">
+        <h3>Non ha funzionato come sperato</h3>
+        <p>La parte 1 (21/08) ha avuto reach discreto (1.460) ma il <strong>peggior tasso di interazione di tutti i 27 reel</strong> (2,47%) e retention debole (tempo di visione di soli 6,7s). La parte 2, la rivelazione (23/08), è stata tra le più deboli in assoluto: 512 reach, skip rate 65%.</p>
+        <div class="evidence"><strong>Prova a favore del formato classico:</strong> il reel immediatamente successivo (25/08), tornato al formato "hai 3 secondi" a video singolo, ha subito ripristinato una buona performance — 1.297 reach, skip rate 36,2%, tra i migliori mai misurati. Il ritorno alla struttura collaudata ha funzionato immediatamente.</div>
+      </div>
+    </section>
+
+    <section id="funnel">
+      <div class="section-head"><h2>Funnel del profilo e stato del sito</h2></div>
+      <div class="mini-grid">
+        <div class="mini-card">
+          <h3>Funnel 11-26/08</h3>
+          <div class="big num">1.034 → 298 → 6</div>
+          <p>Account coinvolti → visite al profilo (28,8%) → click al sito (2% delle visite, 0,6% degli account coinvolti). Il collo di bottiglia resta lo stesso dei report precedenti: il profilo converte, il sito quasi no.</p>
+        </div>
+        <div class="mini-card">
+          <h3>Migrazione dominio a orbitripetizioni.it</h3>
+          <div class="big" style="color:var(--good)">✓ Nessuna azione richiesta</div>
+          <p>Google Analytics e Microsoft Clarity stanno già tracciando correttamente il nuovo dominio dal 18/08 — confermato anche un click con UTM da Instagram funzionante. Resta un piccolo traffico residuo verso il vecchio netlify.app, innocuo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Un buco da colmare: il log dei contatti</h2></div>
+      <div class="callout warn">
+        <strong>Il log dei lead non è aggiornato dal 13/08.</strong> Nel frattempo i follower sono quasi triplicati (69 → 178) e c'è stato un reel da quasi 22.000 reach. Non so se semplicemente non sono arrivati nuovi contatti, o se sono arrivati ma non me li hai raccontati — dimmelo e li aggiungo, altrimenti resta un buco enorme proprio nel periodo più importante da capire.
+      </div>
+    </section>
+
+    <section id="raccomandazioni">
+      <div class="section-head"><h2>Raccomandazioni</h2></div>
+      <div class="reco-grid">
+        <div class="reco-card reinforce">
+          <h3>Rinforzare — già va bene, continua così</h3>
+          <ul>
+            <li>Formato "hai 3 secondi" a video singolo: 2,1× il reach medio degli altri formati, retention costantemente sopra media</li>
+            <li>Finestra di pubblicazione 18-22 CEST e ritmo a giorni alterni — nessun dato di questo report li contraddice</li>
+            <li>Hook con posta in gioco immediata (sfida a tempo, smentita di un'assunzione comune) invece di spiegazioni che aprono con "il problema è che..."</li>
+          </ul>
+        </div>
+        <div class="reco-card enhance">
+          <h3>Potenziare</h3>
+          <ul>
+            <li>Il formato "puzzle/provocazione" (es. "la matematica è un'opinione") ha avuto un solo tentativo ma ottimo — vale un secondo test</li>
+            <li>Cross-posting su Facebook: continua a costare zero sforzo aggiuntivo e a volte performa meglio di Instagram sullo stesso contenuto</li>
+            <li>Tracciare i lead in tempo reale, non a intervalli — il buco 13/08-oggi rende impossibile collegare la crescita virale a risultati di business concreti</li>
+          </ul>
+        </div>
+        <div class="reco-card change">
+          <h3>Cambiare assolutamente</h3>
+          <ul>
+            <li>La struttura a 2 parti (indovina in DM + rivelazione) nella forma attuale: penalizza sia reach che retention rispetto al formato singolo — se riprovata, la parte 1 deve dare comunque soddisfazione anche senza svelare tutto</li>
+            <li>Ridurre il formato "tip" (spiegazione singola senza sfida): è il più usato (9 su 27) ma tra i più deboli (reach medio 698, il più basso di tutti i formati con più di un tentativo)</li>
+          </ul>
+        </div>
+        <div class="reco-card keep">
+          <h3>Lasciare così com'è</h3>
+          <ul>
+            <li>Il dominio orbitripetizioni.it e il suo tracciamento — già configurato correttamente, nessun intervento tecnico necessario</li>
+            <li>Le CTA verso i commenti: non hanno mai smosso i numeri da sole, ma non hanno nemmeno danneggiato nulla — non è una priorità toccarle ora</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer class="meta">
+      <span>Dati letti in sola lettura via Composio · Instagram Graph API v21 / Facebook Graph API v20–23 / Google Analytics Data API / Microsoft Clarity</span>
+      <span>Generato mercoledì 26 agosto 2026 alle 01:45 (CEST)</span>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  const root = document.querySelector('.viz-root');
+  const css = getComputedStyle(root);
+  const v = (name) => css.getPropertyValue(name).trim();
+  function fmt(n) { return n.toLocaleString('it-IT'); }
+
+  const followers = [
+    { date: "2026-07-25", val: 44 },
+    { date: "2026-08-01", val: 53 },
+    { date: "2026-08-04", val: 57 },
+    { date: "2026-08-08", val: 62 },
+    { date: "2026-08-11", val: 69 },
+    { date: "2026-08-13", val: 69 },
+    { date: "2026-08-15", val: 71 },
+    { date: "2026-08-16", val: 78 },
+    { date: "2026-08-17", val: 84 },
+    { date: "2026-08-18", val: 100 },
+    { date: "2026-08-23", val: 174 },
+    { date: "2026-08-26", val: 178 },
+  ];
+
+  const reels = [
+    { date: "2026-07-11", reach: 420, awt: 13.61, skip: 64.7, fmt: "tip" },
+    { date: "2026-07-12", reach: 1623, awt: 15.58, skip: 44.3, fmt: "listicle" },
+    { date: "2026-07-13", reach: 1187, awt: 14.35, skip: 40.1, fmt: "tip" },
+    { date: "2026-07-14", reach: 1537, awt: 20.54, skip: 46.7, fmt: "tip" },
+    { date: "2026-07-15", reach: 1095, awt: 12.50, skip: 42.6, fmt: "listicle" },
+    { date: "2026-07-20", reach: 699, awt: 9.58, skip: 53.7, fmt: "motivational" },
+    { date: "2026-07-21", reach: 572, awt: 7.55, skip: 55.6, fmt: "listicle" },
+    { date: "2026-07-22", reach: 639, awt: 9.17, skip: 62.5, fmt: "listicle" },
+    { date: "2026-07-24", reach: 1438, awt: 18.90, skip: 44.1, fmt: "puzzle" },
+    { date: "2026-07-25", reach: 1247, awt: 11.27, skip: 50.9, fmt: "listicle" },
+    { date: "2026-07-26", reach: 1121, awt: 12.21, skip: 44.8, fmt: "listicle" },
+    { date: "2026-07-27", reach: 284, awt: 6.66, skip: 61.6, fmt: "listicle" },
+    { date: "2026-07-29", reach: 754, awt: 10.93, skip: 55.1, fmt: "tip" },
+    { date: "2026-07-31", reach: 341, awt: 8.61, skip: 62.1, fmt: "tip" },
+    { date: "2026-08-02", reach: 1024, awt: 10.06, skip: 45.5, fmt: "tip" },
+    { date: "2026-08-03", reach: 199, awt: 5.31, skip: 66.4, fmt: "tip" },
+    { date: "2026-08-05", reach: 567, awt: 8.54, skip: 52.6, fmt: "tip" },
+    { date: "2026-08-07", reach: 251, awt: 8.77, skip: 57.2, fmt: "tip" },
+    { date: "2026-08-09", reach: 798, awt: 10.52, skip: 60.0, fmt: "listicle" },
+    { date: "2026-08-11", reach: 1309, awt: 15.09, skip: 42.1, fmt: "timed_challenge" },
+    { date: "2026-08-13", reach: 996, awt: 18.10, skip: 55.6, fmt: "timed_challenge" },
+    { date: "2026-08-15", reach: 1855, awt: 18.22, skip: 58.9, fmt: "timed_challenge" },
+    { date: "2026-08-17", reach: 21993, awt: 25.51, skip: 30.4, fmt: "timed_challenge" },
+    { date: "2026-08-19", reach: 1682, awt: 19.95, skip: 43.4, fmt: "timed_challenge" },
+    { date: "2026-08-21", reach: 1460, awt: 6.64, skip: 59.9, fmt: "guess_dm" },
+    { date: "2026-08-23", reach: 512, awt: 8.26, skip: 65.0, fmt: "reveal" },
+    { date: "2026-08-25", reach: 1297, awt: 18.80, skip: 36.2, fmt: "timed_challenge" },
+  ];
+
+  const fmtColor = f => ({
+    timed_challenge: v('--violet'),
+    guess_dm: v('--warn'),
+    reveal: v('--warn'),
+  }[f] || (f === 'listicle' || f === 'tip' ? v('--accent-line') : v('--muted')));
+
+  (function followersChart() {
+    const el = document.getElementById('followers-chart');
+    const W = 1000, H = 280, padL = 50, padR = 20, padT = 20, padB = 32;
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const maxY = Math.max(...followers.map(d=>d.val)) * 1.1;
+    const n = followers.length;
+    const x = i => padL + innerW * i / (n - 1);
+    const y = val => padT + innerH - innerH * val / maxY;
+
+    const gridVals = [0, 50, 100, 150, 200];
+    const gridLines = gridVals.map(gy => `
+      <line class="grid-line" x1="${padL}" x2="${W-padR}" y1="${y(gy).toFixed(1)}" y2="${y(gy).toFixed(1)}" />
+      <text class="axis-label num" x="${padL-8}" y="${(y(gy)+3).toFixed(1)}" text-anchor="end">${gy}</text>
+    `).join('');
+
+    const path = followers.map((d,i) => `${i===0?'M':'L'} ${x(i).toFixed(1)} ${y(d.val).toFixed(1)}`).join(' ');
+    const dots = followers.map((d,i) => `<circle class="dot" cx="${x(i).toFixed(1)}" cy="${y(d.val).toFixed(1)}" r="4.5" fill="${v('--accent-line')}" stroke="${v('--surface')}" stroke-width="2" data-i="${i}" />`).join('');
+    const labels = followers.map((d,i) => `<text class="axis-label num" x="${x(i).toFixed(1)}" y="${H-8}" text-anchor="middle">${d.date.slice(8,10)}/${d.date.slice(5,7)}</text>`).join('');
+
+    el.innerHTML = `
+      <svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+        ${gridLines}
+        <path d="${path}" fill="none" stroke="${v('--accent-line')}" stroke-width="2.5" stroke-linejoin="round" />
+        ${dots}${labels}
+      </svg>
+      <div class="tooltip" id="fol-tip"></div>
+    `;
+    const tip = el.querySelector('#fol-tip');
+    el.querySelectorAll('.dot').forEach(dot => {
+      dot.addEventListener('mouseenter', () => {
+        const d = followers[+dot.dataset.i];
+        tip.innerHTML = `<strong>${d.date.slice(8,10)}/${d.date.slice(5,7)}</strong><br>${fmt(d.val)} follower`;
+        const r = dot.getBoundingClientRect(), pr = el.getBoundingClientRect();
+        tip.style.left = (r.left - pr.left + r.width/2) + 'px';
+        tip.style.top = (r.top - pr.top) + 'px';
+        tip.style.opacity = '1';
+      });
+      dot.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+    });
+  })();
+
+  (function reelsChart() {
+    const el = document.getElementById('reels-chart');
+    const W = 1000, H = 320, padL = 55, padR = 20, padT = 20, padB = 34;
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const logMin = Math.log10(100), logMax = Math.log10(30000);
+    const n = reels.length;
+    const x = i => padL + innerW * i / (n - 1);
+    const y = val => padT + innerH - innerH * (Math.log10(Math.max(val,100)) - logMin) / (logMax - logMin);
+
+    const gridVals = [100, 1000, 10000, 30000];
+    const gridLines = gridVals.map(gy => `
+      <line class="grid-line" x1="${padL}" x2="${W-padR}" y1="${y(gy).toFixed(1)}" y2="${y(gy).toFixed(1)}" />
+      <text class="axis-label num" x="${padL-8}" y="${(y(gy)+3).toFixed(1)}" text-anchor="end">${fmt(gy)}</text>
+    `).join('');
+
+    const path = reels.map((d,i) => `${i===0?'M':'L'} ${x(i).toFixed(1)} ${y(d.reach).toFixed(1)}`).join(' ');
+    const dots = reels.map((d,i) => `<circle class="dot" cx="${x(i).toFixed(1)}" cy="${y(d.reach).toFixed(1)}" r="${d.reach>10000?7:5}" fill="${fmtColor(d.fmt)}" stroke="${v('--surface')}" stroke-width="1.5" data-i="${i}" />`).join('');
+    const labelEvery = 3;
+    const labels = reels.map((d,i) => i % labelEvery === 0 ? `<text class="axis-label num" x="${x(i).toFixed(1)}" y="${H-8}" text-anchor="middle">${d.date.slice(8,10)}/${d.date.slice(5,7)}</text>` : '').join('');
+
+    el.innerHTML = `
+      <svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+        ${gridLines}
+        <path d="${path}" fill="none" stroke="${v('--border-2')}" stroke-width="1.5" stroke-linejoin="round" />
+        ${dots}${labels}
+      </svg>
+      <div class="tooltip" id="reels-tip"></div>
+    `;
+    const tip = el.querySelector('#reels-tip');
+    el.querySelectorAll('.dot').forEach(dot => {
+      dot.addEventListener('mouseenter', () => {
+        const d = reels[+dot.dataset.i];
+        tip.innerHTML = `<strong>${d.date.slice(8,10)}/${d.date.slice(5,7)}</strong><br>Reach: ${fmt(d.reach)}<br>Skip: ${d.skip}% · AWT: ${d.awt}s`;
+        const r = dot.getBoundingClientRect(), pr = el.getBoundingClientRect();
+        tip.style.left = (r.left - pr.left + r.width/2) + 'px';
+        tip.style.top = (r.top - pr.top) + 'px';
+        tip.style.opacity = '1';
+      });
+      dot.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+    });
+  })();
+
+  (function formatTable() {
+    const data = [
+      { fmt: "Hai 3 secondi", n: 6, reachIncl: 4855.3, reachExcl: 1471.4, awt: 19.28, skip: 44.4 },
+      { fmt: "Listicle", n: 8, reachIncl: 922.4, reachExcl: 922.4, awt: 10.68, skip: 52.8 },
+      { fmt: "Tip", n: 9, reachIncl: 697.8, reachExcl: 697.8, awt: 11.19, skip: 54.5 },
+      { fmt: "Puzzle/provocazione", n: 1, reachIncl: 1438.0, reachExcl: 1438.0, awt: 18.9, skip: 44.1 },
+      { fmt: "Indovina + DM (parte 1)", n: 1, reachIncl: 1460.0, reachExcl: 1460.0, awt: 6.64, skip: 59.9 },
+      { fmt: "Rivelazione (parte 2)", n: 1, reachIncl: 512.0, reachExcl: 512.0, awt: 8.26, skip: 65.0 },
+      { fmt: "Motivational", n: 1, reachIncl: 699.0, reachExcl: 699.0, awt: 9.58, skip: 53.7 },
+    ];
+    const thead = `<thead><tr><th>Formato</th><th style="text-align:right">n</th><th style="text-align:right">Reach medio (con virale)</th><th style="text-align:right">Reach medio (senza)</th><th style="text-align:right">Watch time</th><th style="text-align:right">Skip rate</th></tr></thead>`;
+    const rows = data.map(d => `
+      <tr>
+        <td>${d.fmt}</td>
+        <td class="num" style="text-align:right">${d.n}</td>
+        <td class="num" style="text-align:right">${fmt(Math.round(d.reachIncl))}</td>
+        <td class="num" style="text-align:right">${fmt(Math.round(d.reachExcl))}</td>
+        <td class="num" style="text-align:right">${d.awt}s</td>
+        <td class="num" style="text-align:right">${d.skip}%</td>
+      </tr>
+    `).join('');
+    document.getElementById('format-table').innerHTML = thead + '<tbody>' + rows + '</tbody>';
+  })();
+
+})();
+</script>
+</body>
+</html>

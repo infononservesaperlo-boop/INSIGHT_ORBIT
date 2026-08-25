@@ -1,0 +1,79 @@
+{
+  "generated_at": "2026-08-26T01:45:00+02:00",
+  "purpose": "analisi approfondita completa: storia di tutti i 27 reel, retention, efficacia degli hook, traiettoria di crescita, segnali di crescita vs stagnazione, verifica migrazione dominio, raccomandazioni operative",
+  "sample_size": 27,
+  "period": "2026-07-11 to 2026-08-25",
+  "account": {
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 178, "media_count": 27 },
+    "facebook": { "page_name": "ORBIT Ripetizioni", "fan_count": 35 }
+  },
+  "domain_migration_check": {
+    "new_domain": "orbitripetizioni.it",
+    "google_analytics": "stessa proprieta' GA esistente (properties/547052651) sta gia' tracciando correttamente orbitripetizioni.it dal 18/08 in poi (confermato via dimensione hostName) - nessuna azione richiesta",
+    "microsoft_clarity": "confermato: sessioni registrate su orbitripetizioni.it, inclusa una con utm_source=ig&utm_medium=social&utm_content=link_in_bio - il tracciamento UTM dal link in bio funziona",
+    "legacy_note": "piccolo traffico residuo continua ad arrivare al vecchio orbit-ripetizioni.netlify.app (probabilmente link/bookmark vecchi ancora in giro) - innocuo, non richiede intervento",
+    "conclusion": "nessuna azione richiesta da parte di Matteo - i dati in questo report sono corretti e coprono il nuovo dominio"
+  },
+  "growth_trajectory": {
+    "followers_snapshots": [
+      { "date": "2026-07-25", "followers": 44 },
+      { "date": "2026-08-01", "followers": 53 },
+      { "date": "2026-08-04", "followers": 57 },
+      { "date": "2026-08-08", "followers": 62 },
+      { "date": "2026-08-11", "followers": 69 },
+      { "date": "2026-08-13", "followers": 69 },
+      { "date": "2026-08-15", "followers": 71 },
+      { "date": "2026-08-16", "followers": 78 },
+      { "date": "2026-08-17", "followers": 84 },
+      { "date": "2026-08-18", "followers": 100 },
+      { "date": "2026-08-23", "followers": 174 },
+      { "date": "2026-08-26", "followers": 178 }
+    ],
+    "growth_rate_phases": [
+      { "phase": "pre-formato (25/07-08/08)", "rate_per_day": 1.3, "note": "crescita lenta e lineare" },
+      { "phase": "formato 'hai 3 secondi' (11/08-16/08, pre-virale)", "rate_per_day": 1.8, "note": "+38% di velocita' rispetto alla fase precedente" },
+      { "phase": "picco virale (17/08-23/08)", "rate_per_day": 12.9, "note": "quasi 10x la velocita' di base, guidato quasi interamente da un solo reel" },
+      { "phase": "post-virale (23/08-26/08)", "rate_per_day": 1.3, "note": "la crescita torna al livello pre-virale, non resta 'agganciata' al ritmo del picco - ma nemmeno scende sotto la baseline del formato" }
+    ],
+    "verdict": "crescita strutturale reale, non solo un colpo di fortuna isolato: il formato 'hai 3 secondi' ha alzato la velocita' di crescita di base di circa il 40% anche escludendo l'evento virale, e dopo il picco la crescita e' tornata esattamente a quel nuovo livello piu' alto, non e' collassata"
+  },
+  "reach_correlations_27_reels": {
+    "avg_watch_time_vs_reach_incl_outlier": 0.566,
+    "skip_rate_vs_reach_incl_outlier": -0.509,
+    "avg_watch_time_vs_reach_excl_outlier": 0.753,
+    "skip_rate_vs_reach_excl_outlier": -0.647,
+    "avg_watch_time_vs_views_excl_outlier": 0.754,
+    "note": "il reel virale del 17/08 (21.993 reach) e' un outlier statistico che comprime la correlazione se incluso - togliendolo, la relazione retention-reach e' quasi identica a quella misurata nel report del 16/08 (allora r=0.82), confermata su un campione ora piu' ampio"
+  },
+  "format_performance": [
+    { "format": "timed_challenge (hai 3 secondi)", "n": 6, "avg_reach_incl_outlier": 4855.3, "avg_reach_excl_outlier": 1471.4, "avg_awt_s": 19.28, "avg_skip_pct": 44.4, "verdict": "il formato piu' forte in assoluto, sia per reach che per retention, anche senza contare il colpo virale" },
+    { "format": "listicle (3 cose/errori/trucchi)", "n": 8, "avg_reach": 922.4, "avg_awt_s": 10.68, "avg_skip_pct": 52.8, "verdict": "onesto, secondo migliore, ma nettamente sotto il formato a sfida" },
+    { "format": "tip (spiegazione singola)", "n": 9, "avg_reach": 697.8, "avg_awt_s": 11.19, "avg_skip_pct": 54.5, "verdict": "il formato piu' usato ma tra i piu' deboli - da ridurre in favore di timed_challenge" },
+    { "format": "puzzle/provocazione (n=1)", "n": 1, "avg_reach": 1438.0, "avg_awt_s": 18.9, "avg_skip_pct": 44.1, "verdict": "un solo tentativo ma molto forte - varrebbe la pena riprovarlo" },
+    { "format": "guess_dm (indovina e rispondi in DM, parte 1 di 2)", "n": 1, "avg_reach": 1460.0, "avg_awt_s": 6.64, "avg_skip_pct": 59.9, "verdict": "reach decente ma la peggior retention e il peggior tasso di interazione (2,47%) di tutti i 27 reel - il meccanismo 'non commentare, scrivimi in DM' sembra svuotare l'interesse a restare sul video" },
+    { "format": "reveal (rivelazione, parte 2 di 2)", "n": 1, "avg_reach": 512.0, "avg_awt_s": 8.26, "avg_skip_pct": 65.0, "verdict": "il piu' debole tra i formati recenti - un video di rivelazione parla solo a chi ha visto la parte 1, quindi ha un pubblico potenziale piu' piccolo per natura" }
+  ],
+  "two_part_experiment_verdict": {
+    "reels": ["18110650115471128 (21/08)", "17915263938242570 (23/08)"],
+    "combined_reach": 1972,
+    "combined_vs_single_format_avg": "sotto la media del formato timed_challenge a video singolo anche sommando le due parti (1972 vs una media di 1471 per singolo video, ma serviti 2 slot di pubblicazione invece di 1)",
+    "recommendation": "non ripetere nella forma attuale. Il reel immediatamente successivo (25/08), tornato al formato classico a video singolo, ha subito ripristinato una buona performance (1297 reach, skip rate 36,2% - tra i migliori mai registrati). Se si vuole sperimentare ancora la struttura a piu' parti, andrebbe ripensata: la parte 1 dovrebbe comunque dare un minimo di soddisfazione/spiegazione anche senza rivelare tutto, invece di lasciare il video 'a vuoto' con overlay statico"
+  },
+  "engagement_rate_paradox": "i reel con il reach piu' alto (timed_challenge) hanno il tasso di interazione piu' basso in percentuale (interazioni/reach, media ~3.8% contro 5-7% dei formati piu' piccoli) - non e' un segnale negativo, e' un effetto matematico: il reach cresce piu' velocemente delle interazioni assolute quando un reel diventa virale. Il reel virale del 17/08 ha comunque generato 795 interazioni assolute (31 commenti, 12 condivisioni, 104 salvataggi) - piu' di qualsiasi altro reel in valore assoluto, nonostante la percentuale piu' bassa",
+  "comments_analysis": {
+    "total_comments_27_reels": 74,
+    "reels_with_zero_comments": 13,
+    "note": "quasi la meta' dei reel non genera nemmeno un commento. Le CTA esplicite verso i commenti (es. 'scrivimi ORBIT nei commenti') non hanno mai prodotto un salto evidente da sole - l'unico reel con un numero alto di commenti (31) e' quello virale, dove il volume enorme di reach ha probabilmente fatto la differenza piu' della CTA in se'"
+  },
+  "profile_funnel_11_26_08": {
+    "profile_views": 298,
+    "accounts_engaged": 1034,
+    "website_clicks": 6,
+    "note": "su 1.034 account coinvolti, 298 hanno visitato il profilo (28,8%) ma solo 6 hanno cliccato il link al sito (2% delle visite al profilo, 0,6% degli account coinvolti) - il collo di bottiglia resta lo stesso individuato nei report precedenti: il profilo funziona, il salto verso il sito quasi no"
+  },
+  "leads_log_gap": {
+    "last_entry_date": "2026-08-13",
+    "note": "il log contatti (data/leads-log.json) non e' stato aggiornato dal 13/08, nonostante nel frattempo i follower siano quasi triplicati (69 a 178) e ci sia stato un reel virale con quasi 22.000 reach. Non e' chiaro se semplicemente non sono arrivati nuovi contatti o se sono arrivati ma non sono stati riportati - da chiedere esplicitamente a Matteo"
+  },
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23 / Google Analytics Data API / Microsoft Clarity Data Export API"
+}

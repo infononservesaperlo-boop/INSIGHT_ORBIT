@@ -172,6 +172,7 @@
       <a href="#formati">Formati</a>
       <a href="#esperimento">2 parti</a>
       <a href="#funnel">Funnel &amp; sito</a>
+      <a href="#pubblico">Il pubblico</a>
       <a href="#raccomandazioni">Raccomandazioni</a>
     </nav>
 
@@ -179,6 +180,7 @@
       <p class="vb-label">Verdetto in una frase</p>
       <p class="vb-text">Il profilo sta crescendo davvero, non solo per il colpo virale: il formato "hai 3 secondi" ha alzato la velocità di crescita di base di circa il 40% ancora prima del picco, e dopo il picco la crescita non è ricaduta sotto quel nuovo livello.</p>
       <p class="vb-sub">Questo è il segnale più importante di tutto il report: un evento virale isolato che si sgonfia del tutto sarebbe un campanello di stagnazione mascherata da un bel numero. Non è quello che sta succedendo qui.</p>
+      <p class="vb-sub" style="color:var(--warn); font-weight:700;">Aggiornamento: la crescita è reale, ma i dati demografici (sezione "Il pubblico") suggeriscono che gran parte del pubblico raggiunto non è nella fascia d'età che compra ripetizioni. Crescita reale ≠ automaticamente crescita commercialmente utile — vedi sotto.</p>
     </div>
 
     <div class="kpi-row">
@@ -298,10 +300,45 @@
       </div>
     </section>
 
-    <section>
-      <div class="section-head"><h2>Un buco da colmare: il log dei contatti</h2></div>
+    <section id="pubblico">
+      <div class="section-head"><h2>Il pubblico raggiunto: è quello giusto?</h2></div>
+      <p class="section-desc">Dato nuovo rispetto alla prima stesura di questo report: la demografia di chi viene effettivamente raggiunto, che Instagram espone separatamente dal reach grezzo. Risposta breve: probabilmente no, non del tutto.</p>
+      <div class="panel table-scroll">
+        <table>
+          <thead><tr><th>Fascia d'età</th><th style="text-align:right">% pubblico raggiunto (agosto)</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>13-17 (liceo — target primario)</td><td class="num" style="text-align:right">1,0%</td><td style="color:var(--crit); font-weight:700;">molto sotto target</td></tr>
+            <tr><td>18-24 (università + parte target)</td><td class="num" style="text-align:right">54,6%</td><td style="color:var(--warn);">parzialmente in target</td></tr>
+            <tr><td>25-34</td><td class="num" style="text-align:right">28,7%</td><td style="color:var(--muted);">verosimilmente fuori target</td></tr>
+            <tr><td>35-54 (genitori — target secondario)</td><td class="num" style="text-align:right">8,7%</td><td style="color:var(--crit); font-weight:700;">molto sotto target</td></tr>
+            <tr><td>55+</td><td class="num" style="text-align:right">4,0%</td><td style="color:var(--muted);">fuori target</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mini-grid" style="margin-top:16px;">
+        <div class="mini-card">
+          <h3>Genere</h3>
+          <div class="big num">56% M · 13% F · 31% N.D.</div>
+          <p>Sbilanciato verso i maschi — coerente con un pubblico di "appassionati di puzzle scientifici" più che di studenti in difficoltà generici, che non avrebbero un bias di genere così marcato.</p>
+        </div>
+        <div class="mini-card">
+          <h3>Geografia</h3>
+          <div class="big num" style="color:var(--good)">95% Italia</div>
+          <p>Qui invece va benissimo — nessun problema di targeting geografico, il pubblico è quasi interamente italiano.</p>
+        </div>
+      </div>
       <div class="callout warn">
-        <strong>Il log dei lead non è aggiornato dal 13/08.</strong> Nel frattempo i follower sono quasi triplicati (69 → 178) e c'è stato un reel da quasi 22.000 reach. Non so se semplicemente non sono arrivati nuovi contatti, o se sono arrivati ma non me li hai raccontati — dimmelo e li aggiungo, altrimenti resta un buco enorme proprio nel periodo più importante da capire.
+        <strong>Perché conta:</strong> il bio dice "Superiori &amp; Università", ma solo l'1% del pubblico raggiunto ha l'età da liceo e meno del 9% è nella fascia genitori. Il formato che fa crescere di più l'account ("hai 3 secondi", puzzle logici) è probabilmente anche quello che attira più pubblico fuori target: chi si diverte a indovinare un trucco di fisica spesso è già bravo in quella materia — il profilo opposto di chi cerca un tutor. Coerente con questo: il tasso di conversione profilo→sito resta fermo al 2% nonostante il reach sia decuplicato, invece di salire come ci si aspetterebbe se il pubblico in arrivo fosse sempre più qualificato.
+      </div>
+      <div class="callout">
+        <strong>Limite del dato:</strong> Instagram non scompone l'età oltre queste fasce, quindi non è possibile distinguere dentro il 18-24 chi è uno studente universitario reale da chi guarda solo per intrattenimento. Un lead arrivato il 23/08 (~1h27m dopo un reel) conferma che studenti veri continuano ad arrivare anche in mezzo a questa crescita — il canale non si è "rotto", ma il rapporto segnale/rumore sembra essere peggiorato.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Il log dei contatti</h2></div>
+      <div class="callout">
+        Aggiornato dopo la prima stesura: un nuovo contatto registrato il 23/08 (richiesta di consigli su concentrazione e DSA, via DM Instagram). Il log resta comunque scarno rispetto alla crescita del periodo (69 → 178 follower, un reel da quasi 22.000 reach) — vale la pena continuare a segnalare ogni nuovo contatto appena arriva, per iniziare a capire se il rapporto lead/reach sta davvero peggiorando come suggerisce la sezione sul pubblico qui sopra.
       </div>
     </section>
 
@@ -321,7 +358,8 @@
           <ul>
             <li>Il formato "puzzle/provocazione" (es. "la matematica è un'opinione") ha avuto un solo tentativo ma ottimo — vale un secondo test</li>
             <li>Cross-posting su Facebook: continua a costare zero sforzo aggiuntivo e a volte performa meglio di Instagram sullo stesso contenuto</li>
-            <li>Tracciare i lead in tempo reale, non a intervalli — il buco 13/08-oggi rende impossibile collegare la crescita virale a risultati di business concreti</li>
+            <li>Tracciare i lead in tempo reale, non a intervalli — il buco 13/08-23/08 ha reso impossibile collegare la crescita virale a risultati di business concreti</li>
+            <li>Testare una variante del formato "hai 3 secondi" agganciata a un dolore reale dello studente (es. "hai 3 secondi: hai fatto questo errore all'ultima verifica?") invece che a un trivia puramente divertente — stessa meccanica di retention, target più coerente con chi paga per un tutor</li>
           </ul>
         </div>
         <div class="reco-card change">
@@ -329,6 +367,7 @@
           <ul>
             <li>La struttura a 2 parti (indovina in DM + rivelazione) nella forma attuale: penalizza sia reach che retention rispetto al formato singolo — se riprovata, la parte 1 deve dare comunque soddisfazione anche senza svelare tutto</li>
             <li>Ridurre il formato "tip" (spiegazione singola senza sfida): è il più usato (9 su 27) ma tra i più deboli (reach medio 698, il più basso di tutti i formati con più di un tentativo)</li>
+            <li>Il mix di contenuti puramente "trivia divertente": la demografia (sezione "Il pubblico") suggerisce che sta attirando in gran parte un pubblico fuori target — non abbandonare il formato vincente, ma spostarne il taglio verso il dolore reale dello studente</li>
           </ul>
         </div>
         <div class="reco-card keep">

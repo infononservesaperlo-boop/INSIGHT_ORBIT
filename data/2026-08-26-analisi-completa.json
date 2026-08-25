@@ -71,9 +71,18 @@
     "website_clicks": 6,
     "note": "su 1.034 account coinvolti, 298 hanno visitato il profilo (28,8%) ma solo 6 hanno cliccato il link al sito (2% delle visite al profilo, 0,6% degli account coinvolti) - il collo di bottiglia resta lo stesso individuato nei report precedenti: il profilo funziona, il salto verso il sito quasi no"
   },
+  "audience_demographics_august": {
+    "reached_audience_by_age_pct": { "13-17": 1.0, "18-24": 54.6, "25-34": 28.7, "35-44": 4.6, "45-54": 4.1, "55-64": 2.9, "65+": 1.1 },
+    "reached_audience_by_gender": { "M": 2694, "F": 610, "unspecified": 1515 },
+    "reached_audience_by_country_top": { "IT": 4597, "CH": 27, "GB": 17, "ES": 17, "IN": 19, "DE": 16 },
+    "reached_audience_total_approx": 4819,
+    "conclusion": "il bio target dichiarato e' 'Superiori & Universita'' (eta' 14-25 circa) ma solo l'1% del pubblico raggiunto ha eta' da liceo (13-17) e meno del 9% e' nella fascia genitori (35-54). Oltre l'80% e' 18-34, fascia che include universitari reali ma probabilmente in maggioranza adulti attratti dal format 'trivia scientifico' come intrattenimento. Genere sbilanciato (56% M) coerente con pubblico 'appassionati di puzzle' piu' che 'studenti in difficolta' generici. Geografia invece ottima (95% Italia, nessun problema di targeting geografico)",
+    "caveat": "Instagram non scompone l'eta' oltre queste fasce - non e' possibile distinguere dentro il 18-24 studenti universitari reali da spettatori generici. Un lead confermato il 23/08 (~1h27m dopo un reel) dimostra che studenti veri continuano ad arrivare nonostante il mismatch demografico aggregato"
+  },
   "leads_log_gap": {
-    "last_entry_date": "2026-08-13",
-    "note": "il log contatti (data/leads-log.json) non e' stato aggiornato dal 13/08, nonostante nel frattempo i follower siano quasi triplicati (69 a 178) e ci sia stato un reel virale con quasi 22.000 reach. Non e' chiaro se semplicemente non sono arrivati nuovi contatti o se sono arrivati ma non sono stati riportati - da chiedere esplicitamente a Matteo"
+    "last_entry_date_at_first_draft": "2026-08-13",
+    "update": "colmato parzialmente il 26/08: nuovo lead registrato (lead-004, 23/08 ore 23:07, DM Instagram, richiesta su concentrazione/DSA) - vedi data/leads-log.json",
+    "note": "il log resta comunque scarno rispetto alla crescita del periodo (69 a 178 follower, un reel virale con quasi 22.000 reach) - continuare a segnalare ogni nuovo contatto appena arriva"
   },
   "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23 / Google Analytics Data API / Microsoft Clarity Data Export API"
 }

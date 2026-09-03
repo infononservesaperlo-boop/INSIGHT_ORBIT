@@ -39,9 +39,11 @@
   },
   "new_lead_chatgpt_referral": {
     "id": "lead-005",
-    "note": "Matteo riporta che una ragazza ha chiesto a ChatGPT una raccomandazione per ripetizioni vicino a lei, e ChatGPT ha consigliato ORBIT. Primo lead attribuito a un referral da un chatbot AI invece che a social o passaparola diretto",
-    "possible_ga_trace": "una sessione del 3/09 con source/medium '(data not available)' e canale 'Cross-network' e' un candidato plausibile (GA4 spesso perde il referrer per click originati da app di chat AI) ma non verificabile con certezza",
-    "significance": "se confermato, indica che ORBIT (o il suo sito/contenuti) e' visibile/referenziabile dai modelli AI generalisti quando qualcuno chiede una raccomandazione locale - un canale di acquisizione completamente nuovo, imprevisto, che vale la pena monitorare esplicitamente da qui in avanti"
+    "confirmed_details": { "channel": "WhatsApp", "contact_time": "2026-09-02T14:02:00+02:00 (mercoledi', fuso Roma)" },
+    "note": "Matteo riporta che una ragazza ha chiesto a ChatGPT una raccomandazione per ripetizioni vicino a lei, ChatGPT ha consigliato ORBIT, e il contatto e' arrivato su WhatsApp",
+    "ga_trace_check_result": "NESSUNA corrispondenza trovata. Controllato con precisione oraria (dimensione dateHour): l'unico click sul pulsante WhatsApp del sito in tutto il periodo tracciato e' alle 23:00 di martedi' 1/09 (2026090123), un giorno e ~15 ore prima del contatto reale - non e' la stessa persona. La sessione del 3/09 con referrer perso, ipotizzata inizialmente come possibile traccia, non corrisponde neanche lei nei tempi",
+    "conclusion": "l'attribuzione a ChatGPT si basa esclusivamente su quanto riportato dalla persona a Matteo - nessun dato Composio la conferma. O il tracciamento non ha catturato la sua visita (blocco tracker, browser in-app), o il numero e' arrivato a lei per una via che non passa da un click tracciato sul sito",
+    "significance": "se l'attribuzione riportata e' corretta, indica che ORBIT e' visibile/referenziabile dai modelli AI generalisti quando qualcuno chiede una raccomandazione locale - un canale di acquisizione completamente nuovo, imprevisto, che vale la pena monitorare esplicitamente da qui in avanti, pur restando per ora un dato aneddotico non misurato"
   },
   "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23 / Google Analytics Data API / Microsoft Clarity Data Export API"
 }

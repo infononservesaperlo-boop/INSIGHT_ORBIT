@@ -45,14 +45,15 @@
     {
       "id": "lead-005",
       "reported_date": "2026-09-04",
-      "approx_contact_time": "non specificato - da confermare",
-      "channel": "referral da ChatGPT",
-      "channel_note": "canale mai visto prima nel log: una ragazza ha chiesto a ChatGPT ripetizioni vicino a lei e ChatGPT ha consigliato ORBIT. Non e' chiaro se il contatto sia poi arrivato via IG DM, sito, o altro - da confermare con Matteo",
+      "approx_contact_time": "2026-09-02T14:02:00+02:00",
+      "approx_contact_time_note": "mercoledi' ore 14:02, fuso Roma - confermato da Matteo",
+      "channel": "WhatsApp",
+      "channel_note": "canale mai visto prima nel log: una ragazza ha chiesto a ChatGPT ripetizioni vicino a lei, ChatGPT ha consigliato ORBIT, e il contatto e' arrivato su WhatsApp",
       "topic": "ripetizioni (dettagli non specificati)",
       "likely_trigger_reel": null,
-      "possible_ga_trace": { "date": "2026-09-03", "note": "una sessione del 3/09 su Google Analytics ha source/medium '(data not available)' con canale 'Cross-network' - GA4 mostra spesso questo quando il referrer non viene passato correttamente, come capita spesso con i link cliccati dentro un'interfaccia di chat AI. Candidato plausibile ma NON confermato - non c'e' modo di provarlo con certezza dai dati disponibili" },
+      "ga_trace_check": "controllato con precisione oraria: l'unico click sul pulsante WhatsApp del sito in tutto il periodo tracciato e' delle 23:00 di martedi' 1/09 (dateHour 2026090123) - non combacia con mercoledi' 14:02 (~15 ore e un giorno di differenza). Anche la sessione del 3/09 con referrer perso, ipotizzata in precedenza come possibile traccia, non corrisponde. NESSUNA delle tracce disponibili su Google Analytics corrisponde al momento esatto di questo contatto - o non ha lasciato traccia nel tracciamento (blocco tracker, browser in-app di ChatGPT/WhatsApp), o e' arrivata con un percorso diverso da un click tracciato sul sito (es. numero copiato/digitato a mano)",
       "outcome": "non specificato",
-      "note": "primo lead con attribuzione a un chatbot AI invece che a social/passaparola - se confermato, apre un canale di acquisizione completamente nuovo da monitorare (SEO/presenza del sito nei dati usati dai modelli AI)"
+      "note": "primo lead con attribuzione a un chatbot AI invece che a social/passaparola - se confermato, apre un canale di acquisizione completamente nuovo da monitorare (SEO/presenza del sito nei dati usati dai modelli AI). L'attribuzione al referral ChatGPT si basa solo su quanto riportato dalla persona a Matteo, non su alcuna prova nei dati Composio"
     }
   ]
 }

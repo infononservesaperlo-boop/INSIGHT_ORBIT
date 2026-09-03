@@ -41,6 +41,18 @@
       "likely_trigger_reel": { "date": "2026-08-23", "reach": 512, "note": "reel 'rivelazione condizioni di esistenza' pubblicato lo stesso giorno alle 21:40, ~1h27m prima del contatto; nessuna prova diretta di attribuzione, solo prossimita' temporale - reach basso (512) quindi non l'unico candidato plausibile, potrebbe venire anche da esplorazione del profilo dopo il periodo virale" },
       "outcome": "non specificato",
       "note": "primo lead riportato dopo il periodo di crescita virale (69->178 follower) - colma parte del buco segnalato nel report del 26/08"
+    },
+    {
+      "id": "lead-005",
+      "reported_date": "2026-09-04",
+      "approx_contact_time": "non specificato - da confermare",
+      "channel": "referral da ChatGPT",
+      "channel_note": "canale mai visto prima nel log: una ragazza ha chiesto a ChatGPT ripetizioni vicino a lei e ChatGPT ha consigliato ORBIT. Non e' chiaro se il contatto sia poi arrivato via IG DM, sito, o altro - da confermare con Matteo",
+      "topic": "ripetizioni (dettagli non specificati)",
+      "likely_trigger_reel": null,
+      "possible_ga_trace": { "date": "2026-09-03", "note": "una sessione del 3/09 su Google Analytics ha source/medium '(data not available)' con canale 'Cross-network' - GA4 mostra spesso questo quando il referrer non viene passato correttamente, come capita spesso con i link cliccati dentro un'interfaccia di chat AI. Candidato plausibile ma NON confermato - non c'e' modo di provarlo con certezza dai dati disponibili" },
+      "outcome": "non specificato",
+      "note": "primo lead con attribuzione a un chatbot AI invece che a social/passaparola - se confermato, apre un canale di acquisizione completamente nuovo da monitorare (SEO/presenza del sito nei dati usati dai modelli AI)"
     }
   ]
 }

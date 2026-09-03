@@ -1,0 +1,47 @@
+{
+  "generated_at": "2026-09-04T01:10:00+02:00",
+  "purpose": "aggiornamento approfondito dopo 9 giorni: continua la crescita, 4 nuovi reel (ancora nessun test della svolta 'pain-point' raccomandata il 26/08), verifica puntigliosa se il sito genera contatti reali (telefono/WhatsApp), nuovo lead da un canale mai visto - ChatGPT",
+  "period_covered": "2026-08-25 to 2026-09-04",
+  "account": {
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 204, "followers_count_previous": 178, "media_count": 31 },
+    "facebook": { "page_name": "ORBIT Ripetizioni", "fan_count": 38, "fan_count_previous": 35 }
+  },
+  "growth_phase_update": {
+    "new_phase": { "phase": "post-report (26/08-04/09)", "rate_per_day": 2.9, "note": "piu' veloce di tutte le fasi non-virali precedenti (1.3-1.8/giorno) - troppo presto per dire se e' un nuovo livello stabile o rumore su una finestra di soli 9 giorni" }
+  },
+  "new_reels": [
+    { "id": "18111930806077907", "date": "2026-08-27", "topic": "maglione di lana vs sedia di metallo (conducibilita' termica)", "reach": 1378, "views": 1661, "total_interactions": 65, "avg_watch_time_s": 16.03, "skip_rate_pct": 44.1, "format": "timed_challenge" },
+    { "id": "18074445521447536", "date": "2026-08-29", "topic": "sulla luna sei piu' leggero: e' cambiato il peso o la massa?", "reach": 1068, "views": 1247, "total_interactions": 40, "avg_watch_time_s": 15.78, "skip_rate_pct": 46.5, "format": "timed_challenge" },
+    { "id": "18113379079957258", "date": "2026-08-31", "topic": "chiodo di ferro affonda, nave di ferro galleggia (densita')", "reach": 1243, "views": 1470, "total_interactions": 55, "avg_watch_time_s": 16.30, "skip_rate_pct": 41.8, "format": "timed_challenge" },
+    { "id": "17892404712656027", "date": "2026-09-02", "topic": "il ghiaccio e' acqua solida, perche' non affonda? (densita')", "reach": 1115, "views": 1345, "total_interactions": 49, "avg_watch_time_s": 28.07, "skip_rate_pct": 41.4, "format": "timed_challenge", "note": "miglior tempo di visione tra i 4 nuovi reel, secondo solo al reel virale in tutta la storia dell'account" }
+  ],
+  "format_pivot_status": {
+    "recommendation_from_26_08": "testare una variante di 'hai 3 secondi' agganciata a un dolore reale dello studente invece che a trivia scientifica pura",
+    "status": "NON ancora testata - tutti e 4 i nuovi reel restano nel formato trivia scientifica (termodinamica, densita', gravita' lunare) senza collegamento esplicito a un problema di studio/verifica",
+    "performance_note": "il formato resta comunque stabile e sano (reach medio 1.201, skip rate medio 43.4% - in linea con la media storica del formato 'hai 3 secondi' esclusa la viralita', 1.471 di media / 44.4% skip). Nessun segno di stanchezza del formato, ma nemmeno nessuna prova a favore o contro il pivot raccomandato perche' non e' stato ancora provato"
+  },
+  "site_contact_deep_dive": {
+    "question": "il sito sta ricevendo chiamate?",
+    "answer": "no chiamate telefoniche tracciate (nessun evento 'tel:' rilevato) - l'unico meccanismo di contatto diretto sul sito e' un pulsante WhatsApp (wa.me/393319241103)",
+    "whatsapp_click_history_full_period_24_07_to_04_09": {
+      "total_clicks": 1,
+      "date": "2026-09-01",
+      "note": "un solo click in oltre 6 settimane di dati disponibili, nonostante decine di migliaia di reach nel frattempo"
+    },
+    "instagram_website_clicks_25_08_to_04_09": 0,
+    "instagram_website_clicks_previous_period_11_08_to_26_08": 6,
+    "conclusion": "il collo di bottiglia profilo->sito->contatto, gia' segnalato nei report precedenti, non solo persiste ma nell'ultimo periodo e' peggiorato: zero click al sito dal pulsante Instagram (contro 6 nel periodo precedente) e un solo click WhatsApp in tutta la storia tracciata"
+  },
+  "domain_split_note": {
+    "ga_sessions_25_08_to_04_09": { "orbitripetizioni.it": 18, "orbit-ripetizioni.netlify.app": 6 },
+    "note": "il vecchio dominio netlify continua a ricevere una quota non trascurabile di sessioni (25% del totale) - probabile indicizzazione residua su Google o bookmark/link vecchi ancora in giro. Non e' un problema grave ma varrebbe la pena impostare un redirect permanente (301) dal vecchio al nuovo dominio per consolidare traffico e autorita' SEO, se non gia' fatto",
+    "new_content_discovered": "pagina /blog/il-metodo-orbit-perche-non-ti-do-mai-la-soluzione-subito/ riceve gia' un po' di traffico organico da Google (poche visite ma reali) - primo segnale di contenuto SEO che funziona indipendentemente dai social"
+  },
+  "new_lead_chatgpt_referral": {
+    "id": "lead-005",
+    "note": "Matteo riporta che una ragazza ha chiesto a ChatGPT una raccomandazione per ripetizioni vicino a lei, e ChatGPT ha consigliato ORBIT. Primo lead attribuito a un referral da un chatbot AI invece che a social o passaparola diretto",
+    "possible_ga_trace": "una sessione del 3/09 con source/medium '(data not available)' e canale 'Cross-network' e' un candidato plausibile (GA4 spesso perde il referrer per click originati da app di chat AI) ma non verificabile con certezza",
+    "significance": "se confermato, indica che ORBIT (o il suo sito/contenuti) e' visibile/referenziabile dai modelli AI generalisti quando qualcuno chiede una raccomandazione locale - un canale di acquisizione completamente nuovo, imprevisto, che vale la pena monitorare esplicitamente da qui in avanti"
+  },
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23 / Google Analytics Data API / Microsoft Clarity Data Export API"
+}

@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORBIT — Il sito riceve chiamate? La risposta puntuale</title>
+<style>
+  :root { color-scheme: light dark; }
+  html, body { margin: 0; padding: 0; }
+  .viz-root {
+    color-scheme: light;
+    --page: #f3f5f9; --surface: #ffffff; --surface-2: #eef1f7;
+    --ink: #11131a; --ink-2: #4a5164; --muted: #848da3;
+    --border: rgba(16,19,26,0.09); --border-2: rgba(16,19,26,0.14);
+    --accent: #2a78d6; --accent-soft: #cde2fb; --accent-line: #2a78d6;
+    --good: #0ca30c; --good-soft: #e3f6e3;
+    --warn: #b9790a; --warn-soft: #fbeed1;
+    --crit: #d03b3b; --crit-soft: #fbe3e3;
+    --violet: #4a3aa7; --violet-soft: #e9e6f8;
+    --grid: #e3e2da;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+      --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+      --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+      --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee;
+      --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+      --warn: #f0ab35; --warn-soft: rgba(240,171,53,0.14);
+      --crit: #e66767; --crit-soft: rgba(230,103,103,0.16);
+      --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+      --grid: #2a2e36;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+    --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+    --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+    --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee;
+    --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+    --warn: #f0ab35; --warn-soft: rgba(240,171,53,0.14);
+    --crit: #e66767; --crit-soft: rgba(230,103,103,0.16);
+    --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+    --grid: #2a2e36;
+  }
+
+  .viz-root * { box-sizing: border-box; }
+  .viz-root { background: var(--page); color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; padding: 40px 20px 80px; min-height: 100vh; }
+  .num { font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace; font-variant-numeric: tabular-nums; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); margin-bottom: 18px; text-decoration: none; }
+  .breadcrumb a { color: var(--accent); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  header.top { margin-bottom: 30px; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--violet); margin: 0 0 8px; }
+  h1 { font-size: 27px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 8px; text-wrap: balance; }
+  .sub { color: var(--ink-2); font-size: 14.5px; margin: 0; max-width: 74ch; line-height: 1.6; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 24px 0 8px; }
+  @media (max-width: 760px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 16px 14px; }
+  .kpi .label { font-size: 11.5px; color: var(--muted); font-weight: 600; letter-spacing: 0.02em; margin-bottom: 6px; }
+  .kpi .value { font-size: 23px; font-weight: 800; letter-spacing: -0.01em; }
+  .kpi .note { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+  .kpi .note.up { color: var(--good); font-weight: 700; }
+  .kpi .note.down { color: var(--crit); font-weight: 700; }
+
+  section { margin-top: 44px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+  h2 { font-size: 18px; font-weight: 800; margin: 0; letter-spacing: -0.005em; }
+  .section-desc { color: var(--ink-2); font-size: 13.5px; margin: 4px 0 18px; max-width: 74ch; line-height: 1.55; }
+
+  .hero-stat {
+    background: linear-gradient(135deg, var(--crit-soft), var(--surface));
+    border: 2px solid var(--crit); border-radius: 18px; padding: 28px 28px 24px; text-align: center;
+  }
+  .hero-stat .hs-label { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--crit); margin: 0 0 8px; }
+  .hero-stat .hs-num { font-size: 56px; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+  .hero-stat .hs-sub { font-size: 13.5px; color: var(--ink-2); margin-top: 10px; max-width: 55ch; margin-left: auto; margin-right: auto; line-height: 1.55; }
+
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 20px 16px; }
+  .chart-svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .axis-label { font-size: 10.5px; fill: var(--muted); font-family: ui-monospace, monospace; }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .tooltip {
+    position: absolute; pointer-events: none; background: var(--ink); color: var(--page);
+    font-size: 12px; padding: 8px 11px; border-radius: 7px; line-height: 1.5; max-width: 220px;
+    transform: translate(-50%, -110%); opacity: 0; transition: opacity 0.1s ease; z-index: 5;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+  .chart-wrap { position: relative; }
+  .bar { cursor: pointer; }
+  .dot { cursor: pointer; }
+
+  .reel-cards { display: flex; flex-direction: column; gap: 12px; }
+  .reel-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; border-left: 4px solid var(--violet); }
+  .reel-card .rc-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+  .reel-card h3 { margin: 0; font-size: 14.5px; font-weight: 800; }
+  .reel-card .rc-stats { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 8px; }
+  .reel-card .rc-stat .l { font-size: 10.5px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; }
+  .reel-card .rc-stat .v { font-size: 17px; font-weight: 800; margin-top: 2px; }
+
+  .mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .mini-grid { grid-template-columns: 1fr; } }
+  .mini-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+  .mini-card h3 { margin: 0 0 8px; font-size: 14.5px; font-weight: 800; }
+  .mini-card .big { font-size: 24px; font-weight: 800; }
+  .mini-card p { margin: 8px 0 0; font-size: 12.5px; color: var(--ink-2); line-height: 1.55; }
+
+  .callout { border: 1px dashed var(--border-2); border-radius: 10px; padding: 14px 16px; font-size: 13px; color: var(--ink-2); line-height: 1.55; margin-top: 18px; background: var(--surface-2); }
+  .callout strong { color: var(--ink); }
+  .callout.warn { border-color: var(--warn); background: var(--warn-soft); }
+  .callout.good { border-color: var(--good); background: var(--good-soft); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); font-weight: 700; padding: 0 10px 10px; border-bottom: 1px solid var(--border-2); white-space: nowrap; }
+  td { padding: 9px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .table-scroll { overflow-x: auto; }
+
+  footer.meta { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+</style>
+</head>
+<body>
+<div class="viz-root">
+  <div class="wrap">
+
+    <a class="breadcrumb" href="../../index.html">&larr; Tutti i report</a>
+
+    <header class="top">
+      <p class="eyebrow">ORBIT · Ripetizioni — Aggiornamento approfondito · 25/08-04/09</p>
+      <h1>Il sito riceve chiamate? Una sola, in 6 settimane — e altre 4 scoperte</h1>
+      <p class="sub">Nove giorni di dati: la crescita continua (+26 follower, ancora sopra il ritmo pre-virale), 4 nuovi reel mantengono il formato "hai 3 secondi" senza però testare ancora la svolta verso i contenuti "dolore reale" raccomandata nel report precedente, e un controllo puntuale sul sito rivela che il meccanismo di contatto diretto (un pulsante WhatsApp, non un vero numero di telefono) è stato usato una sola volta in tutta la storia tracciata. Novità: un lead arrivato — probabilmente — tramite una raccomandazione di ChatGPT.</p>
+    </header>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="label">Follower Instagram</div>
+        <div class="value num">178 → 204</div>
+        <div class="note up">+26 in 9 giorni (+2,9/giorno)</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Fan Facebook</div>
+        <div class="value num">35 → 38</div>
+        <div class="note up">+3</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Click WhatsApp (6 settimane)</div>
+        <div class="value num">1</div>
+        <div class="note down">su decine di migliaia di reach</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Click al sito da bio IG (25/08-04/09)</div>
+        <div class="value num">0</div>
+        <div class="note down">erano 6 nel periodo precedente</div>
+      </div>
+    </div>
+
+    <section>
+      <div class="section-head"><h2>"Il sito riceve chiamate?" — risposta puntuale</h2></div>
+      <p class="section-desc">Non ci sono chiamate telefoniche vere e proprie tracciate sul sito — l'unico meccanismo di contatto diretto è un pulsante che apre WhatsApp (wa.me/393319241103). Ho controllato ogni singolo click registrato dall'inizio del tracciamento.</p>
+      <div class="hero-stat">
+        <p class="hs-label">Click sul pulsante WhatsApp — 24/07-04/09 (6 settimane)</p>
+        <div class="hs-num num">1</div>
+        <p class="hs-sub">Un solo click, il 1° settembre. Nello stesso periodo l'account ha totalizzato decine di migliaia di reach (incluso un reel virale da quasi 22.000). Il meccanismo di contatto diretto sul sito è, di fatto, quasi inutilizzato.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Il funnel peggiora, non migliora</h2></div>
+      <div class="panel table-scroll">
+        <table>
+          <thead><tr><th>Indicatore</th><th style="text-align:right">Periodo precedente (11-26/08)</th><th style="text-align:right">Questo periodo (25/08-04/09)</th></tr></thead>
+          <tbody>
+            <tr><td>Click al sito dal pulsante Instagram</td><td class="num" style="text-align:right">6</td><td class="num" style="text-align:right" style="color:var(--crit)">0</td></tr>
+            <tr><td>Click sul pulsante WhatsApp del sito</td><td class="num" style="text-align:right">0 (nel periodo)</td><td class="num" style="text-align:right">1</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn">
+        Il collo di bottiglia profilo→sito→contatto già segnalato nei report precedenti non solo persiste, ma in questo periodo è ulteriormente peggiorato sul fronte "click dal profilo Instagram". L'unico segnale positivo è marginale: un click WhatsApp che prima non c'era mai stato.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>I 4 nuovi reel: formato stabile, svolta non ancora testata</h2></div>
+      <p class="section-desc">Il report del 26/08 raccomandava di provare il formato "hai 3 secondi" agganciato a un dolore reale dello studente. Non è ancora successo: tutti e 4 i nuovi reel restano trivia scientifica pura (termodinamica, densità, gravità lunare).</p>
+      <div class="reel-cards">
+        <div class="reel-card">
+          <div class="rc-head"><h3>27/08 — Maglione di lana vs sedia di metallo</h3></div>
+          <div class="rc-stats">
+            <div class="rc-stat"><div class="l">Reach</div><div class="v num">1.378</div></div>
+            <div class="rc-stat"><div class="l">Skip rate</div><div class="v num">44,1%</div></div>
+            <div class="rc-stat"><div class="l">Watch time</div><div class="v num">16,0s</div></div>
+          </div>
+        </div>
+        <div class="reel-card">
+          <div class="rc-head"><h3>29/08 — Sulla Luna: cambia il peso o la massa?</h3></div>
+          <div class="rc-stats">
+            <div class="rc-stat"><div class="l">Reach</div><div class="v num">1.068</div></div>
+            <div class="rc-stat"><div class="l">Skip rate</div><div class="v num">46,5%</div></div>
+            <div class="rc-stat"><div class="l">Watch time</div><div class="v num">15,8s</div></div>
+          </div>
+        </div>
+        <div class="reel-card">
+          <div class="rc-head"><h3>31/08 — Chiodo che affonda, nave che galleggia</h3></div>
+          <div class="rc-stats">
+            <div class="rc-stat"><div class="l">Reach</div><div class="v num">1.243</div></div>
+            <div class="rc-stat"><div class="l">Skip rate</div><div class="v num">41,8%</div></div>
+            <div class="rc-stat"><div class="l">Watch time</div><div class="v num">16,3s</div></div>
+          </div>
+        </div>
+        <div class="reel-card">
+          <div class="rc-head"><h3>02/09 — Perché il ghiaccio non affonda</h3></div>
+          <div class="rc-stats">
+            <div class="rc-stat"><div class="l">Reach</div><div class="v num">1.115</div></div>
+            <div class="rc-stat"><div class="l">Skip rate</div><div class="v num">41,4%</div></div>
+            <div class="rc-stat"><div class="l">Watch time</div><div class="v num">28,1s</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="callout">
+        Performance solida e stabile (reach medio 1.201, skip rate medio 43,4% — in linea con la media storica del formato, esclusa la viralità). Nessun segno di stanchezza, ma anche nessuna prova a favore o contro il pivot raccomandato, perché non è stato ancora provato. Il reel del 2/09 ha il secondo miglior tempo di visione di tutta la storia dell'account (28,1s), secondo solo al reel virale.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Un dettaglio SEO: il vecchio dominio non è ancora "spento"</h2></div>
+      <div class="mini-grid">
+        <div class="mini-card">
+          <h3>Sessioni per dominio (25/08-04/09)</h3>
+          <div class="big num">18 vs 6</div>
+          <p>orbitripetizioni.it riceve la maggioranza (18 sessioni), ma il vecchio orbit-ripetizioni.netlify.app continua a portarne 6 — un quarto del totale. Probabile indicizzazione residua su Google o link/bookmark vecchi ancora in giro.</p>
+        </div>
+        <div class="mini-card">
+          <h3>Scoperta: il blog funziona</h3>
+          <div class="big" style="color:var(--good)">✓ Traffico organico reale</div>
+          <p>La pagina <code>/blog/il-metodo-orbit-perche-non-ti-do-mai-la-soluzione-subito/</code> riceve già visite da ricerca organica su Google — poche ma reali, il primo segnale di un canale di acquisizione indipendente dai social.</p>
+        </div>
+      </div>
+      <div class="callout">
+        Non è un problema grave, ma varrebbe la pena impostare un redirect permanente (301) dal vecchio dominio al nuovo, se non già fatto, per consolidare tutto il traffico e l'autorità SEO su un solo indirizzo.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Nuovo canale: un lead da ChatGPT</h2></div>
+      <div class="callout good">
+        <strong>Prima volta:</strong> una ragazza ha chiesto a ChatGPT di consigliarle ripetizioni vicino a lei, e ChatGPT ha suggerito ORBIT. Registrato come lead-005. Su Google Analytics c'è una sessione del 3/09 con provenienza "(data not available)" / canale "Cross-network" — un candidato plausibile, dato che i link cliccati dentro le app di chat AI spesso perdono il referrer — ma non verificabile con certezza. Se confermato, è un canale di acquisizione completamente nuovo, indipendente da reach e follower, che vale la pena iniziare a monitorare esplicitamente.
+      </div>
+    </section>
+
+    <footer class="meta">
+      <span>Dati letti in sola lettura via Composio · Instagram Graph API v21 / Facebook Graph API v20–23 / Google Analytics Data API / Microsoft Clarity</span>
+      <span>Generato venerdì 4 settembre 2026 alle 01:10 (CEST)</span>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>

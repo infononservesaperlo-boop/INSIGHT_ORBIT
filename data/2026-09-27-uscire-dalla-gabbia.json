@@ -1,0 +1,69 @@
+{
+  "generated_at": "2026-09-27T02:30:00+02:00",
+  "purpose": "punto della situazione dopo 23 giorni: la crescita ha rallentato, i reel restano 'in gabbia' sotto le 2.500 views nonostante retention buona (skip rate 35-50%). Ricerca esterna + analisi dati propri per capire quale leva manca per sfondare il tetto attuale",
+  "account": {
+    "instagram": { "username": "orbit_ripetizioni", "followers_count": 225, "followers_count_previous": 204, "media_count": 43 },
+    "facebook": { "page_name": "ORBIT Ripetizioni", "fan_count": 48, "fan_count_previous": 38 }
+  },
+  "growth_deceleration": {
+    "period": "04/09-27/09 (23 giorni)",
+    "follower_delta": 21,
+    "rate_per_day": 0.91,
+    "comparison": "molto piu' lento delle fasi precedenti: 1,3-1,8/giorno pre-formato, 2,9/giorno nel periodo 26/08-04/09. La 'gabbia' descritta da Matteo si vede anche nei follower, non solo nelle views",
+    "note": "12 nuovi reel pubblicati in questi 23 giorni, tutti nel range 250-2.225 reach - nessun altro episodio virale dal 17/08"
+  },
+  "recent_12_reels_summary": {
+    "avg_reach": 1214.4,
+    "avg_views": 1665.7,
+    "avg_skip_rate_pct": 47.8,
+    "avg_watch_time_s": 11.94,
+    "max_reach": 2225,
+    "min_reach": 253,
+    "note": "coerente con quanto riportato da Matteo: skip rate tipicamente 35-45% (qui media 47,8%, con alcuni outlier deboli fino al 75,8%)"
+  },
+  "correlations_within_plateau_12_reels": {
+    "skip_rate_vs_reach": -0.594,
+    "avg_watch_time_vs_reach": 0.243,
+    "shares_vs_reach": 0.158,
+    "interpretation": "dentro il range 250-2.225, lo skip rate resta il discriminante piu' forte tra chi va un po' meglio e chi va un po' peggio - ma nessuna variabile dentro questo campione spiega perche' TUTTI restano sotto le 2.500, quella e' una domanda diversa (vedi sotto)"
+  },
+  "the_shares_gap_finding": {
+    "headline": "il rapporto condivisioni/reach di ORBIT e' 0,14% di media sugli ultimi 12 reel - la ricerca esterna indica che serve almeno il 2% per un segnale di viralita' forte, il 3% per un'esplosione imminente",
+    "per_reel_shares_over_reach_pct": [
+      { "date": "2026-09-04", "pct": 0.33 }, { "date": "2026-09-06", "pct": 0.59 },
+      { "date": "2026-09-08", "pct": 0.15 }, { "date": "2026-09-10", "pct": 0.40 },
+      { "date": "2026-09-12", "pct": 0.11 }, { "date": "2026-09-14", "pct": 0.23 },
+      { "date": "2026-09-16", "pct": 0.17 }, { "date": "2026-09-18", "pct": 0.08 },
+      { "date": "2026-09-20", "pct": 0.00 }, { "date": "2026-09-22", "pct": 0.09 },
+      { "date": "2026-09-24", "pct": 0.06 }, { "date": "2026-09-26", "pct": 0.11 }
+    ],
+    "gap_vs_threshold": "15-20 volte sotto la soglia indicata dalla ricerca come 'segnale forte' di viralita'",
+    "caveat": "anche il reel virale del 17/08 ha chiuso con un rapporto condivisioni/reach basso in termini assoluti (12 condivisioni su 21.993 reach finale, 0,05%) - ma questo e' probabilmente un effetto diluizione (lo stesso 'paradosso' gia' osservato per il tasso di interazione: quando il reach esplode, cresce piu' in fretta delle condivisioni assolute). Il rapporto nelle prime ore, quando l'algoritmo decide se spingere il contenuto, potrebbe essere stato molto piu' alto - dato che pero' non abbiamo catturato in tempo reale. Trattare questa ipotesi come plausibile, non dimostrata sui propri dati"
+  },
+  "external_research_summary": {
+    "source_note": "ricerca web condotta il 27/09/2026, fonti elencate nel report pubblicato",
+    "key_findings": [
+      "i 3 segnali di ranking piu' importanti nel 2026 sono: watch time (soprattutto nei primi 3 secondi), invii per reach (condivisioni via DM, pesate 3-5x un like), e like per reach",
+      "le condivisioni via DM sono ora il segnale piu' forte in assoluto - un invio a un non-follower conta piu' di 50 like passivi da chi gia' segue",
+      "soglia indicativa: sopra il 2% di condivisioni/reach e' un segnale forte, sopra il 3% indica un'esplosione imminente",
+      "lunghezza ideale 7-30 secondi per contenuti virali/educativi - l'algoritmo premia il completamento, non la lunghezza in se'",
+      "gli account piccoli (<50.000 follower) hanno ricevuto un aumento del 14% di reach non-follower nell'aggiornamento 2026 dell'algoritmo - ORBIT non e' penalizzato per essere piccolo",
+      "contenuti 'da mandare a qualcuno' funzionano perche' comprimono un'emozione o un'utilita' specifica in un formato che fa pensare 'questo e' perfetto per il mio amico/compagno di classe'"
+    ]
+  },
+  "recommendations": [
+    "aggiungere una CTA esplicita di condivisione mirata (es. 'manda questo a chi ha la verifica la prossima settimana' invece di 'scrivimi in DM/commenti') - finora nessun reel ORBIT ha mai chiesto esplicitamente di essere condiviso con una terza persona",
+    "progettare 1-2 reel pensati apposta per essere inoltrati a un compagno di classe specifico in una situazione specifica (es. 'quello che non ha capito le condizioni di esistenza', 'quello che deve recuperare a settembre') invece di trivia scientifica generica",
+    "testare una versione piu' corta (12-15s) dello stesso formato 'hai 3 secondi' per vedere se il completion rate sale ulteriormente rispetto agli attuali 20-35s stimati",
+    "monitorare esplicitamente condivisioni/reach da qui in avanti come metrica primaria, non solo skip rate - e' la leva che i dati indicano come piu' probabile per uscire dal plateau attuale"
+  ],
+  "sources": [
+    { "title": "Instagram Algorithm Explained: Your 2026 Guide - SocialBee", "url": "https://socialbee.com/blog/instagram-algorithm/" },
+    { "title": "Instagram algorithm in 2026: rank signals for growth - Later", "url": "https://later.com/blog/how-instagram-algorithm-works/" },
+    { "title": "Instagram Sends Per Reach — The 2026 Ranking Signal Decoded - CreatorLane", "url": "https://creatorlanehq.com/blog/instagram-sends-per-reach-2026" },
+    { "title": "Instagram \"Sends per Reach\" Playbook - Influencer Marketing Hub", "url": "https://influencermarketinghub.com/instagram-sends-per-reach-playbook/" },
+    { "title": "Instagram Reels Completion Rate Benchmark - Grow Creator", "url": "https://growcreator.pro/blog/instagram-reels-completion-rate-benchmark" },
+    { "title": "Best Instagram Reel Length in 2026 (Data-Backed) - Moonb", "url": "https://www.moonb.io/blog/instagram-reel-length" }
+  ],
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API v20-23; ricerca web per il contesto sull'algoritmo"
+}

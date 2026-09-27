@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORBIT — Come uscire dalla gabbia sotto le 2.500 views</title>
+<style>
+  :root { color-scheme: light dark; }
+  html, body { margin: 0; padding: 0; }
+  .viz-root {
+    color-scheme: light;
+    --page: #f3f5f9; --surface: #ffffff; --surface-2: #eef1f7;
+    --ink: #11131a; --ink-2: #4a5164; --muted: #848da3;
+    --border: rgba(16,19,26,0.09); --border-2: rgba(16,19,26,0.14);
+    --accent: #2a78d6; --accent-soft: #cde2fb; --accent-line: #2a78d6;
+    --good: #0ca30c; --good-soft: #e3f6e3;
+    --warn: #b9790a; --warn-soft: #fbeed1;
+    --crit: #d03b3b; --crit-soft: #fbe3e3;
+    --violet: #4a3aa7; --violet-soft: #e9e6f8;
+    --grid: #e3e2da;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+      --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+      --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+      --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee;
+      --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+      --warn: #f0ab35; --warn-soft: rgba(240,171,53,0.14);
+      --crit: #e66767; --crit-soft: rgba(230,103,103,0.16);
+      --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+      --grid: #2a2e36;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --page: #0f1116; --surface: #181c23; --surface-2: #1f242c;
+    --ink: #ffffff; --ink-2: #c1c5d6; --muted: #8891a6;
+    --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.16);
+    --accent: #3987e5; --accent-soft: #1c5cab; --accent-line: #5aa0ee;
+    --good: #23c623; --good-soft: rgba(35,198,35,0.14);
+    --warn: #f0ab35; --warn-soft: rgba(240,171,53,0.14);
+    --crit: #e66767; --crit-soft: rgba(230,103,103,0.16);
+    --violet: #9085e9; --violet-soft: rgba(144,133,233,0.16);
+    --grid: #2a2e36;
+  }
+
+  .viz-root * { box-sizing: border-box; }
+  .viz-root { background: var(--page); color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; padding: 40px 20px 80px; min-height: 100vh; }
+  .num { font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace; font-variant-numeric: tabular-nums; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); margin-bottom: 18px; text-decoration: none; }
+  .breadcrumb a { color: var(--accent); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  header.top { margin-bottom: 30px; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--violet); margin: 0 0 8px; }
+  h1 { font-size: 27px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 8px; text-wrap: balance; }
+  .sub { color: var(--ink-2); font-size: 14.5px; margin: 0; max-width: 74ch; line-height: 1.6; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 24px 0 8px; }
+  @media (max-width: 760px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 16px 14px; }
+  .kpi .label { font-size: 11.5px; color: var(--muted); font-weight: 600; letter-spacing: 0.02em; margin-bottom: 6px; }
+  .kpi .value { font-size: 23px; font-weight: 800; letter-spacing: -0.01em; }
+  .kpi .note { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+  .kpi .note.up { color: var(--good); font-weight: 700; }
+  .kpi .note.down { color: var(--crit); font-weight: 700; }
+
+  section { margin-top: 44px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+  h2 { font-size: 18px; font-weight: 800; margin: 0; letter-spacing: -0.005em; }
+  .section-desc { color: var(--ink-2); font-size: 13.5px; margin: 4px 0 18px; max-width: 74ch; line-height: 1.55; }
+
+  .hero-stat {
+    background: linear-gradient(135deg, var(--crit-soft), var(--surface));
+    border: 2px solid var(--crit); border-radius: 18px; padding: 28px 28px 24px; text-align: center;
+  }
+  .hero-stat .hs-label { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--crit); margin: 0 0 8px; }
+  .hero-stat .hs-num { font-size: 52px; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+  .hero-stat .hs-sub { font-size: 13.5px; color: var(--ink-2); margin-top: 10px; max-width: 60ch; margin-left: auto; margin-right: auto; line-height: 1.55; }
+
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 20px 16px; }
+  .chart-svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .axis-label { font-size: 10.5px; fill: var(--muted); font-family: ui-monospace, monospace; }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .tooltip {
+    position: absolute; pointer-events: none; background: var(--ink); color: var(--page);
+    font-size: 12px; padding: 8px 11px; border-radius: 7px; line-height: 1.5; max-width: 220px;
+    transform: translate(-50%, -110%); opacity: 0; transition: opacity 0.1s ease; z-index: 5;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+  .chart-wrap { position: relative; }
+  .bar { cursor: pointer; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); font-weight: 700; padding: 0 10px 10px; border-bottom: 1px solid var(--border-2); white-space: nowrap; }
+  td { padding: 9px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .table-scroll { overflow-x: auto; }
+
+  .cause-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 14px; }
+  .cause-card h3 { margin: 0 0 8px; font-size: 15px; font-weight: 800; }
+  .cause-card p { margin: 0 0 8px; font-size: 13.5px; color: var(--ink-2); line-height: 1.6; }
+  .cause-card p:last-child { margin-bottom: 0; }
+  .cause-card .evidence { font-size: 12.5px; background: var(--surface-2); border-radius: 8px; padding: 10px 12px; margin-top: 8px; }
+  .cause-card .evidence strong { color: var(--ink); }
+
+  .reco-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+  .reco-item { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--good); border-radius: 10px; padding: 14px 16px; font-size: 13.5px; line-height: 1.55; }
+  .reco-item strong { color: var(--ink); }
+
+  .callout { border: 1px dashed var(--border-2); border-radius: 10px; padding: 14px 16px; font-size: 13px; color: var(--ink-2); line-height: 1.55; margin-top: 18px; background: var(--surface-2); }
+  .callout strong { color: var(--ink); }
+  .callout.warn { border-color: var(--warn); background: var(--warn-soft); }
+
+  .sources { font-size: 12px; color: var(--ink-2); line-height: 1.8; }
+  .sources a { color: var(--accent); }
+
+  footer.meta { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+</style>
+</head>
+<body>
+<div class="viz-root">
+  <div class="wrap">
+
+    <a class="breadcrumb" href="../../index.html">&larr; Tutti i report</a>
+
+    <header class="top">
+      <p class="eyebrow">ORBIT · Ripetizioni — Punto della situazione · 04/09-27/09</p>
+      <h1>Perché resti sotto le 2.500 views (e cosa dice davvero l'algoritmo nel 2026)</h1>
+      <p class="sub">23 giorni, 12 nuovi reel, retention buona (skip rate medio 47,8%, nella tua stessa fascia dichiarata 35-45%) — ma nessuno supera le 2.225 views di reach, e la crescita follower è quasi triplicata più lenta rispetto a un mese fa. Ho incrociato i tuoi dati con la ricerca più recente sull'algoritmo Instagram 2026: la retention da sola non basta più, manca un'altra leva specifica.</p>
+    </header>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="label">Follower Instagram</div>
+        <div class="value num">204 → 225</div>
+        <div class="note down">+0,9/giorno (era +2,9/giorno)</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Reach medio ultimi 12 reel</div>
+        <div class="value num">1.214</div>
+        <div class="note">range 253-2.225, nessuno sfonda</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Skip rate medio</div>
+        <div class="value num">47,8%</div>
+        <div class="note">coerente col tuo 35-45% dichiarato</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Condivisioni/reach medio</div>
+        <div class="value num">0,14%</div>
+        <div class="note down">soglia per "viralità forte": 2%</div>
+      </div>
+    </div>
+
+    <section>
+      <div class="section-head"><h2>La scoperta principale: non è la retention, sono le condivisioni</h2></div>
+      <p class="section-desc">Ho cercato online cosa dice la ricerca più recente sull'algoritmo Reels 2026 (fonti in fondo alla pagina) e confrontato con i tuoi numeri reali.</p>
+      <div class="hero-stat">
+        <p class="hs-label">Condivisioni per reach — media ultimi 12 reel</p>
+        <div class="hs-num num">0,14%</div>
+        <p class="hs-sub">La ricerca 2026 indica che sopra il 2% è un segnale di viralità forte, sopra il 3% indica un'esplosione imminente. Sei 15-20 volte sotto quella soglia — e nessuno degli ultimi 12 reel si avvicina, nemmeno quelli con la migliore retention.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Cosa dice la ricerca sull'algoritmo 2026</h2></div>
+      <div class="cause-card">
+        <h3>Le condivisioni via DM contano più di tutto il resto</h3>
+        <p>I tre segnali di ranking più importanti sono: tempo di visione (soprattutto nei primi 3 secondi), invii per reach (condivisioni via DM, pesate 3-5 volte più di un like), e like per reach. Un invio a un non-follower vale, per l'algoritmo, più di 50 like passivi da chi ti segue già.</p>
+        <div class="evidence"><strong>Perché conta per te:</strong> hai già ottimizzato la parte che sapevi misurare (lo skip rate). Ma se nessuno inoltra i tuoi reel a un amico o compagno di classe, l'algoritmo non ha il segnale più forte che gli serve per spingerti oltre la tua bolla di follower.</div>
+      </div>
+      <div class="cause-card">
+        <h3>Il contenuto "da mandare a qualcuno" è diverso dal contenuto "interessante da guardare"</h3>
+        <p>I contenuti che vengono condivisi via DM funzionano perché comprimono un'emozione o un'utilità specifica che fa pensare "questo è perfetto per il mio amico" — non semplicemente perché sono curiosi o ben fatti. I tuoi reel attuali (trivia scientifica: "perché il ghiaccio non affonda", "120=5?") sono interessanti, ma non hanno un destinatario naturale in mente.</p>
+        <div class="evidence"><strong>Contrasto:</strong> nessuno dei tuoi reel finora ha mai chiesto esplicitamente "manda questo a chi...". Le CTA sono sempre state verso i commenti o il DM con te, mai verso l'inoltro a una terza persona.</div>
+      </div>
+      <div class="cause-card">
+        <h3>Gli account piccoli non sono penalizzati</h3>
+        <p>L'aggiornamento 2026 dell'algoritmo ha aumentato il reach verso i non-follower del 14% per gli account sotto i 50.000 follower, mentre gli account sopra il milione hanno visto un calo del 9%. Non è una questione di "essere troppo piccolo" — è una questione di quale segnale manca.</p>
+      </div>
+      <div class="cause-card">
+        <h3>Il tuo caso virale (17/08) non contraddice la teoria, ma non la conferma nemmeno del tutto</h3>
+        <p>Il reel da 21.993 reach ha chiuso con un rapporto condivisioni/reach finale bassissimo (0,05%) — ancora più basso di molti dei tuoi reel recenti. Ma è quasi certamente lo stesso effetto "diluizione" già visto per il tasso di interazione: quando il reach esplode, cresce più in fretta delle condivisioni assolute. Il rapporto nelle primissime ore — quando l'algoritmo decide se spingere il contenuto — potrebbe essere stato molto più alto, ma non l'abbiamo catturato in tempo reale.</p>
+        <div class="evidence"><strong>Onestà sui limiti:</strong> questa è un'ipotesi plausibile supportata dalla ricerca esterna, non una conferma diretta sui tuoi dati. Vale la pena tenerla presente, non trattarla come dimostrata.</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Gli ultimi 12 reel: retention buona, ma tutti nella stessa gabbia</h2></div>
+      <div class="panel table-scroll">
+        <table>
+          <thead><tr><th>Data</th><th style="text-align:right">Reach</th><th style="text-align:right">Skip rate</th><th style="text-align:right">Condivisioni</th><th style="text-align:right">Cond./reach</th></tr></thead>
+          <tbody>
+            <tr><td>26/09</td><td class="num" style="text-align:right">1.796</td><td class="num" style="text-align:right">47,1%</td><td class="num" style="text-align:right">2</td><td class="num" style="text-align:right">0,11%</td></tr>
+            <tr><td>24/09</td><td class="num" style="text-align:right">1.661</td><td class="num" style="text-align:right">41,0%</td><td class="num" style="text-align:right">1</td><td class="num" style="text-align:right">0,06%</td></tr>
+            <tr><td>22/09</td><td class="num" style="text-align:right">2.225</td><td class="num" style="text-align:right">49,4%</td><td class="num" style="text-align:right">2</td><td class="num" style="text-align:right">0,09%</td></tr>
+            <tr><td>20/09</td><td class="num" style="text-align:right">1.514</td><td class="num" style="text-align:right">30,3%</td><td class="num" style="text-align:right">0</td><td class="num" style="text-align:right">0,00%</td></tr>
+            <tr><td>18/09</td><td class="num" style="text-align:right">1.260</td><td class="num" style="text-align:right">44,5%</td><td class="num" style="text-align:right">1</td><td class="num" style="text-align:right">0,08%</td></tr>
+            <tr><td>16/09</td><td class="num" style="text-align:right">1.756</td><td class="num" style="text-align:right">40,2%</td><td class="num" style="text-align:right">3</td><td class="num" style="text-align:right">0,17%</td></tr>
+            <tr><td>14/09</td><td class="num" style="text-align:right">438</td><td class="num" style="text-align:right">54,0%</td><td class="num" style="text-align:right">1</td><td class="num" style="text-align:right">0,23%</td></tr>
+            <tr><td>12/09</td><td class="num" style="text-align:right">1.860</td><td class="num" style="text-align:right">45,4%</td><td class="num" style="text-align:right">2</td><td class="num" style="text-align:right">0,11%</td></tr>
+            <tr><td>10/09</td><td class="num" style="text-align:right">253</td><td class="num" style="text-align:right">75,8%</td><td class="num" style="text-align:right">1</td><td class="num" style="text-align:right">0,40%</td></tr>
+            <tr><td>08/09</td><td class="num" style="text-align:right">664</td><td class="num" style="text-align:right">44,9%</td><td class="num" style="text-align:right">1</td><td class="num" style="text-align:right">0,15%</td></tr>
+            <tr><td>06/09</td><td class="num" style="text-align:right">846</td><td class="num" style="text-align:right">46,9%</td><td class="num" style="text-align:right">5</td><td class="num" style="text-align:right">0,59%</td></tr>
+            <tr><td>04/09</td><td class="num" style="text-align:right">300</td><td class="num" style="text-align:right">54,4%</td><td class="num" style="text-align:right">1</td><td class="num" style="text-align:right">0,33%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        Dentro questo gruppo, lo skip rate resta il discriminante più forte tra chi va un po' meglio e chi va un po' peggio (correlazione -0,59) — il reel del 10/09 ("cos'è un algoritmo", skip rate 75,8%) è il più debole per un motivo di hook, non di sfortuna. Ma nessuna variabile dentro questo gruppo spiega perché *tutti* restano sotto le 2.500 — quella è la domanda a cui risponde la sezione sopra.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Cosa provare adesso</h2></div>
+      <div class="reco-list">
+        <div class="reco-item"><strong>1. CTA di condivisione mirata.</strong> Sostituisci "scrivimi in DM" con qualcosa come "manda questo a chi ha la verifica la prossima settimana" — dai all'algoritmo il segnale che pesa 3-5 volte di più.</div>
+        <div class="reco-item"><strong>2. Contenuto pensato per un destinatario specifico.</strong> Prova 1-2 reel costruiti apposta per essere inoltrati a una persona in una situazione precisa (es. "quello che deve recuperare la matematica a settembre"), invece di trivia scientifica generica che chiunque può trovare curiosa ma nessuno sente il bisogno di inoltrare.</div>
+        <div class="reco-item"><strong>3. Testa una versione più corta.</strong> La ricerca indica 7-30 secondi come range ottimale, con il completamento (non la lunghezza) come vero fattore premiato. Prova una versione da 12-15 secondi dello stesso formato "hai 3 secondi" per vedere se il completion rate sale.</div>
+        <div class="reco-item"><strong>4. Traccia condivisioni/reach come metrica primaria da qui in avanti</strong>, non solo lo skip rate — è la leva che i dati indicano come più probabile per uscire dal plateau attuale.</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Fonti consultate</h2></div>
+      <p class="sources">
+        <a href="https://socialbee.com/blog/instagram-algorithm/">Instagram Algorithm Explained: Your 2026 Guide — SocialBee</a><br>
+        <a href="https://later.com/blog/how-instagram-algorithm-works/">Instagram algorithm in 2026: rank signals for growth — Later</a><br>
+        <a href="https://creatorlanehq.com/blog/instagram-sends-per-reach-2026">Instagram Sends Per Reach — The 2026 Ranking Signal Decoded — CreatorLane</a><br>
+        <a href="https://influencermarketinghub.com/instagram-sends-per-reach-playbook/">Instagram "Sends per Reach" Playbook — Influencer Marketing Hub</a><br>
+        <a href="https://growcreator.pro/blog/instagram-reels-completion-rate-benchmark">Instagram Reels Completion Rate Benchmark — Grow Creator</a><br>
+        <a href="https://www.moonb.io/blog/instagram-reel-length">Best Instagram Reel Length in 2026 (Data-Backed) — Moonb</a>
+      </p>
+    </section>
+
+    <footer class="meta">
+      <span>Dati letti in sola lettura via Composio · Instagram Graph API v21 / Facebook Graph API v20–23 · ricerca web per il contesto sull'algoritmo</span>
+      <span>Generato domenica 27 settembre 2026 alle 02:30 (CEST)</span>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>

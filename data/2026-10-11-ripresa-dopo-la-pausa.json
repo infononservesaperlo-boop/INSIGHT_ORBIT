@@ -1,0 +1,95 @@
+{
+  "generated_at": "2026-10-11T22:10:00+02:00",
+  "purpose": "analisi dopo la pausa di 9 giorni (28/09-07/10) e il lancio della serie 'semestre filtro': nessuna penalita' visibile dalla pausa, miglior blocco di reel non virali da agosto; verifica dell'ipotesi sulle condivisioni (non confermata dai dati propri); primo confronto demografico sul nuovo pubblico",
+  "instagram_connection": "ricollegata l'11/10 con alias reconnect2 (la precedente 'reconnect' era scaduta)",
+  "account": {
+    "instagram": { "followers_count": 237, "followers_count_2026-09-27": 225, "followers_count_2026-09-04": 204, "media_count": 47 },
+    "facebook": { "fan_count": 50, "fan_count_2026-09-27": 48 }
+  },
+  "pause": {
+    "last_reel_before": "2026-09-28T21:12 CEST",
+    "first_reel_after": "2026-10-07T17:41 CEST",
+    "length_days": 9,
+    "instagram_daily_reach": [
+      { "date": "2026-09-20", "reach": 1211 }, { "date": "2026-09-21", "reach": 419 }, { "date": "2026-09-22", "reach": 1218 },
+      { "date": "2026-09-23", "reach": 1031 }, { "date": "2026-09-24", "reach": 1630 }, { "date": "2026-09-25", "reach": 171 },
+      { "date": "2026-09-26", "reach": 767 }, { "date": "2026-09-27", "reach": 1571 }, { "date": "2026-09-28", "reach": 381 },
+      { "date": "2026-09-29", "reach": 201 }, { "date": "2026-09-30", "reach": 140 }, { "date": "2026-10-01", "reach": 86 },
+      { "date": "2026-10-02", "reach": 83 }, { "date": "2026-10-03", "reach": 61 }, { "date": "2026-10-04", "reach": 31 },
+      { "date": "2026-10-05", "reach": 23 }, { "date": "2026-10-06", "reach": 16 }, { "date": "2026-10-07", "reach": 2431 },
+      { "date": "2026-10-08", "reach": 716 }, { "date": "2026-10-09", "reach": 1732 }, { "date": "2026-10-10", "reach": 1202 },
+      { "date": "2026-10-11", "reach": 271, "day_still_open": true }
+    ],
+    "new_followers_per_day": {
+      "2026-09-20..27": { "total": 6, "per_day": 0.75 },
+      "pausa 2026-09-28..10-06": { "total": 1, "per_day": 0.11 },
+      "ripresa 2026-10-07..10-11": { "total": 13, "per_day": 2.6, "daily": [4, 1, 2, 6, 0] }
+    },
+    "verdict": "nessuna penalita' visibile: il primo reel dopo la pausa ha fatto 1.988 reach (mediana di settembre 1.226). Durante la pausa il reach giornaliero si spegne in una settimana (da ~1.000 a 16-23/giorno) ma riparte subito alla ripresa"
+  },
+  "post_pause_reels": [
+    { "id": "17887580331478192", "date": "2026-10-07", "time_cest": "17:41", "topic": "Giorno 1/10 semestre filtro: vettori, somma e differenza con stesso modulo", "reach": 1988, "views": 1218, "shares": 8, "saved": 12, "comments": 7, "avg_watch_time_s": 15.4, "skip_rate_pct": 100.0, "cta": "Mandalo a chi si sta preparando per il semestre filtro + scrivi la risposta nei commenti", "data_quality": "skip rate 100% e views < reach incoerenti con 15,4s di watch time medio: dato anomalo, da ignorare" },
+    { "id": "18622105423035001", "date": "2026-10-07", "time_cest": "21:12", "topic": "scatola di cereali attaccata al carrello (Newton), problema portato da una studentessa", "reach": 1681, "views": 1204, "shares": 5, "saved": 28, "comments": 1, "avg_watch_time_s": 7.7, "skip_rate_pct": 86.8, "cta": "solo commenti (nessun 'manda questo')", "data_quality": "skip rate 86,8% e views < reach: stessa anomalia" },
+    { "id": "17959731660248698", "date": "2026-10-09", "time_cest": "20:13", "topic": "Giorno 2/10 semestre filtro: pressione a 50 metri sott'acqua (Stevino + pressione atmosferica)", "reach": 2912, "views": 3490, "shares": 8, "saved": 10, "comments": 0, "avg_watch_time_s": 15.2, "skip_rate_pct": 49.3, "cta": "Manda questo video a chi sta preparando il semestre filtro + commenti", "note": "miglior reach non virale dal 17/08" },
+    { "id": "18215110744348851", "date": "2026-10-11", "time_cest": "21:19", "topic": "Giorno 3/10: quesito d'esame, velocita' meta' della finale", "reach": 10, "note": "pubblicato 2h prima dell'estrazione, non valutabile" }
+  ],
+  "comparison_september_vs_post_pause": {
+    "september_2_28": { "n": 14, "avg_reach": 1216, "median_reach": 1226, "shares_per_reach_pct": 0.14, "saves_per_reach_pct": 0.34, "avg_comments": 2.6, "avg_watch_time_s": 12.7 },
+    "post_pause_3_reels": { "n": 3, "avg_reach": 2194, "shares_per_reach_pct": 0.32, "saves_per_reach_pct": 0.76, "avg_comments": 2.7, "avg_watch_time_s": 12.8 },
+    "caveat": "3 reel contro 14, contenuto e pubblico diversi: indicazione, non prova"
+  },
+  "shares_hypothesis_check_46_nonviral_reels": {
+    "claim_from_2026-09-27_report": "il rapporto condivisioni/reach basso e' la leva mancante per uscire dal plateau",
+    "shares_per_reach_vs_reach": { "pearson": -0.24, "spearman": -0.23 },
+    "saves_per_reach_vs_reach": { "pearson": 0.05, "spearman": 0.15 },
+    "skip_rate_vs_reach": { "pearson": -0.45, "spearman": -0.59, "n": 45, "note": "esclusi i reel con skip rate anomalo" },
+    "avg_watch_time_vs_reach": { "pearson": 0.44, "spearman": 0.57 },
+    "top_third_by_reach": { "avg_reach": 1903, "shares_per_reach_pct": 0.16, "skip_pct": 48.8, "avg_watch_time_s": 14.7 },
+    "bottom_third_by_reach": { "avg_reach": 433, "shares_per_reach_pct": 0.25, "skip_pct": 59.8, "avg_watch_time_s": 8.6 },
+    "conclusion": "dentro il plateau, nei dati di ORBIT a separare i reel buoni da quelli scarsi sono skip rate e tempo di visione, non le condivisioni (anzi, il rapporto condivisioni/reach e' leggermente piu' alto nei reel con meno reach, effetto di conteggi minuscoli). L'ipotesi esterna sulle condivisioni resta non verificata sui dati propri. Dopo l'aggiunta del 'Manda questo a...' le condivisioni sono salite (8, 8) ma anche il reel senza quella CTA ne ha avute 5: contenuto e pubblico sono confusi con la CTA"
+  },
+  "content_pattern_sept_oct": {
+    "top_reach": [
+      { "date": "2026-10-09", "reach": 2912, "type": "quesito d'esame concreto (semestre filtro)" },
+      { "date": "2026-09-26", "reach": 2454, "type": "esercizio concreto di classe (esponenziali, terzo liceo)" },
+      { "date": "2026-09-22", "reach": 2385, "type": "disequazione concreta" },
+      { "date": "2026-10-07", "reach": 1988, "type": "quesito d'esame concreto (semestre filtro)" }
+    ],
+    "bottom_reach": [
+      { "date": "2026-09-10", "reach": 255, "type": "concetto generale (cos'e' un algoritmo)", "skip_pct": 76.3 },
+      { "date": "2026-09-28", "reach": 298, "type": "dolore generico ('non capisci niente a lezione')", "skip_pct": 68.2 },
+      { "date": "2026-09-04", "reach": 300, "type": "curiosita' generale (acqua in montagna)", "skip_pct": 54.4 },
+      { "date": "2026-09-14", "reach": 443, "type": "generico ('primo giorno di scuola')", "skip_pct": 54.7 }
+    ],
+    "reading": "i reel con un problema concreto del programma o di un esame vanno meglio di quelli generici/motivazionali o di pura curiosita'. n piccolo (8 reel), ipotesi da confermare"
+  },
+  "audience_shift": {
+    "reached_by_age_pct": {
+      "agosto_2026": { "13-17": 1.0, "18-24": 54.6, "25-34": 28.7, "35-54": 8.7, "55+": 4.0 },
+      "ottobre_2026_this_month": { "13-17": 10.2, "18-24": 34.8, "25-34": 32.0, "35-54": 17.0, "55+": 6.0 }
+    },
+    "reached_total_october": 6165,
+    "gender_october": { "M": 65.2, "F": 3.2, "unspecified": 31.7 },
+    "gender_august": { "M": 55.9, "F": 12.7, "unspecified": 31.4 },
+    "followers_by_age_pct": { "13-17": 4.1, "18-24": 25.7, "25-34": 26.1, "35-54": 30.6, "55+": 13.6, "n": 222 },
+    "caveat": "ottobre copre solo i primi 11 giorni e quasi tutto il reach arriva dai 5 giorni dopo la ripresa (6.165 raggiunti contro 6.352 di somma del reach giornaliero 7-11/10), quindi e' in pratica il pubblico della nuova serie; finestre di tempo diverse da quella di agosto; Instagram include solo gli account con eta' nota"
+  },
+  "profile_funnel": {
+    "pre_pause_2026-09-05..09-27": { "days": 23, "profile_views": 108, "accounts_engaged": 400, "website_clicks": 7 },
+    "pause_2026-09-28..10-06": { "days": 9, "profile_views": 22, "accounts_engaged": 38, "website_clicks": 1 },
+    "resumed_2026-10-07..10-11": { "days": 5, "profile_views": 67, "accounts_engaged": 209, "website_clicks": 0 },
+    "profile_views_per_day": { "pre": 4.7, "pause": 2.4, "resumed": 13.4 },
+    "note": "dopo la ripresa le visite al profilo sono quasi triplicate (13,4/giorno), ma zero click sul link al sito in 67 visite"
+  },
+  "website": {
+    "ga_sessions_2026-09-05..10-11": { "total": 60, "direct": 28, "organic_search": 16, "organic_social": 14, "ai_assistant": 1, "unassigned": 1 },
+    "organic_social_breakdown": { "instagram": 6, "m.facebook.com": 5, "facebook.com": 3 },
+    "ai_assistant_session": { "date": "2026-10-05", "source": "chatgpt.com", "medium": "ai-assistant", "note": "primo accesso misurato da ChatGPT; non corrisponde al lead WhatsApp del 02/09 che non lasciava tracce" },
+    "whatsapp_clicks": [ { "when": "2026-09-05 ore 19", "count": 1 }, { "when": "2026-09-13 ore 18", "count": 1 } ],
+    "whatsapp_clicks_total_since_tracking": 3,
+    "old_domain_netlify_pageviews": 1,
+    "clarity_last_3_days": { "sessions": 6, "bots": 3, "avg_scroll_pct": 50.3, "referrer": "google.com (5 su 6)" }
+  },
+  "leads": { "new_since_last_log": "da chiedere a Matteo (ultimo lead registrato: lead-005, WhatsApp 02/09)" },
+  "source": "Composio (sola lettura) - Instagram Graph API v21 / Facebook Graph API / Google Analytics Data API / Microsoft Clarity"
+}
